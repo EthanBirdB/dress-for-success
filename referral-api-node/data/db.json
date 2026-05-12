@@ -1,7 +1,7 @@
 {
   "bookings": [
     {
-      "id": "b653327b-aef4-461a-880b-124d64be455a",
+      "id": "6c233879-f2e2-4cba-a704-34c1cf975b3d",
       "firstName": "Emma",
       "lastName": "Wilson",
       "phoneNumber": "0421100001",
@@ -21,12 +21,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Illawarra",
-      "assignedStaffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
-      "createdAt": "2026-05-12T05:09:01.288Z",
-      "updatedAt": "2026-05-12T05:11:15.870Z"
+      "assignedStaffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
+      "createdAt": "2026-05-12T05:24:01.803Z",
+      "updatedAt": "2026-05-12T05:45:28.382Z"
     },
     {
-      "id": "e4697ce0-cb4b-40a4-a2c5-9d3e57802c2b",
+      "id": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
       "firstName": "Jessica",
       "lastName": "Torres",
       "phoneNumber": "0421100002",
@@ -46,12 +46,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": "7b61169a-24de-4fb0-afb0-73cab57f78ee",
-      "createdAt": "2026-05-12T05:09:01.289Z",
-      "updatedAt": "2026-05-12T05:11:15.866Z"
+      "assignedStaffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
+      "createdAt": "2026-05-12T05:24:01.804Z",
+      "updatedAt": "2026-05-12T05:29:58.506Z"
     },
     {
-      "id": "80d854ff-520c-4856-a2ec-b56654aa6921",
+      "id": "6522d70e-5921-4be5-af42-cad1955aa31d",
       "firstName": "Aisha",
       "lastName": "Mohammed",
       "phoneNumber": "0421100003",
@@ -71,12 +71,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Newcastle Hunter",
-      "assignedStaffId": "62faff35-0b2f-4660-af40-15a68875c35a",
-      "createdAt": "2026-05-12T05:09:01.290Z",
-      "updatedAt": "2026-05-12T05:11:15.882Z"
+      "assignedStaffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
+      "createdAt": "2026-05-12T05:24:01.805Z",
+      "updatedAt": "2026-05-12T05:45:28.392Z"
     },
     {
-      "id": "a03b932e-5c96-4858-a3e8-e9b0da6b88fb",
+      "id": "147aff45-98e7-4f1b-872e-7901575ccb2b",
       "firstName": "Rebecca",
       "lastName": "Park",
       "phoneNumber": "0421100004",
@@ -95,12 +95,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Illawarra",
-      "assignedStaffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
-      "createdAt": "2026-05-12T05:09:01.291Z",
-      "updatedAt": "2026-05-12T05:11:15.873Z"
+      "assignedStaffId": "d2adef72-7034-4b43-a99c-9885829041a5",
+      "createdAt": "2026-05-12T05:24:01.806Z",
+      "updatedAt": "2026-05-12T05:45:28.385Z"
     },
     {
-      "id": "401c0e61-78e2-469f-a220-4c7bda58dc96",
+      "id": "66901b80-d7b5-4348-a727-ed2856939332",
       "firstName": "Linda",
       "lastName": "Barnes",
       "phoneNumber": "0421100005",
@@ -116,15 +116,15 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "IN_PROGRESS",
+      "status": "CANCELLED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": null,
-      "createdAt": "2026-05-12T05:09:01.292Z",
-      "updatedAt": "2026-05-12T05:09:01.292Z"
+      "assignedStaffId": "f53da450-30ed-4a0b-9654-d5e8926c7acd",
+      "createdAt": "2026-05-12T05:24:01.807Z",
+      "updatedAt": "2026-05-12T06:17:29.469Z"
     },
     {
-      "id": "dd8b2299-3a11-4c7e-9ff6-b9e7bcf62b28",
+      "id": "cac23acf-531f-4a89-b1dd-e43f839e4621",
       "firstName": "Chloe",
       "lastName": "Davis",
       "phoneNumber": "0421100006",
@@ -141,15 +141,15 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "ACCEPTED",
       "source": "WEB",
       "location": "Tasmania",
-      "assignedStaffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
-      "createdAt": "2026-05-12T05:09:01.293Z",
-      "updatedAt": "2026-05-12T05:11:36.523Z"
+      "assignedStaffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
+      "createdAt": "2026-05-12T05:24:01.807Z",
+      "updatedAt": "2026-05-12T05:53:00.190Z"
     },
     {
-      "id": "f9d96e7e-22c7-4b18-aca5-c19a463b54b1",
+      "id": "b7bbb50f-b6b1-401e-a4da-3ea0539deb23",
       "firstName": "Michelle",
       "lastName": "Cooper",
       "phoneNumber": "0421100007",
@@ -165,15 +165,15 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "COMPLETED",
+      "status": "ASSIGNED",
       "source": "WEB",
       "location": "Illawarra",
       "assignedStaffId": null,
-      "createdAt": "2026-05-12T05:09:01.294Z",
-      "updatedAt": "2026-05-12T05:09:01.294Z"
+      "createdAt": "2026-05-12T05:24:01.808Z",
+      "updatedAt": "2026-05-12T06:17:20.625Z"
     },
     {
-      "id": "841495a7-d9a4-45ee-8a3e-1ae409d9414a",
+      "id": "2e1eab12-b070-4f9c-b0bc-ee4b41a87786",
       "firstName": "Diane",
       "lastName": "Ng",
       "phoneNumber": "0421100008",
@@ -193,11 +193,11 @@
       "source": "WEB",
       "location": "Melbourne",
       "assignedStaffId": null,
-      "createdAt": "2026-05-12T05:09:01.297Z",
-      "updatedAt": "2026-05-12T05:09:01.297Z"
+      "createdAt": "2026-05-12T05:24:01.809Z",
+      "updatedAt": "2026-05-12T05:24:01.809Z"
     },
     {
-      "id": "42b9099c-52dc-41f3-b71a-afb83dfbf03a",
+      "id": "c25c4c3a-c32f-4641-8201-36dc07dbf736",
       "firstName": "Fatima",
       "lastName": "Al-Hassan",
       "phoneNumber": "0421100009",
@@ -214,15 +214,15 @@
       "shoeSize": null,
       "topSize": "XL",
       "bottomSize": null,
-      "status": "ACCEPTED",
+      "status": "ASSIGNED",
       "source": "WEB",
       "location": "Newcastle Hunter",
-      "assignedStaffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
-      "createdAt": "2026-05-12T05:09:01.299Z",
-      "updatedAt": "2026-05-12T05:14:34.287Z"
+      "assignedStaffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
+      "createdAt": "2026-05-12T05:24:01.810Z",
+      "updatedAt": "2026-05-12T05:56:28.090Z"
     },
     {
-      "id": "3fffc613-6a95-4b28-be9d-388f86aa1cf8",
+      "id": "78cd3f43-5166-4e58-9411-fffa9bc8df93",
       "firstName": "Karen",
       "lastName": "Mitchell",
       "phoneNumber": "0421100010",
@@ -242,12 +242,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Illawarra",
-      "assignedStaffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
-      "createdAt": "2026-05-12T05:09:01.300Z",
-      "updatedAt": "2026-05-12T05:11:15.875Z"
+      "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "createdAt": "2026-05-12T05:24:01.811Z",
+      "updatedAt": "2026-05-12T05:45:28.387Z"
     },
     {
-      "id": "5c6cb163-572a-4c8d-b5bc-bebf3414efe3",
+      "id": "cec95b82-5e95-496c-aa87-a1daa0b7cc56",
       "firstName": "Terri",
       "lastName": "Walsh",
       "phoneNumber": "0421100011",
@@ -267,12 +267,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Tasmania",
-      "assignedStaffId": "369189cd-1399-4bbc-b469-aae9c9be54c8",
-      "createdAt": "2026-05-12T05:09:01.301Z",
-      "updatedAt": "2026-05-12T05:11:15.877Z"
+      "assignedStaffId": "a83c4597-975c-4474-9b9a-8afe2abde07e",
+      "createdAt": "2026-05-12T05:24:01.812Z",
+      "updatedAt": "2026-05-12T05:45:28.389Z"
     },
     {
-      "id": "d2b65cba-d509-4d5b-9d2b-13518f4d4ab9",
+      "id": "6ab1be96-d517-44df-90a7-04ba09903fa5",
       "firstName": "Yuki",
       "lastName": "Tanaka",
       "phoneNumber": "0421100012",
@@ -292,12 +292,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
-      "createdAt": "2026-05-12T05:09:01.302Z",
-      "updatedAt": "2026-05-12T05:11:15.885Z"
+      "assignedStaffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
+      "createdAt": "2026-05-12T05:24:01.813Z",
+      "updatedAt": "2026-05-12T05:45:28.394Z"
     },
     {
-      "id": "df796a11-5005-441f-9b75-2378f1e865c6",
+      "id": "5939583f-84b6-43f9-8609-579cfeb1c0f4",
       "firstName": "Bianca",
       "lastName": "Rossi",
       "phoneNumber": "0421100013",
@@ -317,12 +317,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Illawarra",
-      "assignedStaffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
-      "createdAt": "2026-05-12T05:09:01.303Z",
-      "updatedAt": "2026-05-12T05:11:42.381Z"
+      "assignedStaffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
+      "createdAt": "2026-05-12T05:24:01.813Z",
+      "updatedAt": "2026-05-12T05:56:30.153Z"
     },
     {
-      "id": "a45d3a91-0fb5-49bf-abe1-7e15ad2cf0d8",
+      "id": "e28852d6-7e5f-4537-83b5-f6b61b7e8d16",
       "firstName": "Tracey",
       "lastName": "Johnson",
       "phoneNumber": "0421100014",
@@ -341,12 +341,12 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Newcastle Hunter",
-      "assignedStaffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
-      "createdAt": "2026-05-12T05:09:01.304Z",
-      "updatedAt": "2026-05-12T05:11:45.010Z"
+      "assignedStaffId": "d2adef72-7034-4b43-a99c-9885829041a5",
+      "createdAt": "2026-05-12T05:24:01.814Z",
+      "updatedAt": "2026-05-12T05:56:32.276Z"
     },
     {
-      "id": "faf7ee5e-651b-4509-ad47-046e34ac6f58",
+      "id": "1c31a0ff-4954-4cec-bd80-0ccff3d01a10",
       "firstName": "Amara",
       "lastName": "Okonkwo",
       "phoneNumber": "0421100015",
@@ -366,15 +366,39 @@
       "status": "ASSIGNED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
-      "createdAt": "2026-05-12T05:09:01.305Z",
-      "updatedAt": "2026-05-12T05:11:47.774Z"
+      "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "createdAt": "2026-05-12T05:24:01.815Z",
+      "updatedAt": "2026-05-12T05:56:34.304Z"
+    },
+    {
+      "id": "406584e1-bf36-4461-9a8b-2c7119e7d474",
+      "firstName": "Ethan",
+      "lastName": "Birdie",
+      "phoneNumber": "345435345",
+      "email": "ethanbird0@gmail.com",
+      "scheduledDate": "2026-05-13",
+      "scheduledTime": "15:00",
+      "characteristics": [
+        "Formal Wear",
+        "Interview Prep"
+      ],
+      "description": "i am going for a tech company interview",
+      "dressSize": "10",
+      "shoeSize": "11",
+      "topSize": "M",
+      "bottomSize": "S",
+      "status": "ACCEPTED",
+      "source": "WEB",
+      "location": "Newcastle Hunter",
+      "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "createdAt": "2026-05-12T05:26:50.100Z",
+      "updatedAt": "2026-05-12T05:28:27.090Z"
     }
   ],
   "notes": [],
   "staffMembers": [
     {
-      "id": "b0460da9-588b-4554-a9a5-3c6dda860567",
+      "id": "b3f85a67-63ae-4c35-b085-b926511a047f",
       "name": "Sarah Chen",
       "email": "sarah@demo.com",
       "phone": "0411000001",
@@ -401,10 +425,10 @@
         "Melbourne"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.275Z"
+      "createdAt": "2026-05-12T05:24:01.792Z"
     },
     {
-      "id": "c10f1584-8dfe-4775-988b-51a54ee41376",
+      "id": "f53da450-30ed-4a0b-9654-d5e8926c7acd",
       "name": "James Okafor",
       "email": "james@demo.com",
       "phone": "0411000002",
@@ -428,10 +452,10 @@
         "Melbourne"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.276Z"
+      "createdAt": "2026-05-12T05:24:01.793Z"
     },
     {
-      "id": "62faff35-0b2f-4660-af40-15a68875c35a",
+      "id": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
       "name": "Maria Santos",
       "email": "maria@demo.com",
       "phone": "0411000003",
@@ -455,10 +479,10 @@
         "Newcastle Hunter"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.277Z"
+      "createdAt": "2026-05-12T05:24:01.793Z"
     },
     {
-      "id": "16ac2838-f38b-4d49-83e1-d4c726024178",
+      "id": "d2adef72-7034-4b43-a99c-9885829041a5",
       "name": "Priya Nair",
       "email": "priya@demo.com",
       "phone": "0411000004",
@@ -485,10 +509,10 @@
         "Newcastle Hunter"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.277Z"
+      "createdAt": "2026-05-12T05:24:01.794Z"
     },
     {
-      "id": "12ffb158-fc12-4ce2-8914-5240523813ec",
+      "id": "707337fb-1dec-4958-92d5-9aa9b807f0f5",
       "name": "Sophie Williams",
       "email": "sophie@demo.com",
       "phone": "0411000005",
@@ -514,10 +538,10 @@
         "Illawarra"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.278Z"
+      "createdAt": "2026-05-12T05:24:01.795Z"
     },
     {
-      "id": "7b61169a-24de-4fb0-afb0-73cab57f78ee",
+      "id": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
       "name": "Marcus Thompson",
       "email": "marcus@demo.com",
       "phone": "0411000006",
@@ -545,10 +569,10 @@
         "Illawarra"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.281Z"
+      "createdAt": "2026-05-12T05:24:01.795Z"
     },
     {
-      "id": "58fa845f-ce65-4eda-a6f0-5a784f311e83",
+      "id": "a31392ad-98ee-4af1-a432-c4d8fb2f8de2",
       "name": "Helen Tran",
       "email": "helen@demo.com",
       "phone": "0411000007",
@@ -575,10 +599,10 @@
         "Tasmania"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.282Z"
+      "createdAt": "2026-05-12T05:24:01.796Z"
     },
     {
-      "id": "ef8e6d72-cb8a-45dc-b63f-13696575def9",
+      "id": "18c23fb3-7a7f-4fbe-8cfc-44d22dc9d7eb",
       "name": "Lisa Patterson",
       "email": "lisa@demo.com",
       "phone": "0411000008",
@@ -603,10 +627,10 @@
         "Tasmania"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.283Z"
+      "createdAt": "2026-05-12T05:24:01.797Z"
     },
     {
-      "id": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "id": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "name": "Angela Morris",
       "email": "angela@demo.com",
       "phone": "0411000009",
@@ -635,10 +659,10 @@
         "Melbourne"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.284Z"
+      "createdAt": "2026-05-12T05:24:01.797Z"
     },
     {
-      "id": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
+      "id": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
       "name": "Wendy Osei",
       "email": "wendy@demo.com",
       "phone": "0411000010",
@@ -665,10 +689,10 @@
         "Tasmania"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.285Z"
+      "createdAt": "2026-05-12T05:24:01.798Z"
     },
     {
-      "id": "6b9dc88d-a139-4aeb-afe2-5d168c41d685",
+      "id": "07df4c57-1f04-418d-a193-7386339afb56",
       "name": "Rachel Kim",
       "email": "rachel@demo.com",
       "phone": "0411000011",
@@ -694,10 +718,10 @@
         "Melbourne"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.285Z"
+      "createdAt": "2026-05-12T05:24:01.799Z"
     },
     {
-      "id": "369189cd-1399-4bbc-b469-aae9c9be54c8",
+      "id": "a83c4597-975c-4474-9b9a-8afe2abde07e",
       "name": "Natalie Cross",
       "email": "natalie@demo.com",
       "phone": "0411000012",
@@ -724,170 +748,192 @@
         "Tasmania"
       ],
       "isActive": true,
-      "createdAt": "2026-05-12T05:09:01.286Z"
+      "createdAt": "2026-05-12T05:24:01.800Z"
     }
   ],
   "assignments": [
     {
-      "id": "a6721b0e-75c7-4403-a0e7-2e18348f069b",
-      "bookingId": "e4697ce0-cb4b-40a4-a2c5-9d3e57802c2b",
-      "staffId": "7b61169a-24de-4fb0-afb0-73cab57f78ee",
-      "status": "PENDING",
-      "token": "b7f062b1-d3a4-495c-b800-b925673af561",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.864Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.864Z"
-    },
-    {
-      "id": "476d130a-8901-44d6-a643-2155914f6f45",
-      "bookingId": "b653327b-aef4-461a-880b-124d64be455a",
-      "staffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
-      "status": "PENDING",
-      "token": "8fb1226b-47d1-4049-8316-86b1e0a1c35a",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.868Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.868Z"
-    },
-    {
-      "id": "f57bc0d7-f7fa-4b89-a961-41ab879d15a1",
-      "bookingId": "a03b932e-5c96-4858-a3e8-e9b0da6b88fb",
-      "staffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
-      "status": "PENDING",
-      "token": "13c92018-9800-41ac-b86d-8f4b0544eaaa",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.872Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.872Z"
-    },
-    {
-      "id": "92f53283-ca54-4678-a60f-2fb9fdb713c6",
-      "bookingId": "3fffc613-6a95-4b28-be9d-388f86aa1cf8",
-      "staffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
-      "status": "PENDING",
-      "token": "d6dbd1ac-eb1d-48ab-82ea-60c18adb8e59",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.874Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.874Z"
-    },
-    {
-      "id": "f1f35b49-169c-4345-8771-0f8d56090457",
-      "bookingId": "5c6cb163-572a-4c8d-b5bc-bebf3414efe3",
-      "staffId": "369189cd-1399-4bbc-b469-aae9c9be54c8",
-      "status": "PENDING",
-      "token": "0f976330-2011-4b79-a7f8-bef37134b5de",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.876Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.876Z"
-    },
-    {
-      "id": "d8c97b30-4736-4c75-bc25-d7290c0220c9",
-      "bookingId": "80d854ff-520c-4856-a2ec-b56654aa6921",
-      "staffId": "62faff35-0b2f-4660-af40-15a68875c35a",
-      "status": "PENDING",
-      "token": "f4238a6c-b379-4307-b96a-bd669e41dc9a",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.880Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.880Z"
-    },
-    {
-      "id": "bde4eb2f-0721-4eeb-8da4-a86010df1dbf",
-      "bookingId": "d2b65cba-d509-4d5b-9d2b-13518f4d4ab9",
-      "staffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
-      "status": "PENDING",
-      "token": "4bf29270-9d41-4acb-bb03-7097c40b14dc",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:15.884Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:15.884Z"
-    },
-    {
-      "id": "8799ce34-90ec-4719-a0e8-9becb2d312f3",
-      "bookingId": "dd8b2299-3a11-4c7e-9ff6-b9e7bcf62b28",
-      "staffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
-      "status": "PENDING",
-      "token": "1a5107f9-ab54-4b44-975f-86745bfdaeaf",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:36.521Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:36.521Z"
-    },
-    {
-      "id": "6e939197-7369-4295-96ef-148613340872",
-      "bookingId": "42b9099c-52dc-41f3-b71a-afb83dfbf03a",
-      "staffId": "62faff35-0b2f-4660-af40-15a68875c35a",
-      "status": "PENDING",
-      "token": "32fa9228-42a3-433e-bdf3-65ec6ac9bbe7",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:39.064Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:39.064Z"
-    },
-    {
-      "id": "189e3a86-7934-4d68-a192-e0558cb95066",
-      "bookingId": "df796a11-5005-441f-9b75-2378f1e865c6",
-      "staffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
-      "status": "PENDING",
-      "token": "c851493f-c14c-4ecd-bd12-1dfbfc6ddfb7",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:42.379Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:42.380Z"
-    },
-    {
-      "id": "5eb2157c-380b-49fa-8461-15cd1e56fbb5",
-      "bookingId": "a45d3a91-0fb5-49bf-abe1-7e15ad2cf0d8",
-      "staffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
-      "status": "PENDING",
-      "token": "4ee348db-a91c-4563-913f-0a7bf246f545",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:45.008Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:45.008Z"
-    },
-    {
-      "id": "ccdb27e5-218f-4c71-b9d1-e5a4e24eb38a",
-      "bookingId": "faf7ee5e-651b-4509-ad47-046e34ac6f58",
-      "staffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
-      "status": "PENDING",
-      "token": "52cbbb19-f3c5-430a-a0da-4e6bb89ef7f3",
-      "rank": 1,
-      "sentAt": "2026-05-12T05:11:47.773Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-12T05:11:47.773Z"
-    },
-    {
-      "id": "9f403b9a-1d3f-4a9c-a444-6ccba44acf36",
-      "bookingId": "42b9099c-52dc-41f3-b71a-afb83dfbf03a",
-      "staffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "id": "0675e1e2-6fb6-419d-9b96-f188e7db945c",
+      "bookingId": "406584e1-bf36-4461-9a8b-2c7119e7d474",
+      "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "status": "ACCEPTED",
-      "token": "06406eed-156c-4ce7-a3e7-db8d3a527741",
+      "token": "7d071321-f25c-47bb-a848-d8d5059c2a73",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:28:13.028Z",
+      "respondedAt": "2026-05-12T05:28:27.088Z",
+      "createdAt": "2026-05-12T05:28:13.028Z"
+    },
+    {
+      "id": "ac67f7a7-f32c-468b-af62-457b9d4d3a1e",
+      "bookingId": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
+      "staffId": "07df4c57-1f04-418d-a193-7386339afb56",
+      "status": "DENIED",
+      "token": "5dfa5519-53f2-4ed0-9e4e-6296410cfc2f",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:29:25.241Z",
+      "respondedAt": "2026-05-12T05:29:56.287Z",
+      "createdAt": "2026-05-12T05:29:25.241Z"
+    },
+    {
+      "id": "ac0c9fb8-c3e5-4c4e-8554-62d812a5a73e",
+      "bookingId": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
+      "staffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
+      "status": "PENDING",
+      "token": "e7fb1f27-84b1-4d4f-9216-e7d9ee27bc34",
       "rank": 2,
-      "sentAt": "2026-05-12T05:14:19.084Z",
-      "respondedAt": "2026-05-12T05:14:34.285Z",
-      "createdAt": "2026-05-12T05:14:19.084Z"
+      "sentAt": "2026-05-12T05:29:58.505Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:29:58.505Z"
+    },
+    {
+      "id": "b5c23075-bc84-4797-bc56-444a17fb9eae",
+      "bookingId": "6c233879-f2e2-4cba-a704-34c1cf975b3d",
+      "staffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
+      "status": "PENDING",
+      "token": "921bc50e-b5ab-41ae-9dfd-cd662b3c2c02",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:45:28.380Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:45:28.381Z"
+    },
+    {
+      "id": "b3a10a9e-87ae-4b18-9fee-3ddaba59a7d6",
+      "bookingId": "147aff45-98e7-4f1b-872e-7901575ccb2b",
+      "staffId": "d2adef72-7034-4b43-a99c-9885829041a5",
+      "status": "PENDING",
+      "token": "3fba4523-078a-429a-b35b-cb02a7cb53a0",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:45:28.384Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:45:28.384Z"
+    },
+    {
+      "id": "3c1a8ce6-fe60-4442-b826-d9c7c288e8db",
+      "bookingId": "78cd3f43-5166-4e58-9411-fffa9bc8df93",
+      "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "status": "PENDING",
+      "token": "e03c0e18-2599-4674-8024-f0e55cba7a25",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:45:28.386Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:45:28.386Z"
+    },
+    {
+      "id": "1ffa1a1c-88a8-44a7-94da-1c83fde6a268",
+      "bookingId": "cec95b82-5e95-496c-aa87-a1daa0b7cc56",
+      "staffId": "a83c4597-975c-4474-9b9a-8afe2abde07e",
+      "status": "PENDING",
+      "token": "67517ab4-dba8-4d90-8f9f-5b00a3c7414f",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:45:28.388Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:45:28.388Z"
+    },
+    {
+      "id": "17089127-6c96-4cc6-b4ab-03dc14c6c5f0",
+      "bookingId": "6522d70e-5921-4be5-af42-cad1955aa31d",
+      "staffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
+      "status": "PENDING",
+      "token": "98007989-9372-495c-b850-b21e92ba4916",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:45:28.390Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:45:28.390Z"
+    },
+    {
+      "id": "c76dc78d-4148-4f37-8273-82895940ddc6",
+      "bookingId": "6ab1be96-d517-44df-90a7-04ba09903fa5",
+      "staffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
+      "status": "PENDING",
+      "token": "db52cbbc-f59b-4b63-8770-6e8e305dfdda",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:45:28.393Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:45:28.393Z"
+    },
+    {
+      "id": "25c63827-a496-4fc3-8abb-7857f1d44498",
+      "bookingId": "cac23acf-531f-4a89-b1dd-e43f839e4621",
+      "staffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
+      "status": "ACCEPTED",
+      "token": "b8327c5e-4abc-46ad-8967-d69d4c9c011a",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:52:55.001Z",
+      "respondedAt": "2026-05-12T05:53:00.188Z",
+      "createdAt": "2026-05-12T05:52:55.001Z"
+    },
+    {
+      "id": "62d2483e-ee02-497e-a597-5f642c6ce727",
+      "bookingId": "c25c4c3a-c32f-4641-8201-36dc07dbf736",
+      "staffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
+      "status": "PENDING",
+      "token": "9c43cd13-61f1-45f1-b434-0b3b87e85d54",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:56:28.089Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:56:28.089Z"
+    },
+    {
+      "id": "a1f106d3-73a0-4f35-a002-e47f11cf1499",
+      "bookingId": "5939583f-84b6-43f9-8609-579cfeb1c0f4",
+      "staffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
+      "status": "PENDING",
+      "token": "59d27899-a084-4b14-9d51-78fbfd7637f0",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:56:30.151Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:56:30.152Z"
+    },
+    {
+      "id": "885a4c01-4d9d-4194-9a31-af33ceb8e986",
+      "bookingId": "e28852d6-7e5f-4537-83b5-f6b61b7e8d16",
+      "staffId": "d2adef72-7034-4b43-a99c-9885829041a5",
+      "status": "PENDING",
+      "token": "b124db7c-395d-4369-8a31-552d96735c18",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:56:32.275Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:56:32.275Z"
+    },
+    {
+      "id": "e1ec69b7-38b5-456b-ad6c-a30274ea90f4",
+      "bookingId": "1c31a0ff-4954-4cec-bd80-0ccff3d01a10",
+      "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "status": "PENDING",
+      "token": "47f16e95-bb92-4ad5-a2de-9b2d743868fc",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:56:34.302Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:56:34.302Z"
+    },
+    {
+      "id": "9877e131-bd2a-4b71-9806-8e378b290953",
+      "bookingId": "66901b80-d7b5-4348-a727-ed2856939332",
+      "staffId": "f53da450-30ed-4a0b-9654-d5e8926c7acd",
+      "status": "PENDING",
+      "token": "35d1397b-508f-4071-bdb6-aa69b0084322",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:59:20.681Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:59:20.681Z"
     }
   ],
   "staffUsers": [
     {
-      "id": "a7121b07-4491-4158-b4c2-1458e99c5300",
+      "id": "23aff106-43f6-4554-8449-32777d38b9cf",
       "username": "admin",
-      "passwordHash": "$2a$10$Jr9AYplCNbcsc92hJZ2SNOkLPqbYQt8kqInmaxaqCZfuFyiCKFiOC",
+      "passwordHash": "$2a$10$zNea3O/FKEH60gOBXjesw.EgHOM/ibszkIGuU9w7ZCcZUzpG3AYMq",
       "displayName": "Admin User",
       "role": "ADMIN",
-      "createdAt": "2026-05-12T05:09:01.215Z"
+      "createdAt": "2026-05-12T05:24:01.733Z"
     },
     {
-      "id": "705051ac-3ca7-4c9d-b0ac-dee7ed69be6d",
+      "id": "a748c033-dc38-48a0-b167-54f0a2f61233",
       "username": "staff",
-      "passwordHash": "$2a$10$go8a0dS92ME.k5LtaVrSkO1QFJBhV00UQKBiPFKFxmCO6dSO/sm2u",
+      "passwordHash": "$2a$10$symYHbK7verMyvUslTmwBOr0YIxjsC9T0r79z3t.e1OBGJyGxN2ae",
       "displayName": "Staff Member",
       "role": "STAFF",
-      "createdAt": "2026-05-12T05:09:01.273Z"
+      "createdAt": "2026-05-12T05:24:01.790Z"
     }
   ]
 }

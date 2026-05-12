@@ -11,7 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import { getBookings, getAllStaff } from '../../services/api';
+import { getBookings, getAllStaff, updateBookingStatus } from '../../services/api';
 
 const LOCATIONS = ['Illawarra', 'Newcastle Hunter', 'Tasmania', 'Melbourne'];
 
@@ -23,9 +23,8 @@ const STATUS_COLORS = {
 const STATUS_OPTIONS = [
   { value: '', label: 'All Statuses' },
   { value: 'QUEUED', label: 'Queued' },
-  { value: 'ASSIGNED', label: 'Assigned' },
+  { value: 'ASSIGNED', label: 'Pending' },
   { value: 'ACCEPTED', label: 'Accepted' },
-  { value: 'IN_PROGRESS', label: 'In Progress' },
   { value: 'COMPLETED', label: 'Completed' },
   { value: 'CANCELLED', label: 'Cancelled' },
 ];
@@ -54,6 +53,19 @@ export default function Dashboard() {
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [selected, setSelected] = useState(null);
+  const [statusUpdating, setStatusUpdating] = useState(false);
+
+  const handleStatusChange = async (newStatus) => {
+    if (!selected) return;
+    setStatusUpdating(true);
+    try {
+      await updateBookingStatus(selected.id, newStatus);
+      const updated = { ...selected, status: newStatus };
+      setSelected(updated);
+      setBookings(prev => prev.map(b => b.id === selected.id ? updated : b));
+    } catch (e) { console.error(e); }
+    finally { setStatusUpdating(false); }
+  };
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -178,7 +190,7 @@ export default function Dashboard() {
                       ) : <Typography variant="caption" color="text.disabled">-</Typography>}
                     </TableCell>
                     <TableCell>
-                      <Chip label={b.status.replace('_', ' ')} size="small"
+                      <Chip label={b.status === 'ASSIGNED' ? 'Pending' : b.status.replace('_', ' ')} size="small"
                         color={STATUS_COLORS[b.status]} sx={{ fontSize: '0.65rem' }} />
                     </TableCell>
                     <TableCell>
@@ -222,8 +234,12 @@ export default function Dashboard() {
               </Avatar>
               <Box>
                 <Typography variant="h6" fontWeight={700}>{selected.firstName} {selected.lastName}</Typography>
-                <Chip label={selected.status.replace('_', ' ')} size="small"
-                  color={STATUS_COLORS[selected.status]} sx={{ mt: 0.5 }} />
+                <Chip
+                  label={selected.status === 'ASSIGNED' ? 'Pending' : selected.status.replace('_', ' ')}
+                  size="small"
+                  color={STATUS_COLORS[selected.status]}
+                  sx={{ mt: 0.5 }}
+                />
               </Box>
             </Box>
 
@@ -292,6 +308,22 @@ export default function Dashboard() {
                   Assigned to: <strong>{staffMap[selected.assignedStaffId].name}</strong>
                 </Alert>
               )}
+            </Stack>
+
+            <Divider sx={{ my: 2 }} />
+
+            <Typography variant="subtitle2" gutterBottom>Actions</Typography>
+            <Stack direction="row" spacing={1}>
+              <Button size="small" variant="outlined" color="primary"
+                disabled={statusUpdating || selected.status === 'ASSIGNED'}
+                onClick={() => handleStatusChange('ASSIGNED')}>
+                Reassign (Pending)
+              </Button>
+              <Button size="small" variant="outlined" color="error"
+                disabled={statusUpdating || selected.status === 'CANCELLED'}
+                onClick={() => handleStatusChange('CANCELLED')}>
+                Cancel Booking
+              </Button>
             </Stack>
 
             <Button sx={{ mt: 3 }} fullWidth variant="outlined" onClick={() => setSelected(null)}>Close</Button>

@@ -27,12 +27,16 @@ const STATUS_COLORS = {
   IN_PROGRESS: 'primary', COMPLETED: 'success', CANCELLED: 'error',
 };
 
+const STATUS_LABELS = {
+  QUEUED: 'Queued', ASSIGNED: 'Pending', ACCEPTED: 'Accepted',
+  IN_PROGRESS: 'In Progress', COMPLETED: 'Completed', CANCELLED: 'Cancelled',
+};
+
 const STATUS_OPTIONS = [
   { value: '', label: 'All Statuses' },
   { value: 'QUEUED', label: 'Queued' },
-  { value: 'ASSIGNED', label: 'Assigned' },
+  { value: 'ASSIGNED', label: 'Pending' },
   { value: 'ACCEPTED', label: 'Accepted' },
-  { value: 'IN_PROGRESS', label: 'In Progress' },
   { value: 'COMPLETED', label: 'Completed' },
   { value: 'CANCELLED', label: 'Cancelled' },
 ];
@@ -63,7 +67,7 @@ function BookingCard({ booking, isSelected, onClick }) {
         <Typography variant="subtitle2" fontWeight={700} sx={{ lineHeight: 1.2 }}>
           {booking.firstName} {booking.lastName}
         </Typography>
-        <Chip label={booking.status.replace('_', ' ')} color={STATUS_COLORS[booking.status]}
+        <Chip label={STATUS_LABELS[booking.status] || booking.status.replace('_', ' ')} color={STATUS_COLORS[booking.status] || 'default'}
           size="small" sx={{ fontSize: '0.65rem', height: 20 }} />
       </Box>
 
@@ -193,6 +197,18 @@ export default function QueueBoard() {
       setSelectedBooking(prev => ({ ...prev, assignedStaffId: staffId, status: 'ASSIGNED' }));
   };
 
+  const handleSendAll = async () => {
+    setSendAllRunning(true);
+    try {
+      const { data } = await sendAllAssignments();
+      const sent = data.results.filter(r => r.status === 'sent').length;
+      setSnackbar({ open: true, severity: 'success', message: `Sent ${sent} assignment requests (best-first-served)` });
+      fetchBookings();
+    } catch (e) {
+      setSnackbar({ open: true, severity: 'error', message: 'Send all failed' });
+    } finally { setSendAllRunning(false); }
+  };
+
   return (
     <Box sx={{ display: 'flex', height: '100vh', bgcolor: 'grey.100' }}>
       {/* ── Left: Queue panel ── */}
@@ -238,54 +254,33 @@ export default function QueueBoard() {
                 Auto-assign mode
               </Typography>
               <Typography variant="caption" display="block" color="text.disabled" sx={{ fontSize: '0.6rem' }}>
-                {autoAssign ? 'Click a booking to instantly assign top match' : 'Off — shows candidate cloud'}
+                {autoAssign ? 'Click a booking to instantly assign top match' : 'Off — shows candidate list'}
               </Typography>
             </Box>
             <Switch size="small" checked={autoAssign} onChange={e => setAutoAssign(e.target.checked)}
               color="error" />
           </Box>
 
-          <Stack direction="row" spacing={1}>
-            <Tooltip title="Auto-assign ALL queued bookings in one click">
-              <Box sx={{ flex: 1 }}>
-                <Button fullWidth size="small" variant="outlined" color="warning"
-                  disabled={bulkRunning || sendAllRunning}
-                  onClick={async () => {
-                    setBulkRunning(true);
-                    try {
-                      const { data } = await bulkAutoAssign();
-                      const assigned = data.results.filter(r => r.status === 'assigned').length;
-                      const noMatch = data.results.filter(r => r.status === 'no_candidates').length;
-                      setSnackbar({ open: true, severity: 'success', message: `Actioned ${data.processed} bookings: ${assigned} assigned, ${noMatch} unmatched` });
-                      fetchBookings();
-                    } catch (e) {
-                      setSnackbar({ open: true, severity: 'error', message: 'Bulk assign failed' });
-                    } finally { setBulkRunning(false); }
-                  }}>
-                  {bulkRunning ? <CircularProgress size={14} /> : 'Action All'}
-                </Button>
-              </Box>
-            </Tooltip>
-            <Tooltip title="Send assignment requests to best-matched staff (best-first-served)">
-              <Box sx={{ flex: 1 }}>
-                <Button fullWidth size="small" variant="outlined" color="secondary"
-                  disabled={bulkRunning || sendAllRunning}
-                  onClick={async () => {
-                    setSendAllRunning(true);
-                    try {
-                      const { data } = await sendAllAssignments();
-                      const sent = data.results.filter(r => r.status === 'sent').length;
-                      setSnackbar({ open: true, severity: 'success', message: `Sent ${sent} assignment requests (best-first-served)` });
-                      fetchBookings();
-                    } catch (e) {
-                      setSnackbar({ open: true, severity: 'error', message: 'Send all failed' });
-                    } finally { setSendAllRunning(false); }
-                  }}>
-                  {sendAllRunning ? <CircularProgress size={14} /> : 'Send All Requests'}
-                </Button>
-              </Box>
-            </Tooltip>
-          </Stack>
+          <Tooltip title="Auto-assign ALL queued bookings in one click">
+            <Box>
+              <Button fullWidth size="small" variant="outlined" color="warning"
+                disabled={bulkRunning || sendAllRunning}
+                onClick={async () => {
+                  setBulkRunning(true);
+                  try {
+                    const { data } = await bulkAutoAssign();
+                    const assigned = data.results.filter(r => r.status === 'assigned').length;
+                    const noMatch = data.results.filter(r => r.status === 'no_candidates').length;
+                    setSnackbar({ open: true, severity: 'success', message: `Actioned ${data.processed} bookings: ${assigned} assigned, ${noMatch} unmatched` });
+                    fetchBookings();
+                  } catch (e) {
+                    setSnackbar({ open: true, severity: 'error', message: 'Bulk assign failed' });
+                  } finally { setBulkRunning(false); }
+                }}>
+                {bulkRunning ? <CircularProgress size={14} /> : 'Action All'}
+              </Button>
+            </Box>
+          </Tooltip>
         </Box>
 
         <Box sx={{ flexGrow: 1, overflowY: 'auto', p: 1.5 }}>
@@ -317,7 +312,13 @@ export default function QueueBoard() {
           </Box>
         )}
         {selectedBooking ? (
-          <CandidateCloud booking={selectedBooking} onAssigned={handleAssigned} onRefresh={fetchBookings} />
+          <CandidateCloud
+            booking={selectedBooking}
+            onAssigned={handleAssigned}
+            onRefresh={fetchBookings}
+            onSendAll={handleSendAll}
+            sendAllRunning={sendAllRunning}
+          />
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',
             justifyContent: 'center', height: '100%', color: 'text.disabled' }}>

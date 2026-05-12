@@ -10,7 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SendIcon from '@mui/icons-material/Send';
-import { getCandidates, assignStaff, getAllStaff } from '../../services/api';
+import { getCandidates, assignStaff, getAllStaff, getBookingAssignments } from '../../services/api';
 
 function photoIndex(name) {
   let h = 0;
@@ -35,10 +35,15 @@ function MatchBar({ score }) {
   );
 }
 
-function StaffRow({ c, isMatched, isSelected, bookingChars, onClick }) {
+function StaffRow({ c, isMatched, isSelected, isAssigned, assignmentStatus, bookingChars, onClick }) {
+  const isDenied = assignmentStatus === 'DENIED';
+  const isAccepted = assignmentStatus === 'ACCEPTED';
+  const clickable = !isAssigned && !isDenied;
   return (
-    <TableRow hover selected={isSelected} onClick={onClick}
-      sx={{ cursor: 'pointer', bgcolor: isSelected ? 'primary.50' : undefined, opacity: isMatched ? 1 : 0.7 }}>
+    <TableRow hover={clickable} selected={isSelected && clickable} onClick={clickable ? onClick : undefined}
+      sx={{ cursor: clickable ? 'pointer' : 'default',
+        bgcolor: isDenied ? 'error.50' : isAccepted ? 'success.50' : isSelected ? 'primary.50' : undefined,
+        opacity: isDenied ? 0.6 : isMatched ? 1 : 0.7 }}>
       <TableCell>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <Avatar src={profilePhotoUrl(c.name)}
@@ -70,8 +75,9 @@ function StaffRow({ c, isMatched, isSelected, bookingChars, onClick }) {
         </Stack>
       </TableCell>
       <TableCell align="right">
-        <Button size="small" variant={isSelected ? 'contained' : 'outlined'}
-          onClick={e => { e.stopPropagation(); onClick(); }}>Select</Button>
+        {isAccepted && <Chip label="Accepted" size="small" color="success" sx={{ fontSize: '0.6rem', height: 20 }} />}
+        {isDenied && <Chip label="Declined" size="small" color="error" sx={{ fontSize: '0.6rem', height: 20 }} />}
+        {isAssigned && !isAccepted && !isDenied && <Chip label="Request sent" size="small" color="info" sx={{ fontSize: '0.6rem', height: 20 }} />}
       </TableCell>
     </TableRow>
   );
@@ -87,7 +93,7 @@ function SectionRow({ label, color }) {
   );
 }
 
-function ProfileExpandRow({ c, booking, staffById, assigning, assignedLink, onAssign, onClose }) {
+function ProfileExpandRow({ c, booking, staffById, assigning, justAssigned, onAssign, onClose }) {
   const av = c.availability;
   const avStr = !av ? '' : typeof av === 'string' ? av
     : `${Array.isArray(av.days) ? av.days.join(', ') : (av.days || '')}${av.startTime ? ' ' + av.startTime : ''}${av.endTime ? '\u2013' + av.endTime : ''}`;
@@ -129,11 +135,11 @@ function ProfileExpandRow({ c, booking, staffById, assigning, assignedLink, onAs
               <Divider sx={{ my: 1 }} />
               <Stack direction="row" spacing={1}>
                 <Button variant="contained" size="small" onClick={onAssign}
-                  disabled={assigning || !!assignedLink}
-                  startIcon={assignedLink ? <CheckCircleIcon /> : null}>
-                  {assigning
-                    ? <CircularProgress size={14} color="inherit" />
-                    : assignedLink ? 'Assigned \u2713' : `Assign ${c.name.split(' ')[0]}`}
+                    disabled={assigning || justAssigned}
+                    startIcon={justAssigned ? <CheckCircleIcon /> : null}>
+                    {assigning
+                      ? <CircularProgress size={14} color="inherit" />
+                      : justAssigned ? 'Sent \u2713' : `Assign ${c.name.split(' ')[0]}`}
                 </Button>
                 <Button size="small" variant="outlined" onClick={onClose}>Close</Button>
               </Stack>
@@ -150,8 +156,11 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [assigning, setAssigning] = useState(false);
-  const [assignedLink, setAssignedLink] = useState(null);
+  const [assignedStaffId, setAssignedStaffId] = useState(null);
+  const [sentStaffIds, setSentStaffIds] = useState(new Set());
+  const [assignmentStatusMap, setAssignmentStatusMap] = useState({}); // staffId -> 'PENDING'|'ACCEPTED'|'DENIED'
   const [snackbar, setSnackbar] = useState('');
+  const [snackbarLink, setSnackbarLink] = useState(null);
   const [unmatchedOpen, setUnmatchedOpen] = useState(false);
 
   useEffect(() => {
@@ -160,16 +169,58 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
     setCandidates([]);
     setAllStaff([]);
     setSelected(null);
-    setAssignedLink(null);
+    setAssignedStaffId(null);
+    setSentStaffIds(booking.assignedStaffId ? new Set([booking.assignedStaffId]) : new Set());
+    setAssignmentStatusMap({});
     setUnmatchedOpen(false);
-    Promise.all([getCandidates(booking.id), getAllStaff()])
-      .then(([cRes, sRes]) => {
+    Promise.all([getCandidates(booking.id), getAllStaff(), getBookingAssignments(booking.id)])
+      .then(([cRes, sRes, aRes]) => {
         setCandidates(cRes.data);
         setAllStaff(sRes.data.filter(s => s.isActive !== false));
+        const statusMap = {};
+        const sent = new Set();
+        for (const a of aRes.data) {
+          statusMap[a.staffId] = a.status;
+          if (a.status !== 'DENIED') sent.add(a.staffId);
+        }
+        setAssignmentStatusMap(statusMap);
+        setSentStaffIds(sent);
       })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [booking?.id]);
+
+  // Poll assignment statuses every 8 seconds so the list reflects accepts/declines in real time
+  useEffect(() => {
+    if (!booking?.id) return;
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await getBookingAssignments(booking.id);
+        setAssignmentStatusMap(prev => {
+          const next = {};
+          let changed = false;
+          for (const a of data) {
+            next[a.staffId] = a.status;
+            if (prev[a.staffId] !== a.status) changed = true;
+          }
+          if (changed) {
+            // Refresh the queue card status when something changed
+            if (onRefresh) onRefresh();
+            return next;
+          }
+          return prev;
+        });
+        setSentStaffIds(() => {
+          const next = new Set();
+          for (const a of data) {
+            if (a.status !== 'DENIED') next.add(a.staffId);
+          }
+          return next;
+        });
+      } catch (e) { /* ignore poll errors silently */ }
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [booking?.id, onRefresh]);
 
   const matchedIds = new Set(candidates.map(c => c.staffId));
   const staffById = Object.fromEntries(allStaff.map(s => [s.id, s]));
@@ -186,12 +237,16 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
     setAssigning(true);
     try {
       const { data } = await assignStaff(booking.id, selected.staffId);
-      setAssignedLink(data.acceptLink);
+      setAssignedStaffId(selected.staffId);
+      setSentStaffIds(prev => new Set([...prev, selected.staffId]));
+      setAssignmentStatusMap(prev => ({ ...prev, [selected.staffId]: 'PENDING' }));
       setSnackbar(`Request sent to ${selected.name}!`);
+      setSnackbarLink(data.acceptLink || null);
       onAssigned(booking.id, selected.staffId);
       if (onRefresh) onRefresh();
     } catch (e) {
       setSnackbar('Failed to assign. Please try again.');
+      setSnackbarLink(null);
     } finally { setAssigning(false); }
   };
 
@@ -235,6 +290,12 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
               sx={{ fontSize: '0.65rem', height: 20 }} />
           ))}
         </Stack>
+        {booking.description && (
+          <Typography variant="caption" color="text.secondary"
+            sx={{ display: 'block', mt: 1, fontStyle: 'italic', lineHeight: 1.5 }}>
+            {booking.description}
+          </Typography>
+        )}
       </Box>
 
       {/* ── Staff list ── */}
@@ -265,11 +326,14 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
                   <React.Fragment key={c.staffId}>
                     <StaffRow c={c} isMatched={true}
                       isSelected={selected?.staffId === c.staffId}
+                      isAssigned={sentStaffIds.has(c.staffId)}
+                      assignmentStatus={assignmentStatusMap[c.staffId]}
                       bookingChars={booking.characteristics}
                       onClick={() => setSelected(s => s?.staffId === c.staffId ? null : c)} />
                     {selected?.staffId === c.staffId && (
                       <ProfileExpandRow c={c} booking={booking}
-                        staffById={staffById} assigning={assigning} assignedLink={assignedLink}
+                        staffById={staffById} assigning={assigning}
+                        justAssigned={assignedStaffId === c.staffId}
                         onAssign={handleAssign} onClose={() => setSelected(null)} />
                     )}
                   </React.Fragment>
@@ -295,11 +359,14 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
                   <React.Fragment key={c.staffId}>
                     <StaffRow c={c} isMatched={false}
                       isSelected={selected?.staffId === c.staffId}
+                      isAssigned={sentStaffIds.has(c.staffId)}
+                      assignmentStatus={assignmentStatusMap[c.staffId]}
                       bookingChars={booking.characteristics}
                       onClick={() => setSelected(s => s?.staffId === c.staffId ? null : c)} />
                     {selected?.staffId === c.staffId && (
                       <ProfileExpandRow c={c} booking={booking}
-                        staffById={staffById} assigning={assigning} assignedLink={assignedLink}
+                        staffById={staffById} assigning={assigning}
+                        justAssigned={assignedStaffId === c.staffId}
                         onAssign={handleAssign} onClose={() => setSelected(null)} />
                     )}
                   </React.Fragment>
@@ -319,18 +386,18 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
 
       </Box>
 
-      <Snackbar open={!!snackbar} autoHideDuration={8000} onClose={() => setSnackbar('')}
+      <Snackbar open={!!snackbar} autoHideDuration={10000} onClose={() => { setSnackbar(''); setSnackbarLink(null); }}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-        <Alert onClose={() => setSnackbar('')} severity="success" variant="filled"
+        <Alert onClose={() => { setSnackbar(''); setSnackbarLink(null); }} severity="success" variant="filled"
           sx={{ width: '100%', alignItems: 'flex-start' }}>
           <Typography variant="body2" fontWeight={600}>{snackbar}</Typography>
-          {assignedLink && (
+          {snackbarLink && (
             <Box sx={{ mt: 0.5 }}>
-              <Typography variant="caption" display="block">Accept link:</Typography>
-              <Box component="a" href={assignedLink} target="_blank"
+              <Typography variant="caption" display="block" sx={{ opacity: 0.85 }}>Accept link:</Typography>
+              <Box component="a" href={snackbarLink} target="_blank"
                 sx={{ fontSize: '0.7rem', color: 'inherit', wordBreak: 'break-all',
                   textDecoration: 'underline', opacity: 0.9, display: 'block' }}>
-                {assignedLink}
+                {snackbarLink}
               </Box>
             </Box>
           )}

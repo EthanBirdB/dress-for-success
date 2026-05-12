@@ -311,6 +311,11 @@ app.post('/api/bookings/:id/assign', requireAuth, async (req, res) => {
 
 // ─── Assignments (public — for staff links) ───────────────────────────────────
 
+app.get('/api/bookings/:id/assignments', requireAuth, (req, res) => {
+  const assignments = db.getAssignmentsForBooking(req.params.id);
+  res.json(assignments);
+});
+
 app.get('/api/assignments/:token', (req, res) => {
   const assignment = db.getAssignmentByToken(req.params.token);
   if (!assignment) return res.status(404).json({ error: 'Assignment not found' });

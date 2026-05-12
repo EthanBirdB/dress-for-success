@@ -17,7 +17,7 @@ import {
   SortableContext, verticalListSortingStrategy, useSortable, arrayMove,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { getBookings, autoAssignBooking, bulkAutoAssign, sendAllAssignments } from '../../services/api';
+import { getBookings, autoAssignBooking, bulkAutoAssign, sendAllAssignments, getAllStaff } from '../../services/api';
 import CandidateCloud from '../../components/CandidateCloud/CandidateCloud';
 
 const LOCATIONS = ['Illawarra', 'Newcastle Hunter', 'Tasmania', 'Melbourne'];
@@ -41,7 +41,7 @@ const STATUS_OPTIONS = [
   { value: 'CANCELLED', label: 'Cancelled' },
 ];
 
-function BookingCard({ booking, isSelected, onClick }) {
+function BookingCard({ booking, isSelected, onClick, assignedStaffName }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: booking.id });
 
   const style = {
@@ -103,10 +103,10 @@ function BookingCard({ booking, isSelected, onClick }) {
         )}
       </Stack>
 
-      {booking.assignedStaffId && (
+      {assignedStaffName && ['ACCEPTED', 'COMPLETED'].includes(booking.status) && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 1 }}>
           <PersonIcon sx={{ fontSize: 12, color: 'success.main' }} />
-          <Typography variant="caption" color="success.main" fontWeight={600}>Assigned</Typography>
+          <Typography variant="caption" color="success.main" fontWeight={600}>{assignedStaffName}</Typography>
         </Box>
       )}
     </Paper>
@@ -127,10 +127,11 @@ export default function QueueBoard() {
   const [bulkRunning, setBulkRunning] = useState(false);
   const [sendAllRunning, setSendAllRunning] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const [staffMap, setStaffMap] = useState({});
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
-  const fetchBookings = useCallback(async () => {
-    setLoading(true);
+  const fetchBookingsData = useCallback(async (showSpinner) => {
+    if (showSpinner) setLoading(true);
     try {
       const params = { size: 100 };
       if (statusFilter) params.status = statusFilter;
@@ -138,13 +139,32 @@ export default function QueueBoard() {
       if (search) params.search = search;
       const { data } = await getBookings(params);
       setBookings(data.content);
-      setOrderedIds(data.content.map(b => b.id));
+      setOrderedIds(prev => {
+        // preserve existing order, append new ids at end
+        const existing = new Set(prev);
+        const incoming = data.content.map(b => b.id);
+        const kept = prev.filter(id => incoming.includes(id));
+        const added = incoming.filter(id => !existing.has(id));
+        return [...kept, ...added];
+      });
     } catch (e) {
       console.error(e);
     } finally {
-      setLoading(false);
+      if (showSpinner) setLoading(false);
+    }
+    // fetch staff separately — don't block booking list if this fails
+    try {
+      const staffRes = await getAllStaff();
+      const map = {};
+      for (const s of staffRes.data) map[s.id] = s;
+      setStaffMap(map);
+    } catch (e) {
+      console.error('Staff fetch failed:', e);
     }
   }, [statusFilter, locationFilter, search]);
+
+  const fetchBookings = useCallback(() => fetchBookingsData(true), [fetchBookingsData]);
+  const silentRefresh = useCallback(() => fetchBookingsData(false), [fetchBookingsData]);
 
   useEffect(() => { fetchBookings(); }, [fetchBookings]);
 
@@ -294,6 +314,7 @@ export default function QueueBoard() {
                 {orderedBookings.map(booking => (
                   <BookingCard key={booking.id} booking={booking}
                     isSelected={selectedBooking?.id === booking.id}
+                    assignedStaffName={booking.assignedStaffId ? staffMap[booking.assignedStaffId]?.name : null}
                     onClick={() => handleCardClick(booking)} />
                 ))}
               </SortableContext>
@@ -315,7 +336,7 @@ export default function QueueBoard() {
           <CandidateCloud
             booking={selectedBooking}
             onAssigned={handleAssigned}
-            onRefresh={fetchBookings}
+            onRefresh={silentRefresh}
             onSendAll={handleSendAll}
             sendAllRunning={sendAllRunning}
           />

@@ -31,6 +31,7 @@ export const getNotes = (id) => api.get(`/bookings/${id}/notes`);
 
 // --- Matching & Assignment ---
 export const getCandidates = (bookingId) => api.get(`/bookings/${bookingId}/candidates`);
+export const getBookingAssignments = (bookingId) => api.get(`/bookings/${bookingId}/assignments`);
 export const assignStaff = (bookingId, staffId) => api.post(`/bookings/${bookingId}/assign`, { staffId });
 export const autoAssignBooking = (bookingId) => api.post(`/bookings/${bookingId}/auto-assign`);
 export const bulkAutoAssign = () => api.post('/bookings/bulk-auto-assign');

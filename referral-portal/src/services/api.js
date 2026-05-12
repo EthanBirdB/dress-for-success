@@ -5,35 +5,42 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Attach JWT token to requests if available
 api.interceptors.request.use((config) => {
   const token = sessionStorage.getItem('dfs_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// --- Public ---
-export const submitReferral = (data) => api.post('/referrals', data);
+// --- Config ---
+export const getCharacteristics = () => api.get('/characteristics');
 
 // --- Auth ---
-export const login = (username, password) =>
-  api.post('/auth/login', { username, password });
-
+export const login = (username, password) => api.post('/auth/login', { username, password });
 export const getMe = () => api.get('/auth/me');
 
-// --- Staff (protected) ---
-export const getReferrals = (params) => api.get('/referrals', { params });
+// --- Bookings (public) ---
+export const submitBooking = (data) => api.post('/bookings', data);
 
-export const getReferralById = (id) => api.get(`/referrals/${id}`);
+// --- Bookings (staff) ---
+export const getBookings = (params) => api.get('/bookings', { params });
+export const getBookingById = (id) => api.get(`/bookings/${id}`);
+export const updateBookingStatus = (id, status) => api.patch(`/bookings/${id}/status`, { status });
+export const addNote = (id, noteText) => api.post(`/bookings/${id}/notes`, { noteText });
+export const getNotes = (id) => api.get(`/bookings/${id}/notes`);
 
-export const updateReferralStatus = (id, status) =>
-  api.patch(`/referrals/${id}/status`, { status });
+// --- Matching & Assignment ---
+export const getCandidates = (bookingId) => api.get(`/bookings/${bookingId}/candidates`);
+export const assignStaff = (bookingId, staffId) => api.post(`/bookings/${bookingId}/assign`, { staffId });
 
-export const addNote = (id, noteText) =>
-  api.post(`/referrals/${id}/notes`, { noteText });
+// --- Assignments (public) ---
+export const getAssignment = (token) => api.get(`/assignments/${token}`);
+export const respondToAssignment = (token, response) => api.post(`/assignments/${token}/respond`, { response });
 
-export const getNotes = (id) => api.get(`/referrals/${id}/notes`);
+// --- Staff CRUD ---
+export const getAllStaff = () => api.get('/staff');
+export const createStaff = (data) => api.post('/staff', data);
+export const updateStaff = (id, data) => api.put(`/staff/${id}`, data);
+export const deleteStaff = (id) => api.delete(`/staff/${id}`);
 
 export default api;
+

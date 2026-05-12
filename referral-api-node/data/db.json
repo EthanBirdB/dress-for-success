@@ -1,4 +1,172 @@
 {
+  "bookings": [
+    {
+      "id": "c35b3c83-d667-4b3d-b0e0-448ce2955722",
+      "firstName": "Zack",
+      "lastName": "Caldwell",
+      "phoneNumber": "0432723214",
+      "email": "zackadfdsa@gmail.com",
+      "scheduledDate": "2026-05-13",
+      "scheduledTime": "15:10",
+      "characteristics": [
+        "Wedding Styling"
+      ],
+      "description": "I need a wedding dress but i need it black",
+      "dressSize": "8",
+      "shoeSize": "6.5",
+      "topSize": "M",
+      "bottomSize": "M",
+      "status": "QUEUED",
+      "source": "WEB",
+      "assignedStaffId": null,
+      "createdAt": "2026-05-12T03:53:20.145Z",
+      "updatedAt": "2026-05-12T03:53:20.145Z"
+    }
+  ],
+  "notes": [
+    {
+      "id": "d5c3ca98-db97-4a26-841e-37b8ac92c679",
+      "referralId": "d82238ba-ca6e-49e9-8f2e-0478431f05ca",
+      "noteText": "is a same sex wedding",
+      "createdBy": "admin",
+      "createdAt": "2026-05-12T01:12:47.144Z"
+    },
+    {
+      "id": "8b730e1d-2579-429c-ad75-c0655af8d759",
+      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
+      "noteText": "wants clothes and interview skills",
+      "createdBy": "admin",
+      "createdAt": "2026-05-12T01:21:25.590Z"
+    },
+    {
+      "id": "84b5a0f1-2968-48ec-a277-346d189d48a2",
+      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
+      "noteText": "follow up scheduled for 23/5",
+      "createdBy": "admin",
+      "createdAt": "2026-05-12T01:21:38.631Z"
+    }
+  ],
+  "staffMembers": [
+    {
+      "id": "2f194509-f643-4b5f-af09-2f3ecdffd8e5",
+      "name": "Sarah Chen",
+      "email": "sarah@demo.com",
+      "phone": "0411000001",
+      "type": "STAFF",
+      "traits": [
+        "Wedding Styling",
+        "Formal Wear",
+        "Custom Fitting"
+      ],
+      "bio": "I specialise in bridal and formal wear styling with 8 years experience helping women find their perfect look for milestone events.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "isActive": true,
+      "createdAt": "2026-05-12T03:50:08.920Z"
+    },
+    {
+      "id": "bb52bb59-4814-4cfc-8358-63da501b54d0",
+      "name": "James Okafor",
+      "email": "james@demo.com",
+      "phone": "0411000002",
+      "type": "STAFF",
+      "traits": [
+        "Interview Prep",
+        "Business Casual",
+        "Confidence Coaching"
+      ],
+      "bio": "Former career coach now volunteering my skills to help clients dress confidently for job interviews and professional settings.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Wednesday",
+          "Friday"
+        ],
+        "startTime": "10:00",
+        "endTime": "16:00"
+      },
+      "isActive": true,
+      "createdAt": "2026-05-12T03:50:08.922Z"
+    },
+    {
+      "id": "e97633cc-6bdd-4c36-bfd7-cd514668e8df",
+      "name": "Maria Santos",
+      "email": "maria@demo.com",
+      "phone": "0411000003",
+      "type": "VOLUNTEER",
+      "traits": [
+        "Plus Size Fitting",
+        "Alterations",
+        "Maternity Wear"
+      ],
+      "bio": "Certified seamstress with expertise in alterations and inclusive sizing. Passionate about helping all body types find clothes that fit beautifully.",
+      "availability": {
+        "days": [
+          "Tuesday",
+          "Thursday",
+          "Saturday"
+        ],
+        "startTime": "09:00",
+        "endTime": "15:00"
+      },
+      "isActive": true,
+      "createdAt": "2026-05-12T03:50:08.923Z"
+    },
+    {
+      "id": "29783cb2-76f2-4496-adc9-c714b933b85e",
+      "name": "Priya Nair",
+      "email": "priya@demo.com",
+      "phone": "0411000004",
+      "type": "VOLUNTEER",
+      "traits": [
+        "Court Appearance",
+        "Business Casual",
+        "Interview Prep"
+      ],
+      "bio": "Paralegal with experience helping clients dress appropriately for court appearances and formal professional environments.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "12:00",
+        "endTime": "18:00"
+      },
+      "isActive": true,
+      "createdAt": "2026-05-12T03:50:08.924Z"
+    }
+  ],
+  "assignments": [],
+  "staffUsers": [
+    {
+      "id": "026845bc-8be6-4cc5-a492-4034231a0f94",
+      "username": "admin",
+      "passwordHash": "$2a$10$EY8zy98fLrATa.5o4sAQjewypWknkxFLFbJFlCgrZYS2W3AZOz5AG",
+      "displayName": "Admin User",
+      "role": "ADMIN",
+      "createdAt": "2026-05-12T01:07:46.359Z"
+    },
+    {
+      "id": "6c753d4a-9ebc-4b65-8deb-b07e0f691426",
+      "username": "staff",
+      "passwordHash": "$2a$10$QqaZJJrXuE83VAt.0QFbCeVNYfC3tLDtSg5vhUYhPWggslhB9cF4W",
+      "displayName": "Staff Member",
+      "role": "STAFF",
+      "createdAt": "2026-05-12T01:07:46.422Z"
+    }
+  ],
   "referrals": [
     {
       "id": "97b5d48f-31ca-4b0e-b678-9778b39fe625",
@@ -67,47 +235,6 @@
       "source": "WEB",
       "createdAt": "2026-05-12T02:02:40.264Z",
       "updatedAt": "2026-05-12T02:11:28.254Z"
-    }
-  ],
-  "notes": [
-    {
-      "id": "d5c3ca98-db97-4a26-841e-37b8ac92c679",
-      "referralId": "d82238ba-ca6e-49e9-8f2e-0478431f05ca",
-      "noteText": "is a same sex wedding",
-      "createdBy": "admin",
-      "createdAt": "2026-05-12T01:12:47.144Z"
-    },
-    {
-      "id": "8b730e1d-2579-429c-ad75-c0655af8d759",
-      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
-      "noteText": "wants clothes and interview skills",
-      "createdBy": "admin",
-      "createdAt": "2026-05-12T01:21:25.590Z"
-    },
-    {
-      "id": "84b5a0f1-2968-48ec-a277-346d189d48a2",
-      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
-      "noteText": "follow up scheduled for 23/5",
-      "createdBy": "admin",
-      "createdAt": "2026-05-12T01:21:38.631Z"
-    }
-  ],
-  "staffUsers": [
-    {
-      "id": "026845bc-8be6-4cc5-a492-4034231a0f94",
-      "username": "admin",
-      "passwordHash": "$2a$10$EY8zy98fLrATa.5o4sAQjewypWknkxFLFbJFlCgrZYS2W3AZOz5AG",
-      "displayName": "Admin User",
-      "role": "ADMIN",
-      "createdAt": "2026-05-12T01:07:46.359Z"
-    },
-    {
-      "id": "6c753d4a-9ebc-4b65-8deb-b07e0f691426",
-      "username": "staff",
-      "passwordHash": "$2a$10$QqaZJJrXuE83VAt.0QFbCeVNYfC3tLDtSg5vhUYhPWggslhB9cF4W",
-      "displayName": "Staff Member",
-      "role": "STAFF",
-      "createdAt": "2026-05-12T01:07:46.422Z"
     }
   ]
 }

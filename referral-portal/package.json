@@ -9,15 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.1",
-    "axios": "^1.7.2",
-    "@mui/material": "^5.16.0",
-    "@mui/icons-material": "^5.16.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "notistack": "^3.0.1"
+    "@mui/icons-material": "^5.16.0",
+    "@mui/material": "^5.16.0",
+    "@mui/x-date-pickers": "^6.20.2",
+    "axios": "^1.7.2",
+    "dayjs": "^1.11.20",
+    "notistack": "^3.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

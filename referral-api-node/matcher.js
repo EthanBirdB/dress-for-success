@@ -12,6 +12,10 @@ function getOpenAI() {
 const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function isAvailable(staff, booking) {
+  // Location filter: staff with locations set only serve those locations
+  const staffLocs = staff.locations || (staff.location ? [staff.location] : []);
+  if (staffLocs.length > 0 && booking.location && !staffLocs.includes(booking.location)) return false;
+
   if (!booking.scheduledDate || !staff.availability) return true;
   const dow = DAY_NAMES[new Date(booking.scheduledDate + 'T12:00:00').getDay()];
   const days = staff.availability.days || [];

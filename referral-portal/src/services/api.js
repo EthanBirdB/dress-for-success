@@ -13,6 +13,7 @@ api.interceptors.request.use((config) => {
 
 // --- Config ---
 export const getCharacteristics = () => api.get('/characteristics');
+export const getLocations = () => api.get('/locations');
 
 // --- Auth ---
 export const login = (username, password) => api.post('/auth/login', { username, password });
@@ -31,6 +32,9 @@ export const getNotes = (id) => api.get(`/bookings/${id}/notes`);
 // --- Matching & Assignment ---
 export const getCandidates = (bookingId) => api.get(`/bookings/${bookingId}/candidates`);
 export const assignStaff = (bookingId, staffId) => api.post(`/bookings/${bookingId}/assign`, { staffId });
+export const autoAssignBooking = (bookingId) => api.post(`/bookings/${bookingId}/auto-assign`);
+export const bulkAutoAssign = () => api.post('/bookings/bulk-auto-assign');
+export const sendAllAssignments = () => api.post('/bookings/send-all-assignments');
 
 // --- Assignments (public) ---
 export const getAssignment = (token) => api.get(`/assignments/${token}`);

@@ -1,54 +1,380 @@
 {
   "bookings": [
     {
-      "id": "c35b3c83-d667-4b3d-b0e0-448ce2955722",
-      "firstName": "Zack",
-      "lastName": "Caldwell",
-      "phoneNumber": "0432723214",
-      "email": "zackadfdsa@gmail.com",
-      "scheduledDate": "2026-05-13",
-      "scheduledTime": "15:10",
+      "id": "b653327b-aef4-461a-880b-124d64be455a",
+      "firstName": "Emma",
+      "lastName": "Wilson",
+      "phoneNumber": "0421100001",
+      "email": "emma@demo.com",
+      "scheduledDate": "2026-05-20",
+      "scheduledTime": "10:00",
       "characteristics": [
-        "Wedding Styling"
+        "Wedding Styling",
+        "Formal Wear",
+        "Custom Fitting"
       ],
-      "description": "I need a wedding dress but i need it black",
-      "dressSize": "8",
-      "shoeSize": "6.5",
-      "topSize": "M",
-      "bottomSize": "M",
+      "description": "I'm getting married in 6 weeks and need help finding the perfect dress for our outdoor garden wedding. I want something elegant but not too fussy, and I'm on a tight budget.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
       "status": "ASSIGNED",
       "source": "WEB",
-      "assignedStaffId": "bb52bb59-4814-4cfc-8358-63da501b54d0",
-      "createdAt": "2026-05-12T03:53:20.145Z",
-      "updatedAt": "2026-05-12T03:55:46.272Z"
-    }
-  ],
-  "notes": [
-    {
-      "id": "d5c3ca98-db97-4a26-841e-37b8ac92c679",
-      "referralId": "d82238ba-ca6e-49e9-8f2e-0478431f05ca",
-      "noteText": "is a same sex wedding",
-      "createdBy": "admin",
-      "createdAt": "2026-05-12T01:12:47.144Z"
+      "location": "Illawarra",
+      "assignedStaffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
+      "createdAt": "2026-05-12T05:09:01.288Z",
+      "updatedAt": "2026-05-12T05:11:15.870Z"
     },
     {
-      "id": "8b730e1d-2579-429c-ad75-c0655af8d759",
-      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
-      "noteText": "wants clothes and interview skills",
-      "createdBy": "admin",
-      "createdAt": "2026-05-12T01:21:25.590Z"
+      "id": "e4697ce0-cb4b-40a4-a2c5-9d3e57802c2b",
+      "firstName": "Jessica",
+      "lastName": "Torres",
+      "phoneNumber": "0421100002",
+      "email": "jessica@demo.com",
+      "scheduledDate": "2026-05-19",
+      "scheduledTime": "11:00",
+      "characteristics": [
+        "Interview Prep",
+        "Business Casual",
+        "Confidence Coaching"
+      ],
+      "description": "I've been out of the workforce for 8 months caring for my elderly mother and finally have a job interview at an accounting firm. I just want to walk in feeling like I belong there and that I look competent and put-together.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Melbourne",
+      "assignedStaffId": "7b61169a-24de-4fb0-afb0-73cab57f78ee",
+      "createdAt": "2026-05-12T05:09:01.289Z",
+      "updatedAt": "2026-05-12T05:11:15.866Z"
     },
     {
-      "id": "84b5a0f1-2968-48ec-a277-346d189d48a2",
-      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
-      "noteText": "follow up scheduled for 23/5",
-      "createdBy": "admin",
-      "createdAt": "2026-05-12T01:21:38.631Z"
+      "id": "80d854ff-520c-4856-a2ec-b56654aa6921",
+      "firstName": "Aisha",
+      "lastName": "Mohammed",
+      "phoneNumber": "0421100003",
+      "email": null,
+      "scheduledDate": "2026-05-21",
+      "scheduledTime": "09:30",
+      "characteristics": [
+        "Plus Size Fitting",
+        "Alterations",
+        "Confidence Coaching"
+      ],
+      "description": "I lost 25kg this year and nothing fits anymore. I want to celebrate this milestone and find clothes that actually fit and make me feel proud of how far I've come.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Newcastle Hunter",
+      "assignedStaffId": "62faff35-0b2f-4660-af40-15a68875c35a",
+      "createdAt": "2026-05-12T05:09:01.290Z",
+      "updatedAt": "2026-05-12T05:11:15.882Z"
+    },
+    {
+      "id": "a03b932e-5c96-4858-a3e8-e9b0da6b88fb",
+      "firstName": "Rebecca",
+      "lastName": "Park",
+      "phoneNumber": "0421100004",
+      "email": "rebecca@demo.com",
+      "scheduledDate": "2026-05-22",
+      "scheduledTime": "14:00",
+      "characteristics": [
+        "Court Appearance",
+        "Business Casual"
+      ],
+      "description": "I have a family court hearing next week regarding custody of my two daughters. I need guidance on what to wear to come across as the responsible, capable, loving mother I am.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Illawarra",
+      "assignedStaffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
+      "createdAt": "2026-05-12T05:09:01.291Z",
+      "updatedAt": "2026-05-12T05:11:15.873Z"
+    },
+    {
+      "id": "401c0e61-78e2-469f-a220-4c7bda58dc96",
+      "firstName": "Linda",
+      "lastName": "Barnes",
+      "phoneNumber": "0421100005",
+      "email": "linda@demo.com",
+      "scheduledDate": "2026-05-18",
+      "scheduledTime": "10:00",
+      "characteristics": [
+        "Maternity Wear",
+        "Business Casual"
+      ],
+      "description": "I'm 5 months pregnant and just accepted a new management role at a tech company. Nothing fits and I need to look authoritative in meetings and board presentations.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "IN_PROGRESS",
+      "source": "WEB",
+      "location": "Melbourne",
+      "assignedStaffId": null,
+      "createdAt": "2026-05-12T05:09:01.292Z",
+      "updatedAt": "2026-05-12T05:09:01.292Z"
+    },
+    {
+      "id": "dd8b2299-3a11-4c7e-9ff6-b9e7bcf62b28",
+      "firstName": "Chloe",
+      "lastName": "Davis",
+      "phoneNumber": "0421100006",
+      "email": null,
+      "scheduledDate": "2026-05-23",
+      "scheduledTime": "13:00",
+      "characteristics": [
+        "Court Appearance",
+        "Formal Wear",
+        "Business Casual"
+      ],
+      "description": "Appearing as a character witness in a criminal trial and want to look appropriately formal without overdoing it.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Tasmania",
+      "assignedStaffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
+      "createdAt": "2026-05-12T05:09:01.293Z",
+      "updatedAt": "2026-05-12T05:11:36.523Z"
+    },
+    {
+      "id": "f9d96e7e-22c7-4b18-aca5-c19a463b54b1",
+      "firstName": "Michelle",
+      "lastName": "Cooper",
+      "phoneNumber": "0421100007",
+      "email": "michelle@demo.com",
+      "scheduledDate": "2026-05-10",
+      "scheduledTime": "11:00",
+      "characteristics": [
+        "Wedding Styling",
+        "Plus Size Fitting"
+      ],
+      "description": null,
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "COMPLETED",
+      "source": "WEB",
+      "location": "Illawarra",
+      "assignedStaffId": null,
+      "createdAt": "2026-05-12T05:09:01.294Z",
+      "updatedAt": "2026-05-12T05:09:01.294Z"
+    },
+    {
+      "id": "841495a7-d9a4-45ee-8a3e-1ae409d9414a",
+      "firstName": "Diane",
+      "lastName": "Ng",
+      "phoneNumber": "0421100008",
+      "email": "diane@demo.com",
+      "scheduledDate": "2026-05-24",
+      "scheduledTime": "09:00",
+      "characteristics": [
+        "Business Casual",
+        "Confidence Coaching"
+      ],
+      "description": "Returning to work after 5 years at home. Starting reception at a medical centre and feel completely overwhelmed by fashion. Just want to look put-together and professional on a budget.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "QUEUED",
+      "source": "WEB",
+      "location": "Melbourne",
+      "assignedStaffId": null,
+      "createdAt": "2026-05-12T05:09:01.297Z",
+      "updatedAt": "2026-05-12T05:09:01.297Z"
+    },
+    {
+      "id": "42b9099c-52dc-41f3-b71a-afb83dfbf03a",
+      "firstName": "Fatima",
+      "lastName": "Al-Hassan",
+      "phoneNumber": "0421100009",
+      "email": null,
+      "scheduledDate": "2026-05-26",
+      "scheduledTime": "10:30",
+      "characteristics": [
+        "Maternity Wear",
+        "Custom Fitting",
+        "Plus Size Fitting"
+      ],
+      "description": "Seven months pregnant with twins. Would love comfortable, beautiful options for the final stretch and postpartum.",
+      "dressSize": "18",
+      "shoeSize": null,
+      "topSize": "XL",
+      "bottomSize": null,
+      "status": "ACCEPTED",
+      "source": "WEB",
+      "location": "Newcastle Hunter",
+      "assignedStaffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "createdAt": "2026-05-12T05:09:01.299Z",
+      "updatedAt": "2026-05-12T05:14:34.287Z"
+    },
+    {
+      "id": "3fffc613-6a95-4b28-be9d-388f86aa1cf8",
+      "firstName": "Karen",
+      "lastName": "Mitchell",
+      "phoneNumber": "0421100010",
+      "email": "karen@demo.com",
+      "scheduledDate": "2026-05-28",
+      "scheduledTime": "14:00",
+      "characteristics": [
+        "Interview Prep",
+        "Formal Wear",
+        "Confidence Coaching"
+      ],
+      "description": "Recently made redundant after 12 years. Final-round interview for a senior role at a law firm and haven't interviewed in over a decade. Need to make a strong first impression.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Illawarra",
+      "assignedStaffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "createdAt": "2026-05-12T05:09:01.300Z",
+      "updatedAt": "2026-05-12T05:11:15.875Z"
+    },
+    {
+      "id": "5c6cb163-572a-4c8d-b5bc-bebf3414efe3",
+      "firstName": "Terri",
+      "lastName": "Walsh",
+      "phoneNumber": "0421100011",
+      "email": "terri@demo.com",
+      "scheduledDate": "2026-05-29",
+      "scheduledTime": "10:00",
+      "characteristics": [
+        "Court Appearance",
+        "Business Casual",
+        "Confidence Coaching"
+      ],
+      "description": "Going through a difficult divorce with several upcoming court appearances. I want to feel strong, composed, and dignified throughout this process.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Tasmania",
+      "assignedStaffId": "369189cd-1399-4bbc-b469-aae9c9be54c8",
+      "createdAt": "2026-05-12T05:09:01.301Z",
+      "updatedAt": "2026-05-12T05:11:15.877Z"
+    },
+    {
+      "id": "d2b65cba-d509-4d5b-9d2b-13518f4d4ab9",
+      "firstName": "Yuki",
+      "lastName": "Tanaka",
+      "phoneNumber": "0421100012",
+      "email": null,
+      "scheduledDate": "2026-05-30",
+      "scheduledTime": "11:30",
+      "characteristics": [
+        "Wedding Styling",
+        "Custom Fitting",
+        "Formal Wear"
+      ],
+      "description": "Attending my sister's wedding as maid of honour. Loose colour theme, no set dress code. Want to look elegant and comfortable without outshining the bride.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Melbourne",
+      "assignedStaffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
+      "createdAt": "2026-05-12T05:09:01.302Z",
+      "updatedAt": "2026-05-12T05:11:15.885Z"
+    },
+    {
+      "id": "df796a11-5005-441f-9b75-2378f1e865c6",
+      "firstName": "Bianca",
+      "lastName": "Rossi",
+      "phoneNumber": "0421100013",
+      "email": "bianca@demo.com",
+      "scheduledDate": "2026-06-02",
+      "scheduledTime": "09:00",
+      "characteristics": [
+        "Alterations",
+        "Plus Size Fitting",
+        "Custom Fitting"
+      ],
+      "description": "Several pieces I love no longer fit since gaining weight after my second child. Need help figuring out what can be altered and what needs replacing.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Illawarra",
+      "assignedStaffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
+      "createdAt": "2026-05-12T05:09:01.303Z",
+      "updatedAt": "2026-05-12T05:11:42.381Z"
+    },
+    {
+      "id": "a45d3a91-0fb5-49bf-abe1-7e15ad2cf0d8",
+      "firstName": "Tracey",
+      "lastName": "Johnson",
+      "phoneNumber": "0421100014",
+      "email": "tracey@demo.com",
+      "scheduledDate": "2026-06-03",
+      "scheduledTime": "13:00",
+      "characteristics": [
+        "Interview Prep",
+        "Business Casual"
+      ],
+      "description": "First job interview in my 40s. Stay-at-home mum for 15 years re-entering the workforce as a teaching aide. I genuinely don't know what to wear.",
+      "dressSize": "14",
+      "shoeSize": "8",
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Newcastle Hunter",
+      "assignedStaffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
+      "createdAt": "2026-05-12T05:09:01.304Z",
+      "updatedAt": "2026-05-12T05:11:45.010Z"
+    },
+    {
+      "id": "faf7ee5e-651b-4509-ad47-046e34ac6f58",
+      "firstName": "Amara",
+      "lastName": "Okonkwo",
+      "phoneNumber": "0421100015",
+      "email": null,
+      "scheduledDate": "2026-06-04",
+      "scheduledTime": "14:30",
+      "characteristics": [
+        "Confidence Coaching",
+        "Business Casual",
+        "Formal Wear"
+      ],
+      "description": "Recently promoted to my first management role. My wardrobe is still very casual and I need guidance building a professional capsule wardrobe on a budget.",
+      "dressSize": null,
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "ASSIGNED",
+      "source": "WEB",
+      "location": "Melbourne",
+      "assignedStaffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "createdAt": "2026-05-12T05:09:01.305Z",
+      "updatedAt": "2026-05-12T05:11:47.774Z"
     }
   ],
+  "notes": [],
   "staffMembers": [
     {
-      "id": "2f194509-f643-4b5f-af09-2f3ecdffd8e5",
+      "id": "b0460da9-588b-4554-a9a5-3c6dda860567",
       "name": "Sarah Chen",
       "email": "sarah@demo.com",
       "phone": "0411000001",
@@ -58,7 +384,7 @@
         "Formal Wear",
         "Custom Fitting"
       ],
-      "bio": "I specialise in bridal and formal wear styling with 8 years experience helping women find their perfect look for milestone events.",
+      "bio": "I specialise in bridal and formal wear styling with 8 years experience helping women find their perfect look for milestone events. From garden weddings to black tie galas, I bring elegance to every appointment.",
       "availability": {
         "days": [
           "Monday",
@@ -70,11 +396,15 @@
         "startTime": "09:00",
         "endTime": "17:00"
       },
+      "locations": [
+        "Illawarra",
+        "Melbourne"
+      ],
       "isActive": true,
-      "createdAt": "2026-05-12T03:50:08.920Z"
+      "createdAt": "2026-05-12T05:09:01.275Z"
     },
     {
-      "id": "bb52bb59-4814-4cfc-8358-63da501b54d0",
+      "id": "c10f1584-8dfe-4775-988b-51a54ee41376",
       "name": "James Okafor",
       "email": "james@demo.com",
       "phone": "0411000002",
@@ -84,7 +414,7 @@
         "Business Casual",
         "Confidence Coaching"
       ],
-      "bio": "Former career coach now volunteering my skills to help clients dress confidently for job interviews and professional settings.",
+      "bio": "Former career coach now volunteering my skills to help clients dress confidently for job interviews and professional settings. Feeling put-together is the first step to believing in yourself in a new role.",
       "availability": {
         "days": [
           "Monday",
@@ -94,11 +424,14 @@
         "startTime": "10:00",
         "endTime": "16:00"
       },
+      "locations": [
+        "Melbourne"
+      ],
       "isActive": true,
-      "createdAt": "2026-05-12T03:50:08.922Z"
+      "createdAt": "2026-05-12T05:09:01.276Z"
     },
     {
-      "id": "e97633cc-6bdd-4c36-bfd7-cd514668e8df",
+      "id": "62faff35-0b2f-4660-af40-15a68875c35a",
       "name": "Maria Santos",
       "email": "maria@demo.com",
       "phone": "0411000003",
@@ -118,11 +451,14 @@
         "startTime": "09:00",
         "endTime": "15:00"
       },
+      "locations": [
+        "Newcastle Hunter"
+      ],
       "isActive": true,
-      "createdAt": "2026-05-12T03:50:08.923Z"
+      "createdAt": "2026-05-12T05:09:01.277Z"
     },
     {
-      "id": "29783cb2-76f2-4496-adc9-c714b933b85e",
+      "id": "16ac2838-f38b-4d49-83e1-d4c726024178",
       "name": "Priya Nair",
       "email": "priya@demo.com",
       "phone": "0411000004",
@@ -132,7 +468,7 @@
         "Business Casual",
         "Interview Prep"
       ],
-      "bio": "Paralegal with experience helping clients dress appropriately for court appearances and formal professional environments.",
+      "bio": "Paralegal helping clients dress appropriately for court appearances and professional environments. I know what magistrates expect and can help you present with confidence.",
       "availability": {
         "days": [
           "Monday",
@@ -144,120 +480,414 @@
         "startTime": "12:00",
         "endTime": "18:00"
       },
+      "locations": [
+        "Illawarra",
+        "Newcastle Hunter"
+      ],
       "isActive": true,
-      "createdAt": "2026-05-12T03:50:08.924Z"
+      "createdAt": "2026-05-12T05:09:01.277Z"
+    },
+    {
+      "id": "12ffb158-fc12-4ce2-8914-5240523813ec",
+      "name": "Sophie Williams",
+      "email": "sophie@demo.com",
+      "phone": "0411000005",
+      "type": "VOLUNTEER",
+      "traits": [
+        "Wedding Styling",
+        "Formal Wear",
+        "Confidence Coaching",
+        "Custom Fitting"
+      ],
+      "bio": "Award-winning event stylist helping women look radiant on their most important days. Every woman deserves to feel like the best version of herself at milestone events.",
+      "availability": {
+        "days": [
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Saturday"
+        ],
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "locations": [
+        "Illawarra"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.278Z"
+    },
+    {
+      "id": "7b61169a-24de-4fb0-afb0-73cab57f78ee",
+      "name": "Marcus Thompson",
+      "email": "marcus@demo.com",
+      "phone": "0411000006",
+      "type": "STAFF",
+      "traits": [
+        "Interview Prep",
+        "Business Casual",
+        "Alterations",
+        "Confidence Coaching"
+      ],
+      "bio": "Professional wardrobe consultant specialising in helping clients transition back into the workforce after career breaks. I build confidence through clothing for interviews and professional re-entry.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "locations": [
+        "Melbourne",
+        "Illawarra"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.281Z"
+    },
+    {
+      "id": "58fa845f-ce65-4eda-a6f0-5a784f311e83",
+      "name": "Helen Tran",
+      "email": "helen@demo.com",
+      "phone": "0411000007",
+      "type": "STAFF",
+      "traits": [
+        "Maternity Wear",
+        "Plus Size Fitting",
+        "Custom Fitting",
+        "Alterations"
+      ],
+      "bio": "Trained in inclusive fashion with a focus on maternity and plus-size styling. Every woman deserves clothes that make her feel beautiful at every stage of life.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "09:00",
+        "endTime": "16:00"
+      },
+      "locations": [
+        "Newcastle Hunter",
+        "Tasmania"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.282Z"
+    },
+    {
+      "id": "ef8e6d72-cb8a-45dc-b63f-13696575def9",
+      "name": "Lisa Patterson",
+      "email": "lisa@demo.com",
+      "phone": "0411000008",
+      "type": "VOLUNTEER",
+      "traits": [
+        "Court Appearance",
+        "Business Casual",
+        "Formal Wear"
+      ],
+      "bio": "Former legal secretary with 15 years in court settings. I help people feel prepared and dignified in legal and formal environments when it matters most.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday"
+        ],
+        "startTime": "10:00",
+        "endTime": "15:00"
+      },
+      "locations": [
+        "Tasmania"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.283Z"
+    },
+    {
+      "id": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "name": "Angela Morris",
+      "email": "angela@demo.com",
+      "phone": "0411000009",
+      "type": "STAFF",
+      "traits": [
+        "Confidence Coaching",
+        "Business Casual",
+        "Interview Prep",
+        "Formal Wear"
+      ],
+      "bio": "Life coach and image consultant working across multiple regions helping women rebuild confidence through presentation. I take a holistic approach working on mindset and wardrobe together.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "08:00",
+        "endTime": "18:00"
+      },
+      "locations": [
+        "Illawarra",
+        "Newcastle Hunter",
+        "Melbourne"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.284Z"
+    },
+    {
+      "id": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
+      "name": "Wendy Osei",
+      "email": "wendy@demo.com",
+      "phone": "0411000010",
+      "type": "VOLUNTEER",
+      "traits": [
+        "Plus Size Fitting",
+        "Maternity Wear",
+        "Wedding Styling",
+        "Confidence Coaching"
+      ],
+      "bio": "Fashion stylist and body-positive advocate with 6 years in inclusive fashion. I love helping clients who have never had a professional styling experience discover their personal style at any size or stage of life.",
+      "availability": {
+        "days": [
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "startTime": "10:00",
+        "endTime": "17:00"
+      },
+      "locations": [
+        "Melbourne",
+        "Tasmania"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.285Z"
+    },
+    {
+      "id": "6b9dc88d-a139-4aeb-afe2-5d168c41d685",
+      "name": "Rachel Kim",
+      "email": "rachel@demo.com",
+      "phone": "0411000011",
+      "type": "STAFF",
+      "traits": [
+        "Alterations",
+        "Custom Fitting",
+        "Wedding Styling",
+        "Formal Wear"
+      ],
+      "bio": "Master tailor with 12 years in bespoke garment construction. My specialty is transforming existing garments so the fit feels made for you � because it is.",
+      "availability": {
+        "days": [
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "locations": [
+        "Melbourne"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.285Z"
+    },
+    {
+      "id": "369189cd-1399-4bbc-b469-aae9c9be54c8",
+      "name": "Natalie Cross",
+      "email": "natalie@demo.com",
+      "phone": "0411000012",
+      "type": "VOLUNTEER",
+      "traits": [
+        "Court Appearance",
+        "Interview Prep",
+        "Business Casual",
+        "Confidence Coaching"
+      ],
+      "bio": "Former HR manager turned stylist with deep expertise in professional dress codes. I have sat on interview panels for 20 years and know exactly what first impressions matter most in courts, boardrooms, and job interviews.",
+      "availability": {
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "09:00",
+        "endTime": "16:00"
+      },
+      "locations": [
+        "Illawarra",
+        "Tasmania"
+      ],
+      "isActive": true,
+      "createdAt": "2026-05-12T05:09:01.286Z"
     }
   ],
   "assignments": [
     {
-      "id": "b44f4df2-f0f0-482f-a5d4-3f597f8b5946",
-      "bookingId": "c35b3c83-d667-4b3d-b0e0-448ce2955722",
-      "staffId": "2f194509-f643-4b5f-af09-2f3ecdffd8e5",
-      "status": "DENIED",
-      "token": "7680a81b-5f82-446c-8ac0-d1bbe3106b2a",
+      "id": "a6721b0e-75c7-4403-a0e7-2e18348f069b",
+      "bookingId": "e4697ce0-cb4b-40a4-a2c5-9d3e57802c2b",
+      "staffId": "7b61169a-24de-4fb0-afb0-73cab57f78ee",
+      "status": "PENDING",
+      "token": "b7f062b1-d3a4-495c-b800-b925673af561",
       "rank": 1,
-      "sentAt": "2026-05-12T03:55:34.875Z",
-      "respondedAt": "2026-05-12T03:55:43.739Z",
-      "createdAt": "2026-05-12T03:55:34.875Z"
+      "sentAt": "2026-05-12T05:11:15.864Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:15.864Z"
     },
     {
-      "id": "680cb928-a62f-439e-9a58-dad756eab1d9",
-      "bookingId": "c35b3c83-d667-4b3d-b0e0-448ce2955722",
-      "staffId": "bb52bb59-4814-4cfc-8358-63da501b54d0",
+      "id": "476d130a-8901-44d6-a643-2155914f6f45",
+      "bookingId": "b653327b-aef4-461a-880b-124d64be455a",
+      "staffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
       "status": "PENDING",
-      "token": "dd2e4356-67d8-4d6b-a9a0-1b071805c76b",
-      "rank": 2,
-      "sentAt": "2026-05-12T03:55:46.271Z",
+      "token": "8fb1226b-47d1-4049-8316-86b1e0a1c35a",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:15.868Z",
       "respondedAt": null,
-      "createdAt": "2026-05-12T03:55:46.271Z"
+      "createdAt": "2026-05-12T05:11:15.868Z"
+    },
+    {
+      "id": "f57bc0d7-f7fa-4b89-a961-41ab879d15a1",
+      "bookingId": "a03b932e-5c96-4858-a3e8-e9b0da6b88fb",
+      "staffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
+      "status": "PENDING",
+      "token": "13c92018-9800-41ac-b86d-8f4b0544eaaa",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:15.872Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:15.872Z"
+    },
+    {
+      "id": "92f53283-ca54-4678-a60f-2fb9fdb713c6",
+      "bookingId": "3fffc613-6a95-4b28-be9d-388f86aa1cf8",
+      "staffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "status": "PENDING",
+      "token": "d6dbd1ac-eb1d-48ab-82ea-60c18adb8e59",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:15.874Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:15.874Z"
+    },
+    {
+      "id": "f1f35b49-169c-4345-8771-0f8d56090457",
+      "bookingId": "5c6cb163-572a-4c8d-b5bc-bebf3414efe3",
+      "staffId": "369189cd-1399-4bbc-b469-aae9c9be54c8",
+      "status": "PENDING",
+      "token": "0f976330-2011-4b79-a7f8-bef37134b5de",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:15.876Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:15.876Z"
+    },
+    {
+      "id": "d8c97b30-4736-4c75-bc25-d7290c0220c9",
+      "bookingId": "80d854ff-520c-4856-a2ec-b56654aa6921",
+      "staffId": "62faff35-0b2f-4660-af40-15a68875c35a",
+      "status": "PENDING",
+      "token": "f4238a6c-b379-4307-b96a-bd669e41dc9a",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:15.880Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:15.880Z"
+    },
+    {
+      "id": "bde4eb2f-0721-4eeb-8da4-a86010df1dbf",
+      "bookingId": "d2b65cba-d509-4d5b-9d2b-13518f4d4ab9",
+      "staffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
+      "status": "PENDING",
+      "token": "4bf29270-9d41-4acb-bb03-7097c40b14dc",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:15.884Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:15.884Z"
+    },
+    {
+      "id": "8799ce34-90ec-4719-a0e8-9becb2d312f3",
+      "bookingId": "dd8b2299-3a11-4c7e-9ff6-b9e7bcf62b28",
+      "staffId": "b3e18d6d-3c6f-486a-99d9-d3b339a40bdf",
+      "status": "PENDING",
+      "token": "1a5107f9-ab54-4b44-975f-86745bfdaeaf",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:36.521Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:36.521Z"
+    },
+    {
+      "id": "6e939197-7369-4295-96ef-148613340872",
+      "bookingId": "42b9099c-52dc-41f3-b71a-afb83dfbf03a",
+      "staffId": "62faff35-0b2f-4660-af40-15a68875c35a",
+      "status": "PENDING",
+      "token": "32fa9228-42a3-433e-bdf3-65ec6ac9bbe7",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:39.064Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:39.064Z"
+    },
+    {
+      "id": "189e3a86-7934-4d68-a192-e0558cb95066",
+      "bookingId": "df796a11-5005-441f-9b75-2378f1e865c6",
+      "staffId": "b0460da9-588b-4554-a9a5-3c6dda860567",
+      "status": "PENDING",
+      "token": "c851493f-c14c-4ecd-bd12-1dfbfc6ddfb7",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:42.379Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:42.380Z"
+    },
+    {
+      "id": "5eb2157c-380b-49fa-8461-15cd1e56fbb5",
+      "bookingId": "a45d3a91-0fb5-49bf-abe1-7e15ad2cf0d8",
+      "staffId": "16ac2838-f38b-4d49-83e1-d4c726024178",
+      "status": "PENDING",
+      "token": "4ee348db-a91c-4563-913f-0a7bf246f545",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:45.008Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:45.008Z"
+    },
+    {
+      "id": "ccdb27e5-218f-4c71-b9d1-e5a4e24eb38a",
+      "bookingId": "faf7ee5e-651b-4509-ad47-046e34ac6f58",
+      "staffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "status": "PENDING",
+      "token": "52cbbb19-f3c5-430a-a0da-4e6bb89ef7f3",
+      "rank": 1,
+      "sentAt": "2026-05-12T05:11:47.773Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T05:11:47.773Z"
+    },
+    {
+      "id": "9f403b9a-1d3f-4a9c-a444-6ccba44acf36",
+      "bookingId": "42b9099c-52dc-41f3-b71a-afb83dfbf03a",
+      "staffId": "c0df82f0-00a4-48ad-8074-aabdc1d27c21",
+      "status": "ACCEPTED",
+      "token": "06406eed-156c-4ce7-a3e7-db8d3a527741",
+      "rank": 2,
+      "sentAt": "2026-05-12T05:14:19.084Z",
+      "respondedAt": "2026-05-12T05:14:34.285Z",
+      "createdAt": "2026-05-12T05:14:19.084Z"
     }
   ],
   "staffUsers": [
     {
-      "id": "026845bc-8be6-4cc5-a492-4034231a0f94",
+      "id": "a7121b07-4491-4158-b4c2-1458e99c5300",
       "username": "admin",
-      "passwordHash": "$2a$10$EY8zy98fLrATa.5o4sAQjewypWknkxFLFbJFlCgrZYS2W3AZOz5AG",
+      "passwordHash": "$2a$10$Jr9AYplCNbcsc92hJZ2SNOkLPqbYQt8kqInmaxaqCZfuFyiCKFiOC",
       "displayName": "Admin User",
       "role": "ADMIN",
-      "createdAt": "2026-05-12T01:07:46.359Z"
+      "createdAt": "2026-05-12T05:09:01.215Z"
     },
     {
-      "id": "6c753d4a-9ebc-4b65-8deb-b07e0f691426",
+      "id": "705051ac-3ca7-4c9d-b0ac-dee7ed69be6d",
       "username": "staff",
-      "passwordHash": "$2a$10$QqaZJJrXuE83VAt.0QFbCeVNYfC3tLDtSg5vhUYhPWggslhB9cF4W",
+      "passwordHash": "$2a$10$go8a0dS92ME.k5LtaVrSkO1QFJBhV00UQKBiPFKFxmCO6dSO/sm2u",
       "displayName": "Staff Member",
       "role": "STAFF",
-      "createdAt": "2026-05-12T01:07:46.422Z"
-    }
-  ],
-  "referrals": [
-    {
-      "id": "97b5d48f-31ca-4b0e-b678-9778b39fe625",
-      "firstName": "Zack",
-      "lastName": "Caldwell",
-      "phoneNumber": "0418877032",
-      "email": "zackcaldwell@gmail.com",
-      "dressSize": "8",
-      "shoeSize": "8",
-      "topSize": "XXL",
-      "bottomSize": "M",
-      "referralReason": "JOB_START",
-      "referralReasonOther": null,
-      "status": "PENDING",
-      "source": "WEB",
-      "createdAt": "2026-05-12T01:09:14.217Z",
-      "updatedAt": "2026-05-12T01:09:14.217Z"
-    },
-    {
-      "id": "d82238ba-ca6e-49e9-8f2e-0478431f05ca",
-      "firstName": "James",
-      "lastName": "Wiggins",
-      "phoneNumber": "3452345",
-      "email": "james@email.com",
-      "dressSize": "8",
-      "shoeSize": "7",
-      "topSize": "M",
-      "bottomSize": "L",
-      "referralReason": "WEDDING",
-      "referralReasonOther": null,
-      "status": "PENDING",
-      "source": "WEB",
-      "createdAt": "2026-05-12T01:12:19.537Z",
-      "updatedAt": "2026-05-12T01:12:19.537Z"
-    },
-    {
-      "id": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
-      "firstName": "Jan",
-      "lastName": "Rodham",
-      "phoneNumber": "1234567",
-      "email": null,
-      "dressSize": "8",
-      "shoeSize": "6.5",
-      "topSize": "S",
-      "bottomSize": "L",
-      "referralReason": "OTHER",
-      "referralReasonOther": "DV",
-      "status": "IN_PROGRESS",
-      "source": "WEB",
-      "createdAt": "2026-05-12T01:20:25.023Z",
-      "updatedAt": "2026-05-12T01:21:01.275Z"
-    },
-    {
-      "id": "04b031a0-8fb9-4320-9d03-2924c721288d",
-      "firstName": "Ethan",
-      "lastName": "Bird",
-      "phoneNumber": "23434644",
-      "email": null,
-      "dressSize": "8",
-      "shoeSize": "7.5",
-      "topSize": "L",
-      "bottomSize": "M",
-      "referralReason": "JOB_START",
-      "referralReasonOther": null,
-      "status": "COMPLETED",
-      "source": "WEB",
-      "createdAt": "2026-05-12T02:02:40.264Z",
-      "updatedAt": "2026-05-12T02:11:28.254Z"
+      "createdAt": "2026-05-12T05:09:01.273Z"
     }
   ]
 }

@@ -11,6 +11,8 @@ const CHARACTERISTICS = [
   'Maternity Wear', 'Formal Wear',
 ];
 
+const LOCATIONS = ['Illawarra', 'Newcastle Hunter', 'Tasmania', 'Melbourne'];
+
 const defaultData = { bookings: [], notes: [], staffMembers: [], assignments: [], staffUsers: [] };
 
 function read() {
@@ -45,8 +47,9 @@ function createBooking(fields) {
     shoeSize: fields.shoeSize || null,
     topSize: fields.topSize || null,
     bottomSize: fields.bottomSize || null,
-    status: 'QUEUED',
+    status: fields.status || 'QUEUED',
     source: fields.source || 'WEB',
+    location: fields.location || null,
     assignedStaffId: null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -56,11 +59,12 @@ function createBooking(fields) {
   return booking;
 }
 
-function getBookings({ status, search, page = 0, size = 50, sortDir = 'asc' } = {}) {
+function getBookings({ status, search, location, page = 0, size = 50, sortDir = 'asc' } = {}) {
   const db = read();
   let items = [...db.bookings];
 
   if (status) items = items.filter(b => b.status === status);
+  if (location) items = items.filter(b => b.location === location);
   if (search) {
     const q = search.toLowerCase();
     items = items.filter(b =>
@@ -165,6 +169,7 @@ function createStaffMember(fields) {
     traits: Array.isArray(fields.traits) ? fields.traits : [],
     bio: fields.bio ? fields.bio.trim() : null,
     availability: fields.availability || { days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], startTime: '09:00', endTime: '17:00' },
+    locations: Array.isArray(fields.locations) ? fields.locations : (fields.location ? [fields.location] : []),
     isActive: true,
     createdAt: new Date().toISOString(),
   };
@@ -255,6 +260,7 @@ function createUser(fields) {
 
 module.exports = {
   CHARACTERISTICS,
+  LOCATIONS,
   createBooking, getBookings, getBookingById, updateBookingStatus, setBookingAssignedStaff,
   addNote, getNotes,
   getAllStaff, getStaffById, createStaffMember, updateStaffMember, deactivateStaffMember,

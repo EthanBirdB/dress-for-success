@@ -5,6 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -13,12 +14,13 @@ import StaffLogin from './pages/StaffLogin/StaffLogin';
 import QueueBoard from './pages/QueueBoard/QueueBoard';
 import StaffManagement from './pages/StaffManagement/StaffManagement';
 import AssignmentAccept from './pages/AssignmentAccept/AssignmentAccept';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 const SIDEBAR_WIDTH = 220;
 
 const theme = createTheme({
   palette: {
-    primary: { main: '#00838f' },
+    primary: { main: '#a2292e' },
     secondary: { main: '#7b1fa2' },
     background: { default: '#f5f5f5' },
   },
@@ -34,6 +36,7 @@ const theme = createTheme({
 
 const NAV_ITEMS = [
   { label: 'Booking Queue', icon: <DashboardIcon />, to: '/staff/queue' },
+  { label: 'Dashboard', icon: <ViewListIcon />, to: '/staff/dashboard' },
   { label: 'People', icon: <PeopleIcon />, to: '/staff/people' },
 ];
 
@@ -48,13 +51,22 @@ function StaffSidebar() {
       '& .MuiDrawer-paper': { width: SIDEBAR_WIDTH, boxSizing: 'border-box',
         bgcolor: '#1a2332', color: 'white', borderRight: 'none' },
     }}>
-      <Box sx={{ p: 2.5, pb: 1.5 }}>
-        <Typography variant="subtitle2" sx={{ color: '#00bcd4', fontWeight: 700, letterSpacing: 1, fontSize: '0.7rem', textTransform: 'uppercase' }}>
-          Dress for Success
-        </Typography>
-        <Typography variant="h6" sx={{ color: 'white', fontWeight: 700, lineHeight: 1.2, mt: 0.5 }}>
-          Staff Portal
-        </Typography>
+      <Box sx={{ p: 2, pb: 1.5, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+        <Box
+          component="img"
+          src="/background-removed.png"
+          alt="Dress for Success"
+          sx={{ height: 40, width: 'auto', objectFit: 'contain', flexShrink: 0 }}
+          onError={e => { e.target.style.display = 'none'; }}
+        />
+        <Box>
+          <Typography variant="subtitle2" sx={{ color: '#f87171', fontWeight: 700, letterSpacing: 1, fontSize: '0.7rem', textTransform: 'uppercase' }}>
+            Dress for Success
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'white', fontWeight: 700, lineHeight: 1.2, mt: 0.5 }}>
+            Staff Portal
+          </Typography>
+        </Box>
       </Box>
 
       <Divider sx={{ borderColor: 'rgba(255,255,255,0.1)', mx: 2 }} />
@@ -64,7 +76,7 @@ function StaffSidebar() {
           <ListItemButton key={item.to} component={NavLink} to={item.to}
             sx={{
               borderRadius: 2, mb: 0.5, color: 'rgba(255,255,255,0.7)',
-              '&.active': { bgcolor: 'rgba(0,188,212,0.15)', color: '#00bcd4' },
+              '&.active': { bgcolor: 'rgba(162,41,46,0.2)', color: '#f87171' },
               '&:hover': { bgcolor: 'rgba(255,255,255,0.08)', color: 'white' },
             }}>
             <ListItemIcon sx={{ color: 'inherit', minWidth: 36 }}>{item.icon}</ListItemIcon>
@@ -123,7 +135,11 @@ export default function App() {
                   <StaffLayout><StaffManagement /></StaffLayout>
                 </ProtectedRoute>
               } />
-              <Route path="/staff/dashboard" element={<Navigate to="/staff/queue" replace />} />
+              <Route path="/staff/dashboard" element={
+                <ProtectedRoute>
+                  <StaffLayout><Dashboard /></StaffLayout>
+                </ProtectedRoute>
+              } />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </BrowserRouter>

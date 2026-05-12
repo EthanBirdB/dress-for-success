@@ -7,21 +7,22 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
-import { submitBooking } from '../../services/api';
-
-const CHARACTERISTICS = [
-  'Wedding Styling', 'Interview Prep', 'Court Appearance', 'Custom Fitting',
-  'Alterations', 'Plus Size Fitting', 'Business Casual', 'Confidence Coaching',
-  'Maternity Wear', 'Formal Wear',
-];
+import { submitBooking, getLocations } from '../../services/api';
 
 const TOP_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 const BOTTOM_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 const DRESS_SIZES = ['2','4','6','8','10','12','14','16','18','20','22','24'];
 const SHOE_SIZES = ['5','5.5','6','6.5','7','7.5','8','8.5','9','9.5','10','10.5','11','12'];
+const CHARACTERISTICS = [
+  'Wedding Styling', 'Interview Prep', 'Court Appearance', 'Custom Fitting',
+  'Alterations', 'Plus Size Fitting', 'Business Casual', 'Confidence Coaching',
+  'Maternity Wear', 'Formal Wear',
+];
+const LOCATIONS = ['Illawarra', 'Newcastle Hunter', 'Tasmania', 'Melbourne'];
 
 const initialForm = {
   firstName: '', lastName: '', phoneNumber: '', email: '',
+  location: '',
   scheduledDate: null, scheduledTime: null,
   characteristics: [],
   description: '',
@@ -58,6 +59,7 @@ export default function ClientForm() {
     if (!form.phoneNumber.trim()) errs.phoneNumber = 'Phone number is required';
     else if (!/^[+]?[0-9\s\-()\\.]{7,20}$/.test(form.phoneNumber.trim()))
       errs.phoneNumber = 'Invalid phone number';
+    if (!form.location) errs.location = 'Please select a location';
     if (!form.scheduledDate) errs.scheduledDate = 'Appointment date is required';
     if (!form.scheduledTime) errs.scheduledTime = 'Appointment time is required';
     if (form.characteristics.length === 0) errs.characteristics = 'Please select at least one';
@@ -109,6 +111,13 @@ export default function ClientForm() {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ p: { xs: 3, md: 5 } }}>
         <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box
+            component="img"
+            src="/background-removed.png"
+            alt="Dress for Success"
+            sx={{ height: 64, mb: 1, objectFit: 'contain' }}
+            onError={e => { e.target.style.display = 'none'; }}
+          />
           <Typography variant="h3" fontWeight={700} color="primary" gutterBottom>Dress for Success</Typography>
           <Typography variant="h5" color="text.secondary" gutterBottom>Book an Appointment</Typography>
           <Typography variant="body1" color="text.secondary">
@@ -142,6 +151,14 @@ export default function ClientForm() {
             <Grid item xs={12} sm={6}>
               <TextField fullWidth label="Email (optional)" name="email" type="email"
                 value={form.email} onChange={handleChange} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField fullWidth required select label="Location" name="location"
+                value={form.location} onChange={handleChange}
+                error={!!errors.location} helperText={errors.location || 'Select the Dress for Success location nearest to you'}>
+                <MenuItem value="">— Select location —</MenuItem>
+                {LOCATIONS.map(l => <MenuItem key={l} value={l}>{l}</MenuItem>)}
+              </TextField>
             </Grid>
           </Grid>
 

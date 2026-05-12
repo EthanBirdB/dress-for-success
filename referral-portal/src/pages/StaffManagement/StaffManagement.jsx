@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import PersonIcon from '@mui/icons-material/Person';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { getAllStaff, createStaff, updateStaff, deleteStaff } from '../../services/api';
 
 const CHARACTERISTICS = [
@@ -18,9 +19,10 @@ const CHARACTERISTICS = [
   'Maternity Wear', 'Formal Wear',
 ];
 const ALL_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const LOCATIONS = ['Illawarra', 'Newcastle Hunter', 'Tasmania', 'Melbourne'];
 
 const emptyForm = {
-  name: '', email: '', phone: '', type: 'STAFF', bio: '',
+  name: '', email: '', phone: '', type: 'STAFF', bio: '', locations: [],
   traits: [],
   availability: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], startTime: '09:00', endTime: '17:00' },
 };
@@ -42,6 +44,8 @@ function StaffForm({ open, initial, onClose, onSaved }) {
     ? form.traits.filter(x => x !== t) : [...form.traits, t]);
   const toggleDay = (d) => setAvail('days', form.availability.days.includes(d)
     ? form.availability.days.filter(x => x !== d) : [...form.availability.days, d]);
+  const toggleLocation = (l) => set('locations', (form.locations || []).includes(l)
+    ? (form.locations || []).filter(x => x !== l) : [...(form.locations || []), l]);
 
   const handleSave = async () => {
     if (!form.name.trim()) { setError('Name is required'); return; }
@@ -82,6 +86,18 @@ function StaffForm({ open, initial, onClose, onSaved }) {
             <TextField fullWidth label="Phone" value={form.phone}
               onChange={e => set('phone', e.target.value)} />
           </Stack>
+
+          <Box>
+            <Typography variant="subtitle2" gutterBottom>Locations Served</Typography>
+            <FormGroup row>
+              {LOCATIONS.map(l => (
+                <FormControlLabel key={l} control={
+                  <Checkbox checked={(form.locations || []).includes(l)} onChange={() => toggleLocation(l)} size="small" />
+                } label={<Typography variant="caption">{l}</Typography>} />
+              ))}
+            </FormGroup>
+            <Typography variant="caption" color="text.secondary">Leave all unchecked to serve all regions</Typography>
+          </Box>
 
           <TextField fullWidth multiline rows={3} label="Bio / Expertise"
             placeholder="Describe this person's expertise — used by AI to match them with bookings"
@@ -178,8 +194,7 @@ export default function StaffManagement() {
             <TableHead>
               <TableRow sx={{ '& th': { fontWeight: 700, bgcolor: 'grey.50' } }}>
                 <TableCell>Person</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Traits</TableCell>
+                <TableCell>Type</TableCell>                <TableCell>Location</TableCell>                <TableCell>Traits</TableCell>
                 <TableCell>Availability</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell align="right">Actions</TableCell>
@@ -211,6 +226,16 @@ export default function StaffManagement() {
                     <Chip label={s.type} size="small"
                       icon={s.type === 'STAFF' ? <PersonIcon /> : <VolunteerActivismIcon />}
                       color={s.type === 'STAFF' ? 'primary' : 'secondary'} variant="outlined" />
+                  </TableCell>
+                  <TableCell>
+                    {(s.locations && s.locations.length > 0) ? (
+                      <Stack direction="row" flexWrap="wrap" gap={0.5}>
+                        {s.locations.map(l => (
+                          <Chip key={l} label={l} size="small" icon={<LocationOnIcon />}
+                            sx={{ fontSize: '0.6rem', height: 18, '& .MuiChip-icon': { fontSize: 10 } }} />
+                        ))}
+                      </Stack>
+                    ) : <Typography variant="caption" color="text.disabled">All regions</Typography>}
                   </TableCell>
                   <TableCell>
                     <Stack direction="row" flexWrap="wrap" gap={0.5}>

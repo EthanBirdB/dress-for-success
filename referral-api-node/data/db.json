@@ -1,0 +1,113 @@
+{
+  "referrals": [
+    {
+      "id": "97b5d48f-31ca-4b0e-b678-9778b39fe625",
+      "firstName": "Zack",
+      "lastName": "Caldwell",
+      "phoneNumber": "0418877032",
+      "email": "zackcaldwell@gmail.com",
+      "dressSize": "8",
+      "shoeSize": "8",
+      "topSize": "XXL",
+      "bottomSize": "M",
+      "referralReason": "JOB_START",
+      "referralReasonOther": null,
+      "status": "PENDING",
+      "source": "WEB",
+      "createdAt": "2026-05-12T01:09:14.217Z",
+      "updatedAt": "2026-05-12T01:09:14.217Z"
+    },
+    {
+      "id": "d82238ba-ca6e-49e9-8f2e-0478431f05ca",
+      "firstName": "James",
+      "lastName": "Wiggins",
+      "phoneNumber": "3452345",
+      "email": "james@email.com",
+      "dressSize": "8",
+      "shoeSize": "7",
+      "topSize": "M",
+      "bottomSize": "L",
+      "referralReason": "WEDDING",
+      "referralReasonOther": null,
+      "status": "PENDING",
+      "source": "WEB",
+      "createdAt": "2026-05-12T01:12:19.537Z",
+      "updatedAt": "2026-05-12T01:12:19.537Z"
+    },
+    {
+      "id": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
+      "firstName": "Jan",
+      "lastName": "Rodham",
+      "phoneNumber": "1234567",
+      "email": null,
+      "dressSize": "8",
+      "shoeSize": "6.5",
+      "topSize": "S",
+      "bottomSize": "L",
+      "referralReason": "OTHER",
+      "referralReasonOther": "DV",
+      "status": "IN_PROGRESS",
+      "source": "WEB",
+      "createdAt": "2026-05-12T01:20:25.023Z",
+      "updatedAt": "2026-05-12T01:21:01.275Z"
+    },
+    {
+      "id": "04b031a0-8fb9-4320-9d03-2924c721288d",
+      "firstName": "Ethan",
+      "lastName": "Bird",
+      "phoneNumber": "23434644",
+      "email": null,
+      "dressSize": "8",
+      "shoeSize": "7.5",
+      "topSize": "L",
+      "bottomSize": "M",
+      "referralReason": "JOB_START",
+      "referralReasonOther": null,
+      "status": "COMPLETED",
+      "source": "WEB",
+      "createdAt": "2026-05-12T02:02:40.264Z",
+      "updatedAt": "2026-05-12T02:11:28.254Z"
+    }
+  ],
+  "notes": [
+    {
+      "id": "d5c3ca98-db97-4a26-841e-37b8ac92c679",
+      "referralId": "d82238ba-ca6e-49e9-8f2e-0478431f05ca",
+      "noteText": "is a same sex wedding",
+      "createdBy": "admin",
+      "createdAt": "2026-05-12T01:12:47.144Z"
+    },
+    {
+      "id": "8b730e1d-2579-429c-ad75-c0655af8d759",
+      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
+      "noteText": "wants clothes and interview skills",
+      "createdBy": "admin",
+      "createdAt": "2026-05-12T01:21:25.590Z"
+    },
+    {
+      "id": "84b5a0f1-2968-48ec-a277-346d189d48a2",
+      "referralId": "1793745d-48de-4d95-ae9c-0aeeadd434c6",
+      "noteText": "follow up scheduled for 23/5",
+      "createdBy": "admin",
+      "createdAt": "2026-05-12T01:21:38.631Z"
+    }
+  ],
+  "staffUsers": [
+    {
+      "id": "026845bc-8be6-4cc5-a492-4034231a0f94",
+      "username": "admin",
+      "passwordHash": "$2a$10$EY8zy98fLrATa.5o4sAQjewypWknkxFLFbJFlCgrZYS2W3AZOz5AG",
+      "displayName": "Admin User",
+      "role": "ADMIN",
+      "createdAt": "2026-05-12T01:07:46.359Z"
+    },
+    {
+      "id": "6c753d4a-9ebc-4b65-8deb-b07e0f691426",
+      "username": "staff",
+      "passwordHash": "$2a$10$QqaZJJrXuE83VAt.0QFbCeVNYfC3tLDtSg5vhUYhPWggslhB9cF4W",
+      "displayName": "Staff Member",
+      "role": "STAFF",
+      "createdAt": "2026-05-12T01:07:46.422Z"
+    }
+  ]
+}

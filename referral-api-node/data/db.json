@@ -16,11 +16,11 @@
       "shoeSize": "6.5",
       "topSize": "M",
       "bottomSize": "M",
-      "status": "QUEUED",
+      "status": "ASSIGNED",
       "source": "WEB",
-      "assignedStaffId": null,
+      "assignedStaffId": "bb52bb59-4814-4cfc-8358-63da501b54d0",
       "createdAt": "2026-05-12T03:53:20.145Z",
-      "updatedAt": "2026-05-12T03:53:20.145Z"
+      "updatedAt": "2026-05-12T03:55:46.272Z"
     }
   ],
   "notes": [
@@ -148,7 +148,30 @@
       "createdAt": "2026-05-12T03:50:08.924Z"
     }
   ],
-  "assignments": [],
+  "assignments": [
+    {
+      "id": "b44f4df2-f0f0-482f-a5d4-3f597f8b5946",
+      "bookingId": "c35b3c83-d667-4b3d-b0e0-448ce2955722",
+      "staffId": "2f194509-f643-4b5f-af09-2f3ecdffd8e5",
+      "status": "DENIED",
+      "token": "7680a81b-5f82-446c-8ac0-d1bbe3106b2a",
+      "rank": 1,
+      "sentAt": "2026-05-12T03:55:34.875Z",
+      "respondedAt": "2026-05-12T03:55:43.739Z",
+      "createdAt": "2026-05-12T03:55:34.875Z"
+    },
+    {
+      "id": "680cb928-a62f-439e-9a58-dad756eab1d9",
+      "bookingId": "c35b3c83-d667-4b3d-b0e0-448ce2955722",
+      "staffId": "bb52bb59-4814-4cfc-8358-63da501b54d0",
+      "status": "PENDING",
+      "token": "dd2e4356-67d8-4d6b-a9a0-1b071805c76b",
+      "rank": 2,
+      "sentAt": "2026-05-12T03:55:46.271Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T03:55:46.271Z"
+    }
+  ],
   "staffUsers": [
     {
       "id": "026845bc-8be6-4cc5-a492-4034231a0f94",

@@ -18,12 +18,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Illawarra",
       "assignedStaffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
       "createdAt": "2026-05-12T05:24:01.803Z",
-      "updatedAt": "2026-05-12T05:45:28.382Z"
+      "updatedAt": "2026-05-12T06:37:39.462Z"
     },
     {
       "id": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
@@ -43,12 +43,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Melbourne",
       "assignedStaffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
       "createdAt": "2026-05-12T05:24:01.804Z",
-      "updatedAt": "2026-05-12T05:29:58.506Z"
+      "updatedAt": "2026-05-12T06:37:31.760Z"
     },
     {
       "id": "6522d70e-5921-4be5-af42-cad1955aa31d",
@@ -68,12 +68,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Newcastle Hunter",
       "assignedStaffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
       "createdAt": "2026-05-12T05:24:01.805Z",
-      "updatedAt": "2026-05-12T05:45:28.392Z"
+      "updatedAt": "2026-05-12T06:38:42.404Z"
     },
     {
       "id": "147aff45-98e7-4f1b-872e-7901575ccb2b",
@@ -92,12 +92,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Illawarra",
       "assignedStaffId": "d2adef72-7034-4b43-a99c-9885829041a5",
       "createdAt": "2026-05-12T05:24:01.806Z",
-      "updatedAt": "2026-05-12T05:45:28.385Z"
+      "updatedAt": "2026-05-12T06:38:52.476Z"
     },
     {
       "id": "66901b80-d7b5-4348-a727-ed2856939332",
@@ -116,12 +116,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "CANCELLED",
+      "status": "ASSIGNED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": "f53da450-30ed-4a0b-9654-d5e8926c7acd",
+      "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "createdAt": "2026-05-12T05:24:01.807Z",
-      "updatedAt": "2026-05-12T06:17:29.469Z"
+      "updatedAt": "2026-05-12T06:44:05.584Z"
     },
     {
       "id": "cac23acf-531f-4a89-b1dd-e43f839e4621",
@@ -165,12 +165,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Illawarra",
-      "assignedStaffId": null,
+      "assignedStaffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
       "createdAt": "2026-05-12T05:24:01.808Z",
-      "updatedAt": "2026-05-12T06:17:20.625Z"
+      "updatedAt": "2026-05-12T06:37:27.640Z"
     },
     {
       "id": "2e1eab12-b070-4f9c-b0bc-ee4b41a87786",
@@ -214,12 +214,12 @@
       "shoeSize": null,
       "topSize": "XL",
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Newcastle Hunter",
       "assignedStaffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
       "createdAt": "2026-05-12T05:24:01.810Z",
-      "updatedAt": "2026-05-12T05:56:28.090Z"
+      "updatedAt": "2026-05-12T06:39:02.623Z"
     },
     {
       "id": "78cd3f43-5166-4e58-9411-fffa9bc8df93",
@@ -239,12 +239,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Illawarra",
       "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "createdAt": "2026-05-12T05:24:01.811Z",
-      "updatedAt": "2026-05-12T05:45:28.387Z"
+      "updatedAt": "2026-05-12T06:39:15.204Z"
     },
     {
       "id": "cec95b82-5e95-496c-aa87-a1daa0b7cc56",
@@ -264,12 +264,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Tasmania",
       "assignedStaffId": "a83c4597-975c-4474-9b9a-8afe2abde07e",
       "createdAt": "2026-05-12T05:24:01.812Z",
-      "updatedAt": "2026-05-12T05:45:28.389Z"
+      "updatedAt": "2026-05-12T06:39:18.796Z"
     },
     {
       "id": "6ab1be96-d517-44df-90a7-04ba09903fa5",
@@ -289,12 +289,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Melbourne",
       "assignedStaffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
       "createdAt": "2026-05-12T05:24:01.813Z",
-      "updatedAt": "2026-05-12T05:45:28.394Z"
+      "updatedAt": "2026-05-12T06:39:21.552Z"
     },
     {
       "id": "5939583f-84b6-43f9-8609-579cfeb1c0f4",
@@ -314,12 +314,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Illawarra",
       "assignedStaffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
       "createdAt": "2026-05-12T05:24:01.813Z",
-      "updatedAt": "2026-05-12T05:56:30.153Z"
+      "updatedAt": "2026-05-12T06:39:48.442Z"
     },
     {
       "id": "e28852d6-7e5f-4537-83b5-f6b61b7e8d16",
@@ -338,12 +338,12 @@
       "shoeSize": "8",
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Newcastle Hunter",
       "assignedStaffId": "d2adef72-7034-4b43-a99c-9885829041a5",
       "createdAt": "2026-05-12T05:24:01.814Z",
-      "updatedAt": "2026-05-12T05:56:32.276Z"
+      "updatedAt": "2026-05-12T06:39:52.387Z"
     },
     {
       "id": "1c31a0ff-4954-4cec-bd80-0ccff3d01a10",
@@ -363,12 +363,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Melbourne",
       "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "createdAt": "2026-05-12T05:24:01.815Z",
-      "updatedAt": "2026-05-12T05:56:34.304Z"
+      "updatedAt": "2026-05-12T06:39:56.278Z"
     },
     {
       "id": "406584e1-bf36-4461-9a8b-2c7119e7d474",
@@ -916,6 +916,39 @@
       "sentAt": "2026-05-12T05:59:20.681Z",
       "respondedAt": null,
       "createdAt": "2026-05-12T05:59:20.681Z"
+    },
+    {
+      "id": "7312ba70-a87e-4fa1-ba19-a53e4c7c4074",
+      "bookingId": "b7bbb50f-b6b1-401e-a4da-3ea0539deb23",
+      "staffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
+      "status": "PENDING",
+      "token": "82d859b7-6fc8-4b4f-99fa-4806016caa4c",
+      "rank": 1,
+      "sentAt": "2026-05-12T06:33:47.394Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T06:33:47.394Z"
+    },
+    {
+      "id": "f65c104d-5d0d-48bf-8ae9-82b44888cc22",
+      "bookingId": "66901b80-d7b5-4348-a727-ed2856939332",
+      "staffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
+      "status": "DENIED",
+      "token": "7b3d9463-19cd-4237-a270-795d1de83dec",
+      "rank": 2,
+      "sentAt": "2026-05-12T06:43:56.314Z",
+      "respondedAt": "2026-05-12T06:44:03.096Z",
+      "createdAt": "2026-05-12T06:43:56.314Z"
+    },
+    {
+      "id": "d8e7108e-0133-4b29-a2ec-4ca3d92c2dee",
+      "bookingId": "66901b80-d7b5-4348-a727-ed2856939332",
+      "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "status": "PENDING",
+      "token": "9ab47e9c-499d-4020-ae45-0cb53e80b7b4",
+      "rank": 3,
+      "sentAt": "2026-05-12T06:44:05.582Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-12T06:44:05.582Z"
     }
   ],
   "staffUsers": [

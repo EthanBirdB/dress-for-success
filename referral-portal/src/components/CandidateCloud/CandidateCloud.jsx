@@ -1,9 +1,9 @@
-﻿import { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import {
   Box, Typography, Chip, CircularProgress, Divider,
   Button, Stack, Avatar, LinearProgress, Alert, Snackbar,
   Table, TableBody, TableCell, TableHead, TableRow, TableContainer, Paper,
-  TextField, MenuItem,
+  TextField, MenuItem, Collapse,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PersonIcon from '@mui/icons-material/Person';
@@ -82,6 +82,63 @@ function SectionRow({ label, color }) {
     <TableRow>
       <TableCell colSpan={4} sx={{ py: 0.75, bgcolor: color + '.50', borderBottom: '1px solid', borderColor: color + '.200' }}>
         <Typography variant="caption" fontWeight={700} color={color + '.dark'}>{label}</Typography>
+      </TableCell>
+    </TableRow>
+  );
+}
+
+function ProfileExpandRow({ c, booking, staffById, assigning, assignedLink, onAssign, onClose }) {
+  const av = c.availability;
+  const avStr = !av ? '' : typeof av === 'string' ? av
+    : `${Array.isArray(av.days) ? av.days.join(', ') : (av.days || '')}${av.startTime ? ' ' + av.startTime : ''}${av.endTime ? '\u2013' + av.endTime : ''}`;
+  const locs = (staffById[c.staffId]?.locations) || c.locations || [];
+  return (
+    <TableRow sx={{ bgcolor: 'primary.50' }}>
+      <TableCell colSpan={4} sx={{ p: 0, borderBottom: '2px solid', borderColor: 'primary.200' }}>
+        <Collapse in unmountOnExit>
+          <Box sx={{ p: 2 }}>
+              {avStr.trim() && (
+                <Typography variant="caption" color="text.secondary" display="block">
+                  Availability: {avStr}
+                </Typography>
+              )}
+              {locs.length > 0 && (
+                <Stack direction="row" gap={0.5} flexWrap="wrap" sx={{ mt: 0.5 }}>
+                  {locs.map(l => (
+                    <Chip key={l} label={l} size="small" variant="outlined"
+                      sx={{ height: 16, fontSize: '0.6rem' }} />
+                  ))}
+                </Stack>
+              )}
+              {c.bio && (
+                <Typography variant="caption" color="text.secondary"
+                  sx={{ fontStyle: 'italic', display: 'block', mt: 0.75 }}>
+                  "{c.bio}"
+                </Typography>
+              )}
+              {(c.traits || []).length > 0 && (
+                <Stack direction="row" flexWrap="wrap" gap={0.5} sx={{ mt: 0.75 }}>
+                  {c.traits.map(t => (
+                    <Chip key={t} label={t} size="small"
+                      color={(booking.characteristics || []).includes(t) ? 'primary' : 'default'}
+                      variant={(booking.characteristics || []).includes(t) ? 'filled' : 'outlined'}
+                      sx={{ fontSize: '0.6rem', height: 18 }} />
+                  ))}
+                </Stack>
+              )}
+              <Divider sx={{ my: 1 }} />
+              <Stack direction="row" spacing={1}>
+                <Button variant="contained" size="small" onClick={onAssign}
+                  disabled={assigning || !!assignedLink}
+                  startIcon={assignedLink ? <CheckCircleIcon /> : null}>
+                  {assigning
+                    ? <CircularProgress size={14} color="inherit" />
+                    : assignedLink ? 'Assigned \u2713' : `Assign ${c.name.split(' ')[0]}`}
+                </Button>
+                <Button size="small" variant="outlined" onClick={onClose}>Close</Button>
+              </Stack>
+          </Box>
+        </Collapse>
       </TableCell>
     </TableRow>
   );
@@ -205,10 +262,17 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
                   <SectionRow label={`✓  ${candidates.length} matched staff`} color="success" />
                 )}
                 {[...candidates].sort((a, b) => b.finalScore - a.finalScore).map(c => (
-                  <StaffRow key={c.staffId} c={c} isMatched={true}
-                    isSelected={selected?.staffId === c.staffId}
-                    bookingChars={booking.characteristics}
-                    onClick={() => setSelected(c)} />
+                  <React.Fragment key={c.staffId}>
+                    <StaffRow c={c} isMatched={true}
+                      isSelected={selected?.staffId === c.staffId}
+                      bookingChars={booking.characteristics}
+                      onClick={() => setSelected(s => s?.staffId === c.staffId ? null : c)} />
+                    {selected?.staffId === c.staffId && (
+                      <ProfileExpandRow c={c} booking={booking}
+                        staffById={staffById} assigning={assigning} assignedLink={assignedLink}
+                        onAssign={handleAssign} onClose={() => setSelected(null)} />
+                    )}
+                  </React.Fragment>
                 ))}
 
                 {unmatched.length > 0 && (
@@ -228,10 +292,17 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
                   </TableRow>
                 )}
                 {unmatchedOpen && unmatched.map(c => (
-                  <StaffRow key={c.staffId} c={c} isMatched={false}
-                    isSelected={selected?.staffId === c.staffId}
-                    bookingChars={booking.characteristics}
-                    onClick={() => setSelected(c)} />
+                  <React.Fragment key={c.staffId}>
+                    <StaffRow c={c} isMatched={false}
+                      isSelected={selected?.staffId === c.staffId}
+                      bookingChars={booking.characteristics}
+                      onClick={() => setSelected(s => s?.staffId === c.staffId ? null : c)} />
+                    {selected?.staffId === c.staffId && (
+                      <ProfileExpandRow c={c} booking={booking}
+                        staffById={staffById} assigning={assigning} assignedLink={assignedLink}
+                        onAssign={handleAssign} onClose={() => setSelected(null)} />
+                    )}
+                  </React.Fragment>
                 ))}
 
                 {candidates.length === 0 && unmatched.length === 0 && (
@@ -246,82 +317,6 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
           </TableContainer>
         )}
 
-        {/* ── Staff profile panel ── */}
-        {selected && !loading && (
-          <Box sx={{ border: '1px solid', borderColor: 'primary.200', borderRadius: 2, overflow: 'hidden', mt: 1 }}>
-            {/* Header */}
-            <Box sx={{ p: 2, bgcolor: 'primary.50', display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-              <Avatar src={profilePhotoUrl(selected.name)}
-                sx={{ width: 60, height: 60, flexShrink: 0,
-                  bgcolor: selected.type === 'STAFF' ? 'primary.main' : 'secondary.main' }}>
-                {selected.name[0]}
-              </Avatar>
-              <Box sx={{ flex: 1, minWidth: 0 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                  <Typography variant="subtitle1" fontWeight={700}>{selected.name}</Typography>
-                  <Chip label={selected.type} size="small"
-                    color={selected.type === 'STAFF' ? 'primary' : 'secondary'}
-                    sx={{ height: 18, fontSize: '0.6rem' }} />
-                </Box>
-                {selected.availability && (
-                  <Typography variant="caption" color="text.secondary" display="block">
-                    Availability: {selected.availability}
-                  </Typography>
-                )}
-                {(() => {
-                  const locs = (staffById[selected.staffId]?.locations) || selected.locations || [];
-                  return locs.length > 0 ? (
-                    <Stack direction="row" gap={0.5} flexWrap="wrap" sx={{ mt: 0.5 }}>
-                      {locs.map(l => (
-                        <Chip key={l} label={l} size="small" variant="outlined"
-                          sx={{ height: 16, fontSize: '0.6rem' }} />
-                      ))}
-                    </Stack>
-                  ) : null;
-                })()}
-              </Box>
-              <Button size="small" sx={{ minWidth: 0, p: 0.5, alignSelf: 'flex-start' }}
-                onClick={() => setSelected(null)}>✕</Button>
-            </Box>
-
-            {/* Body */}
-            <Box sx={{ p: 2 }}>
-              {selected.bio && (
-                <Typography variant="body2" color="text.secondary"
-                  sx={{ fontStyle: 'italic', mb: 1.5 }}>
-                  "{selected.bio}"
-                </Typography>
-              )}
-              {(selected.traits || []).length > 0 && (
-                <Box sx={{ mb: 1.5 }}>
-                  <Typography variant="caption" fontWeight={700} color="text.secondary">
-                    Skills / Traits
-                  </Typography>
-                  <Stack direction="row" flexWrap="wrap" gap={0.5} sx={{ mt: 0.5 }}>
-                    {selected.traits.map(t => (
-                      <Chip key={t} label={t} size="small"
-                        color={(booking.characteristics || []).includes(t) ? 'primary' : 'default'}
-                        variant={(booking.characteristics || []).includes(t) ? 'filled' : 'outlined'}
-                        sx={{ fontSize: '0.65rem', height: 20 }} />
-                    ))}
-                  </Stack>
-                </Box>
-              )}
-              <Divider sx={{ my: 1.5 }} />
-              <Stack direction="row" spacing={1}>
-                <Button variant="contained" size="small" onClick={handleAssign}
-                  disabled={assigning || !!assignedLink}
-                  startIcon={assignedLink ? <CheckCircleIcon /> : null}
-                  sx={{ flex: 1 }}>
-                  {assigning
-                    ? <CircularProgress size={16} color="inherit" />
-                    : assignedLink ? 'Assigned ✓' : `Assign ${selected.name.split(' ')[0]}`}
-                </Button>
-                <Button size="small" variant="outlined" onClick={() => setSelected(null)}>Cancel</Button>
-              </Stack>
-            </Box>
-          </Box>
-        )}
       </Box>
 
       <Snackbar open={!!snackbar} autoHideDuration={8000} onClose={() => setSnackbar('')}

@@ -60,7 +60,7 @@ export default function Dashboard() {
     setStatusUpdating(true);
     try {
       await updateBookingStatus(selected.id, newStatus);
-      const updated = { ...selected, status: newStatus };
+      const updated = { ...selected, status: newStatus, ...(newStatus === 'QUEUED' ? { assignedStaffId: null } : {}) };
       setSelected(updated);
       setBookings(prev => prev.map(b => b.id === selected.id ? updated : b));
     } catch (e) { console.error(e); }
@@ -315,9 +315,9 @@ export default function Dashboard() {
             <Typography variant="subtitle2" gutterBottom>Actions</Typography>
             <Stack direction="row" spacing={1}>
               <Button size="small" variant="outlined" color="primary"
-                disabled={statusUpdating || selected.status === 'ASSIGNED'}
-                onClick={() => handleStatusChange('ASSIGNED')}>
-                Reassign (Pending)
+                disabled={statusUpdating || selected.status === 'QUEUED'}
+                onClick={() => handleStatusChange('QUEUED')}>
+                Reassign (Queued)
               </Button>
               <Button size="small" variant="outlined" color="error"
                 disabled={statusUpdating || selected.status === 'CANCELLED'}

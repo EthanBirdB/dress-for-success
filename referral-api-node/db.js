@@ -104,6 +104,7 @@ function updateBookingStatus(id, status) {
   const idx = db.bookings.findIndex(b => b.id === id);
   if (idx === -1) return null;
   db.bookings[idx].status = status;
+  if (status === 'QUEUED') db.bookings[idx].assignedStaffId = null;
   db.bookings[idx].updatedAt = new Date().toISOString();
   write(db);
   const notes = db.notes.filter(n => n.bookingId === id)

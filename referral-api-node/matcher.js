@@ -40,26 +40,42 @@ function tagScore(staff, booking) {
 
 async function aiScore(staff, booking) {
   const client = getOpenAI();
-  if (!client || !booking.description || !staff.bio) return null;
+  if (!client) return null;
 
   try {
-    const prompt = `You are a matching assistant for a charity dress service.
-Booking description: "${booking.description}"
-Staff/volunteer bio: "${staff.bio}"
+    const descPart = booking.description
+      ? `Client description: "${booking.description}"`
+      : `Client needs (traits): ${(booking.characteristics || []).join(', ')}`;
+    const bioPart = staff.bio
+      ? `Staff bio: "${staff.bio}"`
+      : `Staff skills: ${(staff.traits || []).join(', ')}`;
 
-Rate how well this staff member's expertise matches this booking's needs.
-Reply with ONLY a decimal number between 0.0 and 1.0. No explanation.`;
+    const prompt = `You are a matching assistant for "Dress for Success", a charity that styles clients for job interviews and life events.
+${descPart}
+${bioPart}
+Staff traits: ${(staff.traits || []).join(', ')}
+
+Rate how well this staff member matches this booking, then give ONE sentence explaining why.
+Reply ONLY in this exact format (no extra text):
+<score>|<reason>
+Where score is 0.0-1.0 and reason is one concise sentence.
+Example: 0.82|Sarah's retail fashion experience and interview coaching background directly match this client's job preparation needs.`;
 
     const response = await client.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
-      max_tokens: 5,
+      max_tokens: 100,
       temperature: 0,
     });
 
     const text = response.choices[0]?.message?.content?.trim() || '0';
-    const score = parseFloat(text);
-    return isNaN(score) ? null : Math.min(1, Math.max(0, score));
+    const pipeIdx = text.indexOf('|');
+    const score = parseFloat(pipeIdx >= 0 ? text.slice(0, pipeIdx) : text);
+    const reason = pipeIdx >= 0 ? text.slice(pipeIdx + 1).trim() : null;
+    return {
+      score: isNaN(score) ? null : Math.min(1, Math.max(0, score)),
+      reason: reason || null,
+    };
   } catch (err) {
     console.warn('OpenAI scoring failed, falling back to tag-only:', err.message);
     return null;
@@ -73,10 +89,13 @@ async function rankCandidates(booking, allStaff) {
     available.map(async (staff) => {
       const { score: tScore, matchingTraits } = tagScore(staff, booking);
       let aScore = null;
+      let aiReason = null;
 
-      // Use AI for bookings with descriptions or when tag score is low
-      if (booking.description || tScore < 0.5) {
-        aScore = await aiScore(staff, booking);
+      // Always attempt AI scoring for richer, reason-aware matching
+      const aiResult = await aiScore(staff, booking);
+      if (aiResult) {
+        aScore = aiResult.score;
+        aiReason = aiResult.reason;
       }
 
       const finalScore = aScore !== null
@@ -92,6 +111,7 @@ async function rankCandidates(booking, allStaff) {
         availability: staff.availability,
         tagScore: Math.round(tScore * 100) / 100,
         aiScore: aScore !== null ? Math.round(aScore * 100) / 100 : null,
+        aiReason,
         finalScore: Math.round(finalScore * 100) / 100,
         matchingTraits,
       };

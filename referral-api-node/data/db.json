@@ -43,12 +43,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ASSIGNED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
+      "assignedStaffId": null,
       "createdAt": "2026-05-12T05:24:01.804Z",
-      "updatedAt": "2026-05-13T00:29:27.600Z"
+      "updatedAt": "2026-05-13T01:00:08.685Z"
     },
     {
       "id": "6522d70e-5921-4be5-af42-cad1955aa31d",
@@ -68,12 +68,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ACCEPTED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Newcastle Hunter",
-      "assignedStaffId": "ns017",
+      "assignedStaffId": null,
       "createdAt": "2026-05-12T05:24:01.805Z",
-      "updatedAt": "2026-05-13T00:37:49.529Z"
+      "updatedAt": "2026-05-13T00:59:47.335Z"
     },
     {
       "id": "147aff45-98e7-4f1b-872e-7901575ccb2b",
@@ -116,12 +116,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ACCEPTED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "assignedStaffId": null,
       "createdAt": "2026-05-12T05:24:01.807Z",
-      "updatedAt": "2026-05-13T01:00:04.000Z"
+      "updatedAt": "2026-05-13T00:59:43.239Z"
     },
     {
       "id": "cac23acf-531f-4a89-b1dd-e43f839e4621",
@@ -141,12 +141,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "ACCEPTED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Tasmania",
-      "assignedStaffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
+      "assignedStaffId": null,
       "createdAt": "2026-05-12T05:24:01.807Z",
-      "updatedAt": "2026-05-13T01:00:05.000Z"
+      "updatedAt": "2026-05-13T00:59:50.335Z"
     },
     {
       "id": "b7bbb50f-b6b1-401e-a4da-3ea0539deb23",
@@ -165,12 +165,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "COMPLETED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Illawarra",
-      "assignedStaffId": "707337fb-1dec-4958-92d5-9aa9b807f0f5",
+      "assignedStaffId": null,
       "createdAt": "2026-05-12T05:24:01.808Z",
-      "updatedAt": "2026-05-13T01:00:06.000Z"
+      "updatedAt": "2026-05-13T00:59:56.653Z"
     },
     {
       "id": "2e1eab12-b070-4f9c-b0bc-ee4b41a87786",
@@ -338,12 +338,12 @@
       "shoeSize": "8",
       "topSize": null,
       "bottomSize": null,
-      "status": "COMPLETED",
+      "status": "QUEUED",
       "source": "WEB",
       "location": "Newcastle Hunter",
-      "assignedStaffId": "d2adef72-7034-4b43-a99c-9885829041a5",
+      "assignedStaffId": null,
       "createdAt": "2026-05-12T05:24:01.814Z",
-      "updatedAt": "2026-05-13T01:00:09.000Z"
+      "updatedAt": "2026-05-13T01:00:00.522Z"
     },
     {
       "id": "1c31a0ff-4954-4cec-bd80-0ccff3d01a10",
@@ -369,6 +369,31 @@
       "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "createdAt": "2026-05-12T05:24:01.815Z",
       "updatedAt": "2026-05-13T00:28:29.608Z"
+    },
+    {
+      "id": "0d31b261-8ec2-40b0-8911-065328c27d95",
+      "firstName": "Brenda",
+      "lastName": "Allen",
+      "phoneNumber": "0437425643",
+      "email": null,
+      "scheduledDate": "2026-05-14",
+      "scheduledTime": "14:00",
+      "characteristics": [
+        "Wedding Styling",
+        "Custom Fitting",
+        "Formal Wear"
+      ],
+      "description": "I am attending a wedding and I need a form fitting dress.",
+      "dressSize": "8",
+      "shoeSize": "7",
+      "topSize": "S",
+      "bottomSize": "M",
+      "status": "ACCEPTED",
+      "source": "WEB",
+      "location": "Illawarra",
+      "assignedStaffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
+      "createdAt": "2026-05-13T01:13:10.670Z",
+      "updatedAt": "2026-05-13T01:13:56.607Z"
     }
   ],
   "notes": [],
@@ -1300,28 +1325,6 @@
   ],
   "assignments": [
     {
-      "id": "aa000005-0000-0000-0000-000000000005",
-      "bookingId": "66901b80-d7b5-4348-a727-ed2856939332",
-      "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
-      "status": "ACCEPTED",
-      "token": "dd000005-0000-0000-0000-000000000005",
-      "rank": 1,
-      "sentAt": "2026-05-12T20:00:00.000Z",
-      "respondedAt": "2026-05-12T21:00:00.000Z",
-      "createdAt": "2026-05-12T20:00:00.000Z"
-    },
-    {
-      "id": "aa000006-0000-0000-0000-000000000006",
-      "bookingId": "cac23acf-531f-4a89-b1dd-e43f839e4621",
-      "staffId": "ce81fb1b-d7f6-41e1-8756-f52f30983188",
-      "status": "ACCEPTED",
-      "token": "dd000006-0000-0000-0000-000000000006",
-      "rank": 1,
-      "sentAt": "2026-05-12T20:00:01.000Z",
-      "respondedAt": "2026-05-12T21:00:01.000Z",
-      "createdAt": "2026-05-12T20:00:01.000Z"
-    },
-    {
       "id": "aa000007-0000-0000-0000-000000000007",
       "bookingId": "cec95b82-5e95-496c-aa87-a1daa0b7cc56",
       "staffId": "a83c4597-975c-4474-9b9a-8afe2abde07e",
@@ -1331,28 +1334,6 @@
       "sentAt": "2026-05-12T20:00:02.000Z",
       "respondedAt": "2026-05-12T21:00:02.000Z",
       "createdAt": "2026-05-12T20:00:02.000Z"
-    },
-    {
-      "id": "aa000008-0000-0000-0000-000000000008",
-      "bookingId": "b7bbb50f-b6b1-401e-a4da-3ea0539deb23",
-      "staffId": "707337fb-1dec-4958-92d5-9aa9b807f0f5",
-      "status": "ACCEPTED",
-      "token": "dd000008-0000-0000-0000-000000000008",
-      "rank": 1,
-      "sentAt": "2026-05-10T08:00:00.000Z",
-      "respondedAt": "2026-05-10T09:00:00.000Z",
-      "createdAt": "2026-05-10T08:00:00.000Z"
-    },
-    {
-      "id": "aa000009-0000-0000-0000-000000000009",
-      "bookingId": "e28852d6-7e5f-4537-83b5-f6b61b7e8d16",
-      "staffId": "d2adef72-7034-4b43-a99c-9885829041a5",
-      "status": "ACCEPTED",
-      "token": "dd000009-0000-0000-0000-000000000009",
-      "rank": 1,
-      "sentAt": "2026-05-11T08:00:00.000Z",
-      "respondedAt": "2026-05-11T09:00:00.000Z",
-      "createdAt": "2026-05-11T08:00:00.000Z"
     },
     {
       "id": "a462f16b-54af-4907-9e6e-741dadfc1b38",
@@ -1443,26 +1424,15 @@
       "createdAt": "2026-05-13T00:28:22.785Z"
     },
     {
-      "id": "5784d241-edc1-4ba7-9279-fadb43fe0e12",
-      "bookingId": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
-      "staffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
-      "status": "PENDING",
-      "token": "0c29100c-b0a4-43e5-a97e-49fcfec67ae6",
-      "rank": 1,
-      "sentAt": "2026-05-13T00:29:27.599Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-13T00:29:27.599Z"
-    },
-    {
-      "id": "b37d21ed-7538-4f15-853f-9bb1e0391a41",
-      "bookingId": "6522d70e-5921-4be5-af42-cad1955aa31d",
-      "staffId": "ns017",
+      "id": "16de8b6a-0d6b-458c-82cc-c5c875d08e24",
+      "bookingId": "0d31b261-8ec2-40b0-8911-065328c27d95",
+      "staffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
       "status": "ACCEPTED",
-      "token": "cb4d8261-eded-4c4e-94be-16fbbe2f46bd",
+      "token": "ae24838c-ab7c-4fc7-adf8-075a7222986f",
       "rank": 1,
-      "sentAt": "2026-05-13T00:37:43.548Z",
-      "respondedAt": "2026-05-13T00:37:49.527Z",
-      "createdAt": "2026-05-13T00:37:43.548Z"
+      "sentAt": "2026-05-13T01:13:41.218Z",
+      "respondedAt": "2026-05-13T01:13:56.605Z",
+      "createdAt": "2026-05-13T01:13:41.218Z"
     }
   ],
   "staffUsers": [

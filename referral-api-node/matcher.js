@@ -50,22 +50,25 @@ async function aiScore(staff, booking) {
       ? `Staff bio: "${staff.bio}"`
       : `Staff skills: ${(staff.traits || []).join(', ')}`;
 
-    const prompt = `You are a matching assistant for "Dress for Success", a charity that styles clients for job interviews and life events.
+    const prompt = `You are an empathetic AI matching assistant for "Dress for Success", a charity that empowers women through professional styling for life-changing moments — job interviews, court appearances, weddings, and career re-entry.
+
 ${descPart}
 ${bioPart}
 Staff traits: ${(staff.traits || []).join(', ')}
 
-Rate how well this staff member matches this booking, then give ONE sentence explaining why.
+Your job: score the match AND write a warm, specific, human insight about WHY this person is the right fit for this client right now.
+The reason should feel personal and meaningful — reference the client's specific situation and the staff member's unique strengths. Make it sound like something a thoughtful coordinator would say, not a generic algorithm.
+
 Reply ONLY in this exact format (no extra text):
 <score>|<reason>
-Where score is 0.0-1.0 and reason is one concise sentence.
-Example: 0.82|Sarah's retail fashion experience and interview coaching background directly match this client's job preparation needs.`;
+Where score is 0.0–1.0 and reason is one vivid, specific sentence (max 25 words).
+Example: 0.91|Emma's decade of bridal styling and her gift for calming nervous clients makes her the perfect guide for this wedding journey.`;
 
     const response = await client.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
-      max_tokens: 100,
-      temperature: 0,
+      max_tokens: 120,
+      temperature: 0.4,
     });
 
     const text = response.choices[0]?.message?.content?.trim() || '0';
@@ -85,17 +88,25 @@ Example: 0.82|Sarah's retail fashion experience and interview coaching backgroun
 async function rankCandidates(booking, allStaff) {
   const available = allStaff.filter(s => s.isActive !== false && isAvailable(s, booking));
 
+  // Stage 1: score everyone by tags only (no API calls)
+  const tagRanked = available.map(staff => {
+    const { score: tScore, matchingTraits } = tagScore(staff, booking);
+    return { staff, tScore, matchingTraits };
+  }).sort((a, b) => b.tScore - a.tScore);
+
+  // Stage 2: only call AI for the top 3 by tag score to avoid quota exhaustion
+  const AI_LIMIT = 3;
   const results = await Promise.all(
-    available.map(async (staff) => {
-      const { score: tScore, matchingTraits } = tagScore(staff, booking);
+    tagRanked.map(async ({ staff, tScore, matchingTraits }, idx) => {
       let aScore = null;
       let aiReason = null;
 
-      // Always attempt AI scoring for richer, reason-aware matching
-      const aiResult = await aiScore(staff, booking);
-      if (aiResult) {
-        aScore = aiResult.score;
-        aiReason = aiResult.reason;
+      if (idx < AI_LIMIT) {
+        const aiResult = await aiScore(staff, booking);
+        if (aiResult) {
+          aScore = aiResult.score;
+          aiReason = aiResult.reason;
+        }
       }
 
       const finalScore = aScore !== null

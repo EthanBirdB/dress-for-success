@@ -68,12 +68,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "QUEUED",
+      "status": "ACCEPTED",
       "source": "WEB",
       "location": "Newcastle Hunter",
-      "assignedStaffId": null,
+      "assignedStaffId": "ns017",
       "createdAt": "2026-05-12T05:24:01.805Z",
-      "updatedAt": "2026-05-13T00:18:58.402Z"
+      "updatedAt": "2026-05-13T00:37:49.529Z"
     },
     {
       "id": "147aff45-98e7-4f1b-872e-7901575ccb2b",
@@ -1452,6 +1452,17 @@
       "sentAt": "2026-05-13T00:29:27.599Z",
       "respondedAt": null,
       "createdAt": "2026-05-13T00:29:27.599Z"
+    },
+    {
+      "id": "b37d21ed-7538-4f15-853f-9bb1e0391a41",
+      "bookingId": "6522d70e-5921-4be5-af42-cad1955aa31d",
+      "staffId": "ns017",
+      "status": "ACCEPTED",
+      "token": "cb4d8261-eded-4c4e-94be-16fbbe2f46bd",
+      "rank": 1,
+      "sentAt": "2026-05-13T00:37:43.548Z",
+      "respondedAt": "2026-05-13T00:37:49.527Z",
+      "createdAt": "2026-05-13T00:37:43.548Z"
     }
   ],
   "staffUsers": [

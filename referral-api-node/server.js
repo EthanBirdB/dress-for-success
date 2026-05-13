@@ -158,6 +158,8 @@ app.patch('/api/bookings/:id/status', requireAuth, (req, res) => {
   if (!status || !VALID_STATUSES.includes(status)) return res.status(400).json({ error: 'Invalid status' });
   const booking = db.updateBookingStatus(req.params.id, status);
   if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  // Bust cache so next open re-runs AI matching with a clean slate
+  if (status === 'QUEUED') invalidateCandidateCache(req.params.id);
   res.json(booking);
 });
 
@@ -175,15 +177,37 @@ app.get('/api/bookings/:id/notes', requireAuth, (req, res) => {
 
 // ─── Candidate Matching ───────────────────────────────────────────────────────
 
+// ─── Candidate cache — prevents repeated AI calls when panel re-renders ────────
+const candidateCache = new Map(); // bookingId -> { results, expiresAt }
+const CACHE_TTL_MS = 300 * 1000; // 300 seconds
+
+function getCachedCandidates(bookingId) {
+  const entry = candidateCache.get(bookingId);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) { candidateCache.delete(bookingId); return null; }
+  return entry.results;
+}
+function setCachedCandidates(bookingId, results) {
+  candidateCache.set(bookingId, { results, expiresAt: Date.now() + CACHE_TTL_MS });
+}
+function invalidateCandidateCache(bookingId) {
+  candidateCache.delete(bookingId);
+}
+
 app.get('/api/bookings/:id/candidates', requireAuth, async (req, res) => {
   const booking = db.getBookingById(req.params.id);
   if (!booking) return res.status(404).json({ error: 'Booking not found' });
+
+  const cached = getCachedCandidates(req.params.id);
+  if (cached) return res.json(cached);
+
   const allStaff = db.getAllStaff();
   // Exclude staff who already DENIED an assignment for this booking
   const previousAssignments = db.getAssignmentsForBooking(req.params.id);
   const deniedIds = new Set(previousAssignments.filter(a => a.status === 'DENIED').map(a => a.staffId));
   const eligibleStaff = allStaff.filter(s => !deniedIds.has(s.id));
   const ranked = await rankCandidates(booking, eligibleStaff);
+  setCachedCandidates(req.params.id, ranked);
   res.json(ranked);
 });
 

@@ -148,7 +148,7 @@ function ProfileExpandRow({ c, booking, staffById, assigning, justAssigned, onAs
               )}
               <Divider sx={{ my: 1 }} />
               <Stack direction="row" spacing={1}>
-                <Button variant="contained" size="small" onClick={onAssign}
+                <Button variant="contained" size="small" onClick={() => onAssign()}
                     disabled={assigning || justAssigned}
                     startIcon={justAssigned ? <CheckCircleIcon /> : null}>
                     {assigning
@@ -307,7 +307,9 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh }) {
       onAssigned(booking.id, target.staffId);
       if (onRefresh) onRefresh();
     } catch (e) {
-      setSnackbar('Failed to assign. Please try again.');
+      const msg = e.response?.data?.error || e.message || 'Unknown error';
+      console.error('Assign failed:', msg, e);
+      setSnackbar(`Failed to assign: ${msg}`);
       setSnackbarLink(null);
     } finally { setAssigning(false); }
   };

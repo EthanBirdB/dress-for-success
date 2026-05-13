@@ -337,8 +337,6 @@ export default function QueueBoard() {
             booking={selectedBooking}
             onAssigned={handleAssigned}
             onRefresh={silentRefresh}
-            onSendAll={handleSendAll}
-            sendAllRunning={sendAllRunning}
           />
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',

@@ -279,6 +279,31 @@ app.post('/api/bookings/send-all-assignments', requireAuth, async (req, res) => 
   res.json({ processed: queued.length, results });
 });
 
+// ─── Send requests for a single booking to all matched candidates ─────────────
+
+app.post('/api/bookings/:id/send-requests', requireAuth, async (req, res) => {
+  const booking = db.getBookingById(req.params.id);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+
+  const allStaff = db.getAllStaff();
+  const existingAssignments = db.getAssignmentsForBooking(booking.id);
+  const alreadySentIds = new Set(existingAssignments.map(a => a.staffId));
+  const eligibleStaff = allStaff.filter(s => !alreadySentIds.has(s.id));
+
+  const ranked = await rankCandidates(booking, eligibleStaff);
+  const results = [];
+  for (let i = 0; i < ranked.length; i++) {
+    const candidate = ranked[i];
+    const assignment = db.createAssignment(booking.id, candidate.staffId, existingAssignments.length + i + 1);
+    const staff = db.getStaffById(candidate.staffId);
+    const acceptLink = `${FRONTEND_URL}/assignment/${assignment.token}`;
+    console.log(`\n📨 SEND-BOOKING: ${staff.name} -> ${booking.firstName} ${booking.lastName} | ${acceptLink}`);
+    results.push({ staffId: candidate.staffId, staffName: staff.name, score: Math.round(candidate.finalScore * 100), acceptLink, token: assignment.token });
+  }
+  if (results.length > 0) db.setBookingAssignedStaff(booking.id, results[0].staffId);
+  res.json({ sent: results.length, results });
+});
+
 // ─── Assign ───────────────────────────────────────────────────────────────────
 
 app.post('/api/bookings/:id/assign', requireAuth, async (req, res) => {
@@ -402,6 +427,20 @@ app.delete('/api/staff/:id', requireAuth, (req, res) => {
 // ─── Start ────────────────────────────────────────────────────────────────────
 
 seedDefaults().then(() => {
+  // Clean up stale assignments left on QUEUED bookings (handles data from before the fix)
+  const dbData = require('./db');
+  const allBookings = dbData.getBookings({ size: 1000 }).content;
+  const queuedIds = new Set(allBookings.filter(b => b.status === 'QUEUED').map(b => b.id));
+  if (queuedIds.size > 0) {
+    const raw = require('fs').readFileSync(require('path').join(__dirname, 'data', 'db.json'), 'utf8');
+    const parsed = JSON.parse(raw);
+    const before = parsed.assignments.length;
+    parsed.assignments = parsed.assignments.filter(a => !queuedIds.has(a.bookingId));
+    if (parsed.assignments.length < before) {
+      require('fs').writeFileSync(require('path').join(__dirname, 'data', 'db.json'), JSON.stringify(parsed, null, 2));
+      console.log(`🧹 Cleaned ${before - parsed.assignments.length} stale assignments from QUEUED bookings`);
+    }
+  }
   app.listen(PORT, () => {
     console.log(`\n🚀 Booking API running at http://localhost:${PORT}`);
     console.log(`   Staff portal login: admin / admin123\n`);

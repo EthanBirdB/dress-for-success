@@ -1,0 +1,19 @@
+◇ injected env (3) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+🧹 Cleaned 4 stale assignments from QUEUED bookings
+
+🚀 Booking API running at http://localhost:8080
+   Staff portal login: admin / admin123
+
+
+📧 MOCK NOTIFICATION to Angela Morris (angela@demo.com)
+   Phone: 0411000009
+   Booking: Amara Okonkwo on 2026-06-04
+   Accept/Deny link: http://localhost:5173/assignment/d0b4190f-aa04-4c86-9e3a-a8f70ae4b5cd
+
+
+📧 MOCK NOTIFICATION to Marcus Thompson (marcus@demo.com)
+   Phone: 0411000006
+   Booking: Jessica Torres on 2026-05-19
+   Accept/Deny link: http://localhost:5173/assignment/0c29100c-b0a4-43e5-a97e-49fcfec67ae6
+

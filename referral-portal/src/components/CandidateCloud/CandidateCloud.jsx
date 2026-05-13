@@ -3,8 +3,7 @@ import {
   Box, Typography, Chip, CircularProgress, Divider,
   Button, Stack, Avatar, LinearProgress, Alert, Snackbar,
   Table, TableBody, TableCell, TableHead, TableRow, TableContainer, Paper,
-  TextField, MenuItem, Collapse, Dialog, DialogTitle, DialogContent,
-  DialogActions, Tooltip,
+  TextField, MenuItem, Collapse, Tooltip,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PersonIcon from '@mui/icons-material/Person';
@@ -12,7 +11,7 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SendIcon from '@mui/icons-material/Send';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { getCandidates, assignStaff, getAllStaff, getBookingAssignments } from '../../services/api';
+import { getCandidates, assignStaff, getAllStaff, getBookingAssignments, sendBookingRequests } from '../../services/api';
 
 function photoIndex(name) {
   let h = 0;
@@ -165,18 +164,20 @@ function ProfileExpandRow({ c, booking, staffById, assigning, justAssigned, onAs
   );
 }
 
-export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendAll, sendAllRunning }) {
+export default function CandidateCloud({ booking, onAssigned, onRefresh }) {
   const [candidates, setCandidates] = useState([]);
   const [allStaff, setAllStaff] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [assigning, setAssigning] = useState(false);
+  const [sendAllLoading, setSendAllLoading] = useState(false);
   const [assignedStaffId, setAssignedStaffId] = useState(null);
   const [sentStaffIds, setSentStaffIds] = useState(new Set());
-  const [assignmentStatusMap, setAssignmentStatusMap] = useState({}); // staffId -> 'PENDING'|'ACCEPTED'|'DENIED'
+  const [assignmentStatusMap, setAssignmentStatusMap] = useState({});
   const [snackbar, setSnackbar] = useState('');
   const [snackbarLink, setSnackbarLink] = useState(null);
-  const [unmatchedOpen, setUnmatchedOpen] = useState(false);  const [aiDialogOpen, setAiDialogOpen] = useState(false);
+  const [unmatchedOpen, setUnmatchedOpen] = useState(false);
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
   const [aiTopCandidate, setAiTopCandidate] = useState(null);
   useEffect(() => {
     if (!booking) return;
@@ -196,15 +197,19 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
         setAllStaff(sRes.data.filter(s => s.isActive !== false));
         const statusMap = {};
         const sent = new Set();
-        for (const a of aRes.data) {
-          statusMap[a.staffId] = a.status;
-          if (a.status !== 'DENIED') sent.add(a.staffId);
+        // Only show assignment badges if the booking has actually been assigned/accepted
+        // A QUEUED booking should never show stale "Request sent" chips
+        if (booking.status !== 'QUEUED') {
+          for (const a of aRes.data) {
+            statusMap[a.staffId] = a.status;
+            if (a.status !== 'DENIED') sent.add(a.staffId);
+          }
         }
         setAssignmentStatusMap(statusMap);
         setSentStaffIds(sent);
-        // Auto-show AI insight dialog for top AI-scored candidate
+        // Show AI insight dialog for top candidate (with or without AI reason)
         const sorted = [...cRes.data].sort((a, b) => b.finalScore - a.finalScore);
-        const top = sorted.find(c => c.aiScore !== null && c.aiScore !== undefined && c.aiReason);
+        const top = sorted[0];
         if (top && !statusMap[top.staffId]) {
           setAiTopCandidate(top);
           setAiDialogOpen(true);
@@ -213,6 +218,15 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [booking?.id]);
+
+  // When booking is reset to QUEUED, clear all sent/assignment state immediately
+  useEffect(() => {
+    if (booking?.status === 'QUEUED') {
+      setSentStaffIds(new Set());
+      setAssignmentStatusMap({});
+      setAssignedStaffId(null);
+    }
+  }, [booking?.status]);
 
   // Poll assignment statuses every 8 seconds so the list reflects accepts/declines in real time
   useEffect(() => {
@@ -255,6 +269,29 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
       bio: s.bio || '', availability: s.availability, locations: s.locations || [],
       matchingTraits: [], tagScore: 0, aiScore: null, finalScore: 0,
     }));
+
+  const handleSendAllRequests = async () => {
+    setSendAllLoading(true);
+    try {
+      const { data } = await sendBookingRequests(booking.id);
+      // Update local state with all newly sent requests
+      const newSent = new Set(sentStaffIds);
+      const newMap = { ...assignmentStatusMap };
+      for (const r of data.results) {
+        newSent.add(r.staffId);
+        newMap[r.staffId] = 'PENDING';
+      }
+      setSentStaffIds(newSent);
+      setAssignmentStatusMap(newMap);
+      setSnackbar(`Sent ${data.sent} request${data.sent !== 1 ? 's' : ''} for this booking`);
+      setSnackbarLink(null);
+      if (onRefresh) onRefresh();
+    } catch (e) {
+      setSnackbar('Failed to send requests. Please try again.');
+    } finally {
+      setSendAllLoading(false);
+    }
+  };
 
   const handleAssign = async (candidateOverride) => {
     const target = candidateOverride || selected;
@@ -299,15 +336,13 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
               )}
             </Stack>
           </Box>
-          {onSendAll && (
-            <Button size="small" variant="outlined" color="secondary"
-              disabled={sendAllRunning}
-              startIcon={sendAllRunning ? <CircularProgress size={13} /> : <SendIcon sx={{ fontSize: 14 }} />}
-              onClick={onSendAll}
+          <Button size="small" variant="outlined" color="secondary"
+              disabled={sendAllLoading}
+              startIcon={sendAllLoading ? <CircularProgress size={13} /> : <SendIcon sx={{ fontSize: 14 }} />}
+              onClick={handleSendAllRequests}
               sx={{ flexShrink: 0, whiteSpace: 'nowrap' }}>
               Send All Requests
             </Button>
-          )}
         </Box>
         <Stack direction="row" flexWrap="wrap" gap={0.5}>
           {(booking.characteristics || []).map(tag => (
@@ -411,47 +446,51 @@ export default function CandidateCloud({ booking, onAssigned, onRefresh, onSendA
 
       </Box>
 
-      {/* ── AI Top Match Dialog ── */}
-      <Dialog open={aiDialogOpen} onClose={() => setAiDialogOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1, pb: 1 }}>
-          <AutoAwesomeIcon sx={{ color: 'secondary.main' }} />
-          <Typography variant="h6" fontWeight={700}>AI Top Match</Typography>
-        </DialogTitle>
-        <DialogContent sx={{ pt: 0 }}>
+      {/* ── AI Top Match Toast ── */}
+      <Snackbar
+        open={aiDialogOpen}
+        onClose={() => setAiDialogOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        sx={{ maxWidth: 380 }}
+      >
+        <Paper elevation={6} sx={{ width: 360, borderRadius: 2, overflow: 'hidden', border: '1px solid', borderColor: 'secondary.200' }}>
+          <Box sx={{ bgcolor: 'secondary.main', px: 2, py: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <AutoAwesomeIcon sx={{ color: 'white', fontSize: 16 }} />
+              <Typography variant="subtitle2" fontWeight={700} color="white">AI Top Match</Typography>
+            </Box>
+            <Button size="small" onClick={() => setAiDialogOpen(false)}
+              sx={{ color: 'white', minWidth: 0, p: 0.5, opacity: 0.8, '&:hover': { opacity: 1 } }}>✕</Button>
+          </Box>
           {aiTopCandidate && (
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                <Avatar src={profilePhotoUrl(aiTopCandidate.name)} sx={{ width: 56, height: 56 }} />
-                <Box sx={{ flex: 1 }}>
-                  <Typography variant="subtitle1" fontWeight={700}>{aiTopCandidate.name}</Typography>
-                  <Typography variant="caption" color="text.secondary">{aiTopCandidate.type}</Typography>
-                  <Box sx={{ mt: 0.5, maxWidth: 140 }}><MatchBar score={aiTopCandidate.finalScore} /></Box>
+            <Box sx={{ p: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+                <Avatar src={profilePhotoUrl(aiTopCandidate.name)} sx={{ width: 44, height: 44 }} />
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                  <Typography variant="body2" fontWeight={700}>{aiTopCandidate.name}</Typography>
+                  <Box sx={{ maxWidth: 120 }}><MatchBar score={aiTopCandidate.finalScore} /></Box>
                 </Box>
+                {aiTopCandidate.matchingTraits?.slice(0, 2).map(t => (
+                  <Chip key={t} label={t} size="small" color="primary" sx={{ fontSize: '0.6rem', height: 18 }} />
+                ))}
               </Box>
-              <Alert severity="info" icon={<AutoAwesomeIcon />} sx={{ mb: 2 }}>
-                <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
-                  "{aiTopCandidate.aiReason}"
-                </Typography>
-              </Alert>
-              {aiTopCandidate.matchingTraits?.length > 0 && (
-                <Stack direction="row" gap={0.5} flexWrap="wrap">
-                  {aiTopCandidate.matchingTraits.map(t => (
-                    <Chip key={t} label={t} size="small" color="primary" sx={{ fontSize: '0.65rem' }} />
-                  ))}
-                </Stack>
-              )}
+              <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic', display: 'block', mb: 1.5, lineHeight: 1.5 }}>
+                {aiTopCandidate.aiReason
+                  ? `"${aiTopCandidate.aiReason}"`
+                  : `Best match based on ${aiTopCandidate.matchingTraits?.length > 0 ? 'shared skills: ' + aiTopCandidate.matchingTraits.join(', ') : 'availability and location'}.`}
+              </Typography>
+              <Stack direction="row" spacing={1} justifyContent="flex-end">
+                <Button size="small" onClick={() => setAiDialogOpen(false)} color="inherit">Dismiss</Button>
+                <Button size="small" variant="contained" disabled={assigning}
+                  startIcon={assigning ? <CircularProgress size={12} color="inherit" /> : <SendIcon sx={{ fontSize: 14 }} />}
+                  onClick={() => { setAiDialogOpen(false); handleAssign(aiTopCandidate); }}>
+                  Send Request
+                </Button>
+              </Stack>
             </Box>
           )}
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button onClick={() => setAiDialogOpen(false)} color="inherit">Dismiss</Button>
-          <Button variant="contained" disabled={assigning}
-            startIcon={assigning ? <CircularProgress size={14} color="inherit" /> : <SendIcon />}
-            onClick={() => { setAiDialogOpen(false); handleAssign(aiTopCandidate); }}>
-            Send Request
-          </Button>
-        </DialogActions>
-      </Dialog>
+        </Paper>
+      </Snackbar>
 
       <Snackbar open={!!snackbar} autoHideDuration={10000} onClose={() => { setSnackbar(''); setSnackbarLink(null); }}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>

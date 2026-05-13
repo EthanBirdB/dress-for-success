@@ -34,6 +34,7 @@ export const getCandidates = (bookingId) => api.get(`/bookings/${bookingId}/cand
 export const getBookingAssignments = (bookingId) => api.get(`/bookings/${bookingId}/assignments`);
 export const assignStaff = (bookingId, staffId) => api.post(`/bookings/${bookingId}/assign`, { staffId });
 export const autoAssignBooking = (bookingId) => api.post(`/bookings/${bookingId}/auto-assign`);
+export const sendBookingRequests = (bookingId) => api.post(`/bookings/${bookingId}/send-requests`);
 export const bulkAutoAssign = () => api.post('/bookings/bulk-auto-assign');
 export const sendAllAssignments = () => api.post('/bookings/send-all-assignments');
 

@@ -43,12 +43,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "QUEUED",
+      "status": "ASSIGNED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": null,
+      "assignedStaffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
       "createdAt": "2026-05-12T05:24:01.804Z",
-      "updatedAt": "2026-05-13T00:18:52.998Z"
+      "updatedAt": "2026-05-13T00:29:27.600Z"
     },
     {
       "id": "6522d70e-5921-4be5-af42-cad1955aa31d",
@@ -363,12 +363,12 @@
       "shoeSize": null,
       "topSize": null,
       "bottomSize": null,
-      "status": "QUEUED",
+      "status": "ACCEPTED",
       "source": "WEB",
       "location": "Melbourne",
-      "assignedStaffId": null,
+      "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "createdAt": "2026-05-12T05:24:01.815Z",
-      "updatedAt": "2026-05-12T05:24:01.815Z"
+      "updatedAt": "2026-05-13T00:28:29.608Z"
     }
   ],
   "notes": [],
@@ -1300,50 +1300,6 @@
   ],
   "assignments": [
     {
-      "id": "aa000001-0000-0000-0000-000000000001",
-      "bookingId": "6c233879-f2e2-4cba-a704-34c1cf975b3d",
-      "staffId": "b3f85a67-63ae-4c35-b085-b926511a047f",
-      "status": "PENDING",
-      "token": "dd000001-0000-0000-0000-000000000001",
-      "rank": 1,
-      "sentAt": "2026-05-13T01:00:00.000Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-13T01:00:00.000Z"
-    },
-    {
-      "id": "aa000002-0000-0000-0000-000000000002",
-      "bookingId": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
-      "staffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
-      "status": "PENDING",
-      "token": "dd000002-0000-0000-0000-000000000002",
-      "rank": 1,
-      "sentAt": "2026-05-13T01:00:01.000Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-13T01:00:01.000Z"
-    },
-    {
-      "id": "aa000003-0000-0000-0000-000000000003",
-      "bookingId": "6522d70e-5921-4be5-af42-cad1955aa31d",
-      "staffId": "f2917398-f200-40e1-9bbf-a8616bfef2b3",
-      "status": "PENDING",
-      "token": "dd000003-0000-0000-0000-000000000003",
-      "rank": 1,
-      "sentAt": "2026-05-13T01:00:02.000Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-13T01:00:02.000Z"
-    },
-    {
-      "id": "aa000004-0000-0000-0000-000000000004",
-      "bookingId": "147aff45-98e7-4f1b-872e-7901575ccb2b",
-      "staffId": "d2adef72-7034-4b43-a99c-9885829041a5",
-      "status": "PENDING",
-      "token": "dd000004-0000-0000-0000-000000000004",
-      "rank": 1,
-      "sentAt": "2026-05-13T01:00:03.000Z",
-      "respondedAt": null,
-      "createdAt": "2026-05-13T01:00:03.000Z"
-    },
-    {
       "id": "aa000005-0000-0000-0000-000000000005",
       "bookingId": "66901b80-d7b5-4348-a727-ed2856939332",
       "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
@@ -1474,6 +1430,28 @@
       "sentAt": "2026-05-12T23:59:11.467Z",
       "respondedAt": "2026-05-12T23:59:15.543Z",
       "createdAt": "2026-05-12T23:59:11.467Z"
+    },
+    {
+      "id": "a4d01ae3-0e4e-4996-874a-e408e638e6af",
+      "bookingId": "1c31a0ff-4954-4cec-bd80-0ccff3d01a10",
+      "staffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
+      "status": "ACCEPTED",
+      "token": "d0b4190f-aa04-4c86-9e3a-a8f70ae4b5cd",
+      "rank": 1,
+      "sentAt": "2026-05-13T00:28:22.785Z",
+      "respondedAt": "2026-05-13T00:28:29.606Z",
+      "createdAt": "2026-05-13T00:28:22.785Z"
+    },
+    {
+      "id": "5784d241-edc1-4ba7-9279-fadb43fe0e12",
+      "bookingId": "e9a9a5e7-cbdf-4e03-ab3e-ca4cd6928f41",
+      "staffId": "8020ce15-ba2f-43f3-9764-f3c6defb37a0",
+      "status": "PENDING",
+      "token": "0c29100c-b0a4-43e5-a97e-49fcfec67ae6",
+      "rank": 1,
+      "sentAt": "2026-05-13T00:29:27.599Z",
+      "respondedAt": null,
+      "createdAt": "2026-05-13T00:29:27.599Z"
     }
   ],
   "staffUsers": [

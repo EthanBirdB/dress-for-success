@@ -17,6 +17,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import StarIcon from '@mui/icons-material/Star';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import StopIcon from '@mui/icons-material/Stop';
 import {
   getPhoneSettings, updatePhoneSettings, getPhoneCalls,
   getBookings, approveReview, updateBooking, deleteBooking,
@@ -231,7 +233,23 @@ export default function PhoneAI() {
   const [savingSettings, setSavingSettings] = useState(false);
   const [questionDialogOpen, setQuestionDialogOpen] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
+  const [speakingId, setSpeakingId] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
+
+  const handlePlayQuestion = useCallback((questionId, questionText) => {
+    window.speechSynthesis.cancel();
+    if (speakingId === questionId) {
+      setSpeakingId(null);
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(questionText);
+    utterance.rate = 0.95;
+    utterance.pitch = 1;
+    utterance.onend = () => setSpeakingId(null);
+    utterance.onerror = () => setSpeakingId(null);
+    setSpeakingId(questionId);
+    window.speechSynthesis.speak(utterance);
+  }, [speakingId]);
 
   const loadSettings = useCallback(() => {
     setLoadingSettings(true);
@@ -397,6 +415,12 @@ export default function PhoneAI() {
                     }
                   />
                   <ListItemSecondaryAction sx={{ display: 'flex', gap: 0.5 }}>
+                    <Tooltip title={speakingId === q.id ? 'Stop' : 'Play question'}>
+                      <IconButton size="small" color={speakingId === q.id ? 'error' : 'primary'}
+                        onClick={() => handlePlayQuestion(q.id, q.question)}>
+                        {speakingId === q.id ? <StopIcon fontSize="small" /> : <VolumeUpIcon fontSize="small" />}
+                      </IconButton>
+                    </Tooltip>
                     <Tooltip title="Move up"><span>
                       <IconButton size="small" disabled={idx === 0} onClick={() => handleMoveUp(idx)}>↑</IconButton>
                     </span></Tooltip>

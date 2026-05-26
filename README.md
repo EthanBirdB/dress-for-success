@@ -7,16 +7,20 @@ A full-stack web app built for the **Dress for Success** charity that lets clien
 ## Features
 
 ### Client-facing
-- **Booking form** — clients enter their name, contact details, appointment date/time, clothing characteristics (tags), a free-text description, and sizing information
+- **Booking form** — clients enter their name, contact details, appointment date/time, location, clothing characteristics (tags), a free-text description, and sizing information
 - Submitted bookings land in a **QUEUED** state ready for staff action
 
 ### Staff portal
 - **Login** with role-based access (Admin / Staff)
+- **Persistent sidebar navigation** with links to Booking Queue, Dashboard, and People
+- **Dashboard** — at-a-glance stat cards (total, queued, assigned, accepted, in-progress, completed) plus a searchable/filterable bookings table; click any row to open a detail drawer with status management
 - **Queue board** — drag-and-drop sortable list of all bookings, filterable by status
 - **Candidate cloud** — click any booking to see a floating bubble visualisation of ranked candidates; bubble size reflects match score
   - Click a bubble to view the candidate's bio, traits, availability, and AI match breakdown
-  - Assign directly from the drawer; a mock notification link is generated
-- **Staff management** — add, edit, or deactivate staff members and volunteers with traits, bio, and availability
+  - Assign directly from the drawer; a notification link is generated
+  - **Auto-assign** a single booking to the top-ranked available candidate with one click
+  - **Bulk auto-assign** all QUEUED bookings at once, or use **Send All Assignments** for global best-first-served matching across the entire queue
+- **People** — add, edit, or deactivate staff members and volunteers with traits, bio, location, and availability
 
 ### Assignment workflow
 - Staff receive a unique link (`/assignment/:token`) — no login required
@@ -37,6 +41,7 @@ A full-stack web app built for the **Dress for Success** charity that lets clien
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React 18, Vite 5, Material UI v5 |
+| Notifications | `notistack` v3 (snackbar toasts) |
 | Date/time | `@mui/x-date-pickers` v6, dayjs |
 | Drag-and-drop | `@dnd-kit/core`, `@dnd-kit/sortable` |
 | Backend | Node.js 22, Express |
@@ -60,18 +65,19 @@ dress-for-success/
 └── referral-portal/            # React frontend
     └── src/
         ├── pages/
-        │   ├── ClientForm/     # Public booking form
-        │   ├── QueueBoard/     # Staff queue board + drag-and-drop
-        │   ├── StaffManagement/# Add/edit/deactivate staff
-        │   ├── StaffLogin/     # Login page
+        │   ├── ClientForm/       # Public booking form
+        │   ├── Dashboard/        # Staff dashboard with stats + booking table
+        │   ├── QueueBoard/       # Staff queue board + drag-and-drop
+        │   ├── StaffManagement/  # Add/edit/deactivate staff (People)
+        │   ├── StaffLogin/       # Login page
         │   └── AssignmentAccept/ # Public token-based accept/decline page
         ├── components/
-        │   ├── CandidateCloud/ # Floating bubble match visualisation
+        │   ├── CandidateCloud/   # Floating bubble match visualisation
         │   └── ProtectedRoute.jsx
         ├── context/
         │   └── AuthContext.jsx
         └── services/
-            └── api.js          # All axios API calls
+            └── api.js            # All axios API calls
 ```
 
 ---
@@ -106,7 +112,8 @@ node server.js
 
 On first run the server seeds:
 - Two login accounts: `admin / admin123` and `staff / staff123`
-- Four demo staff members with traits and bios
+- Twelve demo staff members and volunteers across Illawarra, Melbourne, Newcastle Hunter, and Tasmania
+- Twelve demo bookings in various statuses
 
 ### 2. Frontend
 
@@ -126,6 +133,7 @@ Vite starts at **http://localhost:5173** and proxies `/api` to `localhost:8080`.
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/api/characteristics` | Fixed list of booking tags |
+| GET | `/api/locations` | Available locations |
 | POST | `/api/bookings` | Submit a client booking |
 | GET | `/api/assignments/:token` | Fetch assignment details by token |
 | POST | `/api/assignments/:token/respond` | Accept or decline (`{ "response": "ACCEPT"\|"DENY" }`) |
@@ -140,6 +148,9 @@ Vite starts at **http://localhost:5173** and proxies `/api` to `localhost:8080`.
 | PATCH | `/api/bookings/:id/status` | Update booking status |
 | GET | `/api/bookings/:id/candidates` | Run matching algorithm, return ranked list |
 | POST | `/api/bookings/:id/assign` | Assign staff, generate notification token |
+| POST | `/api/bookings/:id/auto-assign` | Auto-assign top-ranked candidate |
+| POST | `/api/bookings/bulk-auto-assign` | Auto-assign all QUEUED bookings |
+| POST | `/api/bookings/send-all-assignments` | Global best-first-served assignment across queue |
 | POST/GET | `/api/bookings/:id/notes` | Add or list notes |
 | GET/POST | `/api/staff` | List or create staff members |
 | PUT | `/api/staff/:id` | Update a staff member |

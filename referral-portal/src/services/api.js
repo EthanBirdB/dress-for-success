@@ -46,5 +46,15 @@ export const createStaff = (data) => api.post('/staff', data);
 export const updateStaff = (id, data) => api.put(`/staff/${id}`, data);
 export const deleteStaff = (id) => api.delete(`/staff/${id}`);
 
+// --- Phone AI ---
+export const getPhoneSettings = () => api.get('/phone/settings');
+export const getPublicPhoneInfo = () => api.get('/phone/public');
+export const updatePhoneSettings = (data) => api.put('/phone/settings', data);
+export const getPhoneCalls = () => api.get('/phone/calls');
+export const phoneIntake = (transcript, callerNumber) => api.post('/phone/intake', { transcript, callerNumber });
+export const approveReview = (id) => api.post(`/bookings/${id}/approve-review`);
+export const updateBooking = (id, data) => api.put(`/bookings/${id}`, data);
+export const deleteBooking = (id) => api.delete(`/bookings/${id}`);
+
 export default api;
 

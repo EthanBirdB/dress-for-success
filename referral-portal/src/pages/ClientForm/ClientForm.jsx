@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box, Container, Typography, TextField, Button, MenuItem, Alert,
-  Paper, Grid, CircularProgress, Fade, Chip, Stack
+  Paper, Grid, CircularProgress, Fade, Chip, Stack,
 } from '@mui/material';
+import PhoneIcon from '@mui/icons-material/Phone';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import dayjs from 'dayjs';
-import { submitBooking, getLocations } from '../../services/api';
+import { submitBooking, getPublicPhoneInfo } from '../../services/api';
 
 const TOP_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 const BOTTOM_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -35,6 +36,11 @@ export default function ClientForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState('');
+  const [phoneInfo, setPhoneInfo] = useState(null);
+
+  useEffect(() => {
+    getPublicPhoneInfo().then(({ data }) => setPhoneInfo(data)).catch(() => {});
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -123,6 +129,21 @@ export default function ClientForm() {
           <Typography variant="body1" color="text.secondary">
             Fill in your details below and our team will find the perfect stylist for you.
           </Typography>
+        </Box>
+
+        {/* ── Book by phone button ── */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+          <Button
+            component="a"
+            href={phoneInfo?.phoneNumber ? `tel:${phoneInfo.phoneNumber.replace(/\s/g, '')}` : undefined}
+            variant="outlined"
+            size="large"
+            startIcon={<PhoneIcon />}
+            sx={{ borderRadius: 3, px: 4, py: 1.5, fontWeight: 700, fontSize: '1rem' }}
+          >
+            Make a phone booking via AI
+            {phoneInfo?.phoneNumber && <>&nbsp;·&nbsp;{phoneInfo.phoneNumber}</>}
+          </Button>
         </Box>
 
         {serverError && <Alert severity="error" sx={{ mb: 3 }}>{serverError}</Alert>}

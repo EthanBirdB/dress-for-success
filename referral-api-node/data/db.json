@@ -393,6 +393,32 @@
       "assignedStaffId": "3bddf75a-9ad4-4e0b-aceb-d6122c640082",
       "createdAt": "2026-05-12T05:26:50.100Z",
       "updatedAt": "2026-05-12T05:28:27.090Z"
+    },
+    {
+      "id": "44dc271a-3b47-4e98-8cd3-7f5ae6068e03",
+      "firstName": "a",
+      "lastName": "a",
+      "phoneNumber": "0330000000",
+      "email": "ef",
+      "scheduledDate": "Invalid Date",
+      "scheduledTime": "Invalid Date",
+      "characteristics": [
+        "Formal Wear",
+        "Custom Fitting",
+        "Interview Prep",
+        "Business Casual"
+      ],
+      "description": "adfagsghs",
+      "dressSize": "18",
+      "shoeSize": null,
+      "topSize": null,
+      "bottomSize": null,
+      "status": "QUEUED",
+      "source": "WEB",
+      "location": "Illawarra",
+      "assignedStaffId": null,
+      "createdAt": "2026-05-13T00:27:22.048Z",
+      "updatedAt": "2026-05-13T00:27:22.048Z"
     }
   ],
   "notes": [],
@@ -968,5 +994,150 @@
       "role": "STAFF",
       "createdAt": "2026-05-12T05:24:01.790Z"
     }
-  ]
+  ],
+  "phoneCalls": [],
+  "phoneSettings": {
+    "enabled": true,
+    "greeting": "Welcome to Dress for Success. I'll ask you a few quick questions to set up your appointment. Please pause briefly after each answer.",
+    "questions": [
+      {
+        "id": "q_firstName",
+        "field": "firstName",
+        "label": "First Name",
+        "question": "What is your first name?",
+        "required": true,
+        "type": "text"
+      },
+      {
+        "id": "q_lastName",
+        "field": "lastName",
+        "label": "Last Name",
+        "question": "What is your last name?",
+        "required": true,
+        "type": "text"
+      },
+      {
+        "id": "q_phone",
+        "field": "phoneNumber",
+        "label": "Phone Number",
+        "question": "What is the best phone number to reach you on?",
+        "required": true,
+        "type": "text"
+      },
+      {
+        "id": "q_location",
+        "field": "location",
+        "label": "Location",
+        "question": "Which Dress for Success location would you like to visit? We have Illawarra, Newcastle Hunter, Tasmania, and Melbourne.",
+        "required": true,
+        "type": "choice",
+        "options": [
+          "Illawarra",
+          "Newcastle Hunter",
+          "Tasmania",
+          "Melbourne"
+        ]
+      },
+      {
+        "id": "q_date",
+        "field": "scheduledDate",
+        "label": "Preferred Date",
+        "question": "What date would you prefer for your appointment? For example, the fifteenth of June.",
+        "required": true,
+        "type": "date"
+      },
+      {
+        "id": "q_time",
+        "field": "scheduledTime",
+        "label": "Preferred Time",
+        "question": "What time would you prefer? For example, nine thirty in the morning.",
+        "required": true,
+        "type": "time"
+      },
+      {
+        "id": "q_characteristics",
+        "field": "characteristics",
+        "label": "What Brings You In",
+        "question": "What brings you in today? For example, a job interview, wedding, court appearance, or business casual styling.",
+        "required": true,
+        "type": "multichoice",
+        "options": [
+          "Wedding Styling",
+          "Interview Prep",
+          "Court Appearance",
+          "Custom Fitting",
+          "Alterations",
+          "Plus Size Fitting",
+          "Business Casual",
+          "Confidence Coaching",
+          "Maternity Wear",
+          "Formal Wear"
+        ]
+      },
+      {
+        "id": "q_email",
+        "field": "email",
+        "label": "Email",
+        "question": "What is your email address? Say skip if you'd prefer not to share.",
+        "required": false,
+        "type": "text"
+      },
+      {
+        "id": "q_description",
+        "field": "description",
+        "label": "Additional Details",
+        "question": "Can you tell us a little more about what you're looking for and any special requirements?",
+        "required": false,
+        "type": "text"
+      },
+      {
+        "id": "q_dressSize",
+        "field": "dressSize",
+        "label": "Dress Size",
+        "question": "What is your dress size? Our sizes range from 2 to 24. Say skip if you're not sure.",
+        "required": false,
+        "type": "text"
+      },
+      {
+        "id": "q_topSize",
+        "field": "topSize",
+        "label": "Top Size",
+        "question": "What is your top size? Options are extra small, small, medium, large, extra large, or double extra large. Say skip if you're not sure.",
+        "required": false,
+        "type": "choice",
+        "options": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      {
+        "id": "q_bottomSize",
+        "field": "bottomSize",
+        "label": "Bottom Size",
+        "question": "What is your bottom size? Same sizing as tops. Say skip if you're not sure.",
+        "required": false,
+        "type": "choice",
+        "options": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ]
+      },
+      {
+        "id": "q_shoeSize",
+        "field": "shoeSize",
+        "label": "Shoe Size",
+        "question": "What is your shoe size? We have sizes from 5 to 12. Say skip if you're not sure.",
+        "required": false,
+        "type": "text"
+      }
+    ]
+  }
 }

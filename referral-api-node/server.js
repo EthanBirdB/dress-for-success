@@ -3,6 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const twilio = require('twilio');
+const OpenAI = require('openai');
 const db = require('./db');
 const { rankCandidates } = require('./matcher');
 
@@ -15,6 +20,7 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 app.use(cors({ origin: [FRONTEND_URL, 'http://localhost:3000'], credentials: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 function requireAuth(req, res, next) {
   const header = req.headers.authorization;
@@ -27,7 +33,107 @@ function requireAuth(req, res, next) {
   }
 }
 
-const VALID_STATUSES = ['QUEUED', 'ASSIGNED', 'ACCEPTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'];
+function requireAdmin(req, res, next) {
+  requireAuth(req, res, () => {
+    const user = db.findUserByUsername(req.user.username);
+    if (!user || user.role !== 'ADMIN') return res.status(403).json({ error: 'Admin access required' });
+    next();
+  });
+}
+
+// ─── Twilio Setup ─────────────────────────────────────────────────────────────
+
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
+
+let twilioClient = null;
+if (TWILIO_ACCOUNT_SID && TWILIO_AUTH_TOKEN &&
+    TWILIO_ACCOUNT_SID.startsWith('AC') && TWILIO_AUTH_TOKEN.length > 10) {
+  twilioClient = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+}
+
+let openaiPhoneClient = null;
+function getOpenAIPhone() {
+  if (!openaiPhoneClient && process.env.OPENAI_API_KEY) {
+    openaiPhoneClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return openaiPhoneClient;
+}
+
+function validateTwilioSignature(req, res, next) {
+  if (process.env.TWILIO_SKIP_VALIDATION === 'true' || !TWILIO_AUTH_TOKEN) return next();
+  const signature = req.headers['x-twilio-signature'] || '';
+  const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  if (!twilio.validateRequest(TWILIO_AUTH_TOKEN, signature, url, req.body)) {
+    return res.status(403).send('Twilio signature validation failed');
+  }
+  next();
+}
+
+// ─── Phone AI: Interview State & Helpers ─────────────────────────────────────
+
+// In-memory call state — keyed by Twilio CallSid
+const callStates = new Map();
+
+// Extract a single field value from a spoken response using GPT
+async function extractFieldFromSpeech(openai, step, speechResult) {
+  const { question, type, options } = step;
+  const today = new Date().toISOString().split('T')[0];
+  const typeInstructions = {
+    text: `Extract the spoken value as a plain string. If the client said "skip", "pass", or equivalent, return null.`,
+    date: `Today is ${today}. Convert the spoken date to YYYY-MM-DD. Resolve relative dates ("next Friday", "in two weeks"). Return null if skipped or unclear.`,
+    time: `Convert the spoken time to HH:MM in 24-hour format (e.g. "nine thirty am" → "09:30"). Return null if skipped or unclear.`,
+    choice: `Pick the single closest matching option from this list: ${JSON.stringify(options)}. Return null if nothing matches or the client said "skip".`,
+    multichoice: `Pick ALL applicable options from this list: ${JSON.stringify(options)}. Return as a JSON array of strings. Return [] if nothing matches.`,
+  };
+  const prompt = `You extract a single booking field from a spoken response.\nQuestion asked: "${question}"\nClient said: "${speechResult}"\n${typeInstructions[type] || typeInstructions.text}\nReturn ONLY valid JSON: {"value": <extracted_value_or_null>}`;
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o-mini',
+    messages: [{ role: 'user', content: prompt }],
+    response_format: { type: 'json_object' },
+    temperature: 0,
+  });
+  const { value } = JSON.parse(response.choices[0].message.content);
+  return value ?? null;
+}
+
+// Assemble a booking object from per-question answers
+function assembleBookingFromAnswers(answers, questions, callerNumber) {
+  const knownFields = ['firstName','lastName','phoneNumber','email','scheduledDate','scheduledTime',
+    'location','characteristics','description','dressSize','topSize','bottomSize','shoeSize'];
+  const booking = {};
+  const customNotes = [];
+  for (const q of questions) {
+    const val = answers[q.id];
+    if (val === null || val === undefined) continue;
+    if (knownFields.includes(q.field)) {
+      booking[q.field] = val;
+    } else {
+      customNotes.push(`${q.label || q.field}: ${val}`);
+    }
+  }
+  if (customNotes.length) {
+    booking.description = [booking.description, ...customNotes].filter(Boolean).join('\n');
+  }
+  return {
+    firstName: booking.firstName || 'Unknown',
+    lastName: booking.lastName || '',
+    phoneNumber: booking.phoneNumber || callerNumber || 'Unknown',
+    email: booking.email || null,
+    scheduledDate: booking.scheduledDate || null,
+    scheduledTime: booking.scheduledTime || null,
+    location: booking.location || null,
+    characteristics: Array.isArray(booking.characteristics) ? booking.characteristics : [],
+    description: booking.description || null,
+    dressSize: booking.dressSize || null,
+    topSize: booking.topSize || null,
+    bottomSize: booking.bottomSize || null,
+    shoeSize: booking.shoeSize || null,
+  };
+}
+
+const VALID_STATUSES = ['QUEUED', 'QUEUED_REVIEW', 'ASSIGNED', 'ACCEPTED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'];
 const VALID_SOURCES = ['WEB', 'PHONE_AI'];
 const PHONE_RE = /^[+]?[0-9\s\-()\\.]{7,20}$/;
 
@@ -367,6 +473,176 @@ app.post('/api/assignments/:token/respond', async (req, res) => {
   console.log(`   Accept/Deny link: ${nextLink}\n`);
 
   res.json({ message: 'Declined. Next candidate has been notified.', status: 'DENIED', nextAcceptLink: nextLink });
+});
+
+// ─── Phone AI ─────────────────────────────────────────────────────────────────
+
+// Public phone info — used by the client booking form
+app.get('/api/phone/public', (req, res) => {
+  const settings = db.getPhoneSettings();
+  res.json({ phoneNumber: TWILIO_PHONE_NUMBER || null, enabled: settings.enabled });
+});
+
+// Phone settings (admin only)
+app.get('/api/phone/settings', requireAdmin, (req, res) => {
+  res.json({ ...db.getPhoneSettings(), phoneNumber: TWILIO_PHONE_NUMBER || null });
+});
+
+app.put('/api/phone/settings', requireAdmin, (req, res) => {
+  const { enabled, greeting, questions } = req.body || {};
+  const patch = {};
+  if (typeof enabled === 'boolean') patch.enabled = enabled;
+  if (greeting !== undefined) patch.greeting = greeting;
+  if (Array.isArray(questions)) patch.questions = questions;
+  res.json({ ...db.updatePhoneSettings(patch), phoneNumber: TWILIO_PHONE_NUMBER || null });
+});
+
+// Call log (admin only)
+app.get('/api/phone/calls', requireAdmin, (req, res) => {
+  res.json(db.getPhoneCalls());
+});
+
+// Twilio voice webhook — starts the multi-step interview
+app.post('/api/phone/twilio/voice', validateTwilioSignature, (req, res) => {
+  const { CallSid, From } = req.body || {};
+  const twiml = new twilio.twiml.VoiceResponse();
+  const settings = db.getPhoneSettings();
+  const questions = settings.questions || [];
+
+  if (!settings.enabled || questions.length === 0) {
+    twiml.say({ voice: 'Polly.Joanna' },
+      'Sorry, the phone intake service is currently unavailable. Please visit our website to submit a booking request.');
+    twiml.hangup();
+    return res.type('text/xml').send(twiml.toString());
+  }
+
+  callStates.set(CallSid, { answers: {}, callerNumber: From || 'unknown', startedAt: Date.now() });
+
+  const gather = twiml.gather({
+    input: 'speech', action: '/api/phone/twilio/gather?step=0',
+    method: 'POST', speechTimeout: '3', speechModel: 'phone_call', language: 'en-AU',
+  });
+  gather.say({ voice: 'Polly.Joanna' }, `${settings.greeting} ${questions[0].question}`);
+  // Fallback if no speech detected — replay first question
+  twiml.redirect({ method: 'POST' }, '/api/phone/twilio/gather?step=0&retry=1');
+  res.type('text/xml').send(twiml.toString());
+});
+
+// Twilio gather webhook — handles each step of the interview
+app.post('/api/phone/twilio/gather', validateTwilioSignature, async (req, res) => {
+  const step = parseInt(req.query.step || '0', 10);
+  const isRetry = req.query.retry === '1';
+  const { CallSid, SpeechResult, From } = req.body || {};
+  const settings = db.getPhoneSettings();
+  const questions = settings.questions || [];
+  const twiml = new twilio.twiml.VoiceResponse();
+
+  if (!callStates.has(CallSid)) {
+    callStates.set(CallSid, { answers: {}, callerNumber: From || 'unknown', startedAt: Date.now() });
+  }
+  const state = callStates.get(CallSid);
+
+  // Extract the field from this step's answer
+  if (SpeechResult && !isRetry && questions[step]) {
+    try {
+      const openai = getOpenAIPhone();
+      if (openai) {
+        const value = await extractFieldFromSpeech(openai, questions[step], SpeechResult);
+        if (value !== null && value !== undefined) {
+          state.answers[questions[step].id] = value;
+        }
+      }
+    } catch (err) {
+      console.error(`Phone AI extraction error at step ${step}:`, err.message);
+    }
+  }
+
+  const nextStep = step + 1;
+  if (nextStep < questions.length) {
+    const nextQ = questions[nextStep];
+    const gather = twiml.gather({
+      input: 'speech', action: `/api/phone/twilio/gather?step=${nextStep}`,
+      method: 'POST', speechTimeout: '3', speechModel: 'phone_call', language: 'en-AU',
+    });
+    gather.say({ voice: 'Polly.Joanna' }, nextQ.question);
+    twiml.redirect({ method: 'POST' }, `/api/phone/twilio/gather?step=${nextStep}&retry=1`);
+  } else {
+    // All questions answered — thank caller and create booking async
+    twiml.say({ voice: 'Polly.Joanna' },
+      "Thank you! We've received your details and a member of our team will be in touch with you soon. Goodbye!");
+    twiml.hangup();
+
+    const snapshot = { answers: { ...state.answers }, callerNumber: state.callerNumber };
+    callStates.delete(CallSid);
+
+    setImmediate(async () => {
+      const call = db.createPhoneCall({ callSid: CallSid, callerNumber: snapshot.callerNumber, status: 'processing' });
+      try {
+        const bookingFields = assembleBookingFromAnswers(snapshot.answers, questions, snapshot.callerNumber);
+        const booking = db.createBooking({ ...bookingFields, source: 'PHONE_AI', status: 'QUEUED_REVIEW' });
+        db.updatePhoneCall(call.id, {
+          transcript: JSON.stringify(snapshot.answers, null, 2),
+          extractedData: bookingFields, bookingId: booking.id, status: 'processed',
+        });
+        console.log(`\n📞 Phone AI interview complete → Booking ${booking.id} (${snapshot.callerNumber})\n`);
+      } catch (err) {
+        db.updatePhoneCall(call.id, { status: 'failed', errorMessage: err.message });
+        console.error(`📞 Phone AI booking creation failed (${CallSid}): ${err.message}`);
+      }
+    });
+  }
+  res.type('text/xml').send(twiml.toString());
+});
+
+// Manual test intake — simulate the interview by running extraction on a pasted transcript
+app.post('/api/phone/intake', requireAdmin, async (req, res) => {
+  const { transcript, callerNumber } = req.body || {};
+  if (!transcript?.trim()) return res.status(400).json({ error: 'transcript is required' });
+
+  const openai = getOpenAIPhone();
+  if (!openai) return res.status(503).json({ error: 'OpenAI API key not configured' });
+
+  const settings = db.getPhoneSettings();
+  const questions = settings.questions || [];
+
+  try {
+    const answers = {};
+    for (const q of questions) {
+      const value = await extractFieldFromSpeech(openai, q, transcript.trim());
+      if (value !== null && value !== undefined) answers[q.id] = value;
+    }
+    const bookingFields = assembleBookingFromAnswers(answers, questions, callerNumber || 'MANUAL');
+    const booking = db.createBooking({ ...bookingFields, source: 'PHONE_AI', status: 'QUEUED_REVIEW' });
+    const call = db.createPhoneCall({
+      callerNumber: callerNumber || 'MANUAL', transcript: transcript.trim(),
+      extractedData: bookingFields, bookingId: booking.id, status: 'processed',
+    });
+    res.status(201).json({ booking, call, extractedData: bookingFields });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Approve a QUEUED_REVIEW booking → promote to QUEUED
+app.post('/api/bookings/:id/approve-review', requireAdmin, (req, res) => {
+  const booking = db.getBookingById(req.params.id);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  if (booking.status !== 'QUEUED_REVIEW') return res.status(400).json({ error: 'Booking is not pending review' });
+  res.json(db.updateBookingStatus(req.params.id, 'QUEUED'));
+});
+
+// Update booking fields — admin corrects AI-extracted data before approval
+app.put('/api/bookings/:id', requireAdmin, (req, res) => {
+  const booking = db.getBookingById(req.params.id);
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+  res.json(db.updateBookingFields(req.params.id, req.body));
+});
+
+// Delete booking — discard a bad AI intake
+app.delete('/api/bookings/:id', requireAdmin, (req, res) => {
+  if (!db.getBookingById(req.params.id)) return res.status(404).json({ error: 'Booking not found' });
+  db.deleteBooking(req.params.id);
+  res.json({ message: 'Booking deleted' });
 });
 
 // ─── Staff Members CRUD ───────────────────────────────────────────────────────

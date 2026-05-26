@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import ViewListIcon from '@mui/icons-material/ViewList';
+import PhoneIcon from '@mui/icons-material/Phone';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -15,6 +16,7 @@ import QueueBoard from './pages/QueueBoard/QueueBoard';
 import StaffManagement from './pages/StaffManagement/StaffManagement';
 import AssignmentAccept from './pages/AssignmentAccept/AssignmentAccept';
 import Dashboard from './pages/Dashboard/Dashboard';
+import PhoneAI from './pages/PhoneAI/PhoneAI';
 
 const SIDEBAR_WIDTH = 220;
 
@@ -34,16 +36,18 @@ const theme = createTheme({
   },
 });
 
-const NAV_ITEMS = [
-  { label: 'Booking Queue', icon: <DashboardIcon />, to: '/staff/queue' },
-  { label: 'Dashboard', icon: <ViewListIcon />, to: '/staff/dashboard' },
-  { label: 'People', icon: <PeopleIcon />, to: '/staff/people' },
-];
-
 function StaffSidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const handleLogout = () => { logout(); navigate('/staff/login'); };
+  const isAdmin = user?.role === 'ADMIN';
+
+  const NAV_ITEMS = [
+    { label: 'Booking Queue', icon: <DashboardIcon />, to: '/staff/queue' },
+    { label: 'Dashboard', icon: <ViewListIcon />, to: '/staff/dashboard' },
+    { label: 'People', icon: <PeopleIcon />, to: '/staff/people' },
+    ...(isAdmin ? [{ label: 'Phone AI', icon: <PhoneIcon />, to: '/staff/phone-ai' }] : []),
+  ];
 
   return (
     <Drawer variant="permanent" sx={{
@@ -138,6 +142,11 @@ export default function App() {
               <Route path="/staff/dashboard" element={
                 <ProtectedRoute>
                   <StaffLayout><Dashboard /></StaffLayout>
+                </ProtectedRoute>
+              } />
+              <Route path="/staff/phone-ai" element={
+                <ProtectedRoute adminOnly>
+                  <StaffLayout><PhoneAI /></StaffLayout>
                 </ProtectedRoute>
               } />
               <Route path="*" element={<Navigate to="/" replace />} />

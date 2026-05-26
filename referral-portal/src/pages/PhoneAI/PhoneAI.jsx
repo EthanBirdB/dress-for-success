@@ -234,9 +234,11 @@ export default function PhoneAI() {
   const [questionDialogOpen, setQuestionDialogOpen] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [speakingId, setSpeakingId] = useState(null);
+  const ttsSupported = 'speechSynthesis' in window;
   const { enqueueSnackbar } = useSnackbar();
 
   const handlePlayQuestion = useCallback((questionId, questionText) => {
+    if (!ttsSupported) return;
     window.speechSynthesis.cancel();
     if (speakingId === questionId) {
       setSpeakingId(null);
@@ -249,7 +251,7 @@ export default function PhoneAI() {
     utterance.onerror = () => setSpeakingId(null);
     setSpeakingId(questionId);
     window.speechSynthesis.speak(utterance);
-  }, [speakingId]);
+  }, [speakingId, ttsSupported]);
 
   const loadSettings = useCallback(() => {
     setLoadingSettings(true);
@@ -415,11 +417,14 @@ export default function PhoneAI() {
                     }
                   />
                   <ListItemSecondaryAction sx={{ display: 'flex', gap: 0.5 }}>
-                    <Tooltip title={speakingId === q.id ? 'Stop' : 'Play question'}>
+                    <Tooltip title={!ttsSupported ? 'Text-to-speech not supported' : speakingId === q.id ? 'Stop' : 'Play question'}>
+                      <span>
                       <IconButton size="small" color={speakingId === q.id ? 'error' : 'primary'}
+                        disabled={!ttsSupported}
                         onClick={() => handlePlayQuestion(q.id, q.question)}>
                         {speakingId === q.id ? <StopIcon fontSize="small" /> : <VolumeUpIcon fontSize="small" />}
                       </IconButton>
+                      </span>
                     </Tooltip>
                     <Tooltip title="Move up"><span>
                       <IconButton size="small" disabled={idx === 0} onClick={() => handleMoveUp(idx)}>↑</IconButton>
